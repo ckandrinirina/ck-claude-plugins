@@ -112,9 +112,16 @@ Run these checks before marking the skill ready. Fix every issue found.
 3. **Heavy data offloaded** — static tables, templates, or examples > 50 lines live in references/
 4. **Rules are absolute** — `"Never X"` not `"Try to avoid X"` or `"Consider X"`
 5. **Bash examples use real commands** — no pseudo-code, no `<placeholder>` values
-6. **Size target met** — simple skills ≤ 250 lines; complex multi-phase skills ≤ 450 lines
+6. **Size target — compress toward it, but keep clarity** — simple skills ≤ 250 lines;
+   complex multi-phase skills ≤ 450 lines. First offload heavy data to references/ and
+   remove duplication (checks 2–3); then compress prose. If the skill still exceeds the
+   target *after* those passes and further cutting would lose a guarantee, a correctness
+   detail, or needed clarity, **keep it over the target** and note the overage and why.
+   The target is a ceiling to pull toward, never a reason to delete content that earns its
+   lines. Checks 1–5 are hard; only this one yields to clarity.
 
-If a check fails, fix inline before proceeding to Phase 4.
+If checks 1–5 fail, fix inline before proceeding to Phase 4. For check 6, compress what you
+can, then keep the rest.
 
 ## PHASE 4: RELEASE
 
@@ -250,7 +257,7 @@ gh release list --repo ckandrinirina/<plugin> | head -3
 
 ## RULES
 
-- **Never skip Phase 3** — every skill ships to production users; token efficiency is not optional.
+- **Never skip Phase 3** — every skill ships to production users; token efficiency is not optional. Checks 1–5 are hard. Check 6 (size) is a target you compress toward after offloading and de-duplicating — if the skill still exceeds it and cutting more would lose a guarantee or needed clarity, keep it over the target and note why.
 - **Never push a tag without creating a GitHub Release** — a tag alone is invisible in the marketplace.
 - **Always update marketplace.json ref** for every ck-tools version bump (Phase 4.3.5) — a stale ref silently serves an old version to all users.
 - **Always update CHANGELOG.md** for every release (Phase 4.3.2) — one entry per version, Keep a Changelog format.
