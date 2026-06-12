@@ -1,0 +1,58 @@
+name: Deploy documentation site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy-pages.yml'
+  # Weekly refresh so changelog updates in the plugin repos appear on the site
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+# Allow the workflow to publish to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One concurrent deployment; newer pushes cancel queued runs
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assemble site
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          cp -r site/. _site/
+          # The changelog page is sourced from each plugin's own CHANGELOG.md
+          # (ck-code / ck-tools live in separate repos, so fetch them at build time)
+          curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/CHANGELOG.md  -o _site/ck-code-changelog.md
+          curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-tools/main/CHANGELOG.md -o _site/ck-tools-changelog.md
+          # GitHub Pages skips files/dirs starting with "_" unless this exists
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

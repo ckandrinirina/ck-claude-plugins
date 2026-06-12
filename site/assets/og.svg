@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16140f"/>
+      <stop offset="1" stop-color="#100f0d"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0" r="0.8">
+      <stop offset="0" stop-color="#e0734e" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#e0734e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="clay" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f08a63"/>
+      <stop offset="1" stop-color="#c25c3a"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#ece7df" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="400" fill="url(#glow)"/>
+
+  <!-- brand mark -->
+  <text x="80" y="150" font-family="'JetBrains Mono', monospace" font-weight="600" font-size="34" fill="#ece7df">
+    <tspan fill="#e0734e">ck</tspan><tspan>/plugins</tspan>
+  </text>
+  <rect x="290" y="128" width="9" height="30" fill="#e0734e"/>
+
+  <!-- headline -->
+  <text x="78" y="320" font-family="'Schibsted Grotesk', sans-serif" font-weight="800" font-size="86" fill="#ece7df" letter-spacing="-2">Make AI coding</text>
+  <text x="78" y="416" font-family="'Schibsted Grotesk', sans-serif" font-weight="800" font-size="86" fill="url(#clay)" letter-spacing="-2">stay on spec.</text>
+
+  <!-- subline -->
+  <text x="80" y="486" font-family="'Hanken Grotesk', sans-serif" font-weight="500" font-size="30" fill="#9b938a">Two open-source plugins for Claude Code · spec-driven workflow + utility toolkit</text>
+
+  <!-- chips -->
+  <g font-family="'JetBrains Mono', monospace" font-size="24" font-weight="500">
+    <rect x="80" y="528" width="178" height="50" rx="25" fill="none" stroke="#e0734e" stroke-opacity="0.5"/>
+    <text x="169" y="560" text-anchor="middle" fill="#e0734e">ck-code</text>
+    <rect x="274" y="528" width="178" height="50" rx="25" fill="none" stroke="#e0734e" stroke-opacity="0.5"/>
+    <text x="363" y="560" text-anchor="middle" fill="#e0734e">ck-tools</text>
+    <text x="486" y="560" fill="#6f685e">MIT · free · for Claude Code</text>
+  </g>
+</svg>

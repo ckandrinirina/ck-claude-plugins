@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ckandrinirina.github.io/ck-claude-plugins/sitemap.xml
