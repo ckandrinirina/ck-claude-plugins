@@ -113,7 +113,12 @@
     s = esc(s);
     s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
     s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" rel="noopener" target="_blank">$1</a>');
+    s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (_m, text, url) {
+      // Only allow safe URL schemes; encode quotes to prevent attribute escape
+      var safe = /^(https?:|mailto:|#|\/)/i.test(url.trim()) ? url.trim() : '#';
+      safe = safe.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      return '<a href="' + safe + '" rel="noopener noreferrer" target="_blank">' + text + '</a>';
+    });
     return s;
   }
 
