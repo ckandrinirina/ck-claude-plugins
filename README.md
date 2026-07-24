@@ -9,7 +9,7 @@ This repository hosts **`ck-marketplace`**, the Claude Code marketplace for two 
 | Plugin | What it does | Docs |
 |---|---|---|
 | **[ck-code](https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html)** | Spec-driven workflow: design → plan → team → build → ship. Architecture docs, epics & stories, per-project expert skills, TDD with SOLID checks, parallel worktree builds and GitHub Issues integration. | [ck-code repo](https://github.com/ckandrinirina/ck-code) |
-| **[ck-tools](https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html)** | Utility toolkit: `deliver` (commit + PR), `implement` (on-the-go stories), `dependency-upgrade`, `gh-issue`, `release-prep`. | [ck-tools repo](https://github.com/ckandrinirina/ck-tools) |
+| **[ck-tools](https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html)** | Utility toolkit: `deliver` (commit + PR), `implement` (on-the-go stories), `dependency-upgrade`, `gh-issue`, `release-prep`, `bmad-guide` (orientation for BMAD Method projects). | [ck-tools repo](https://github.com/ckandrinirina/ck-tools) |
 
 `ck-code` delivers features; `ck-tools` handles the surrounding work. They're built to coexist without overlapping.
 
