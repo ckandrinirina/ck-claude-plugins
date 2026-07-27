@@ -112,6 +112,34 @@ every existing project on the old layout. In the same edit:
 Release the coupled skills together (`design` + `migrate` + the gate) in one version bump
 so a user never has a new `design` with an old migrator.
 
+### 2.5 Coupled change — lite→ck-code migration contract
+
+`ck-code/skills/migrate/references/lite-migration.md` maps the **ck-code-lite** artifacts
+onto the **ck-code v4** layout. It is the only file in the marketplace that depends on
+both plugins at once, and the two ship from separate repos on separate versions — so a
+format change on either side rots it silently, with no test to catch it. Whenever a
+change touches a file below, re-read the mapping in the same change and update it or
+confirm in one line that it still holds.
+
+| Changed file | What can break in the mapping |
+|---|---|
+| `ck-code-lite/references/plan-format.md` | `T-NN` scheme, `status`/`size` vocabularies, `needs`/`files` syntax — the whole left column |
+| `ck-code-lite/skills/start/references/architecture-template.md` | the `ARCHITECTURE.md` section names the split reads |
+| `ck-code-lite/skills/{start,build,ship}/SKILL.md` | which files lite writes, and the `tasks/PLAN.md` path the gate and the rename depend on |
+| `ck-code/references/data-model.md` | story frontmatter keys, status/size enums — the whole right column |
+| `ck-code/skills/plan/references/{templates,roadmap-format}.md` | epic/story/overview/roadmap templates the mapping points at |
+| `ck-code/skills/design/references/architecture-templates.md` | the global and feature-doc targets |
+| `ck-code/references/version-gate.md` | the `LITE` marker that makes the migration discoverable |
+
+**Coverage check** — every lite field in `plan-format.md` and every section in the lite
+architecture template appears in the mapping's left column; every frontmatter key in
+`data-model.md` appears in its right column. A field on one side with no counterpart is
+an unmigrated field, not an omission you may leave.
+
+**Cross-repo release coupling:** the mapping lives in `ck-code`, so a **ck-code-lite**
+format change needs a **ck-code** release too. Bump and release both, `ck-code` last, or
+users get a lite plugin whose plans the current migrator cannot read.
+
 ## PHASE 3: TOKEN EFFICIENCY REVIEW
 
 Run these checks before marking the skill ready. Fix every issue found.
@@ -283,6 +311,7 @@ curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/.claude-
 - **Always update CHANGELOG.md** for every release (Phase 4.3.2) — one entry per version, Keep a Changelog format.
 - **Always update README.md** when adding a new skill or changing an existing skill's purpose (Phase 4.3.3) — undocumented skills are invisible to users.
 - **Always update `migrate` and the version gate on any architecture-layout change** (Phase 2.4) — a `design` change that alters the doc folder/file structure must ship the matching migration (`migrate`, plus `design sync`) and a `LAYOUT` bump in the same release, or existing projects can never upgrade.
+- **Always re-check `lite-migration.md` when either plugin's format contract changes** (Phase 2.5) — it is the one cross-plugin contract with no test behind it, and a lite format change must ship a `ck-code` release alongside the `ck-code-lite` one.
 - **Never add or remove a marketplace.json plugin entry** without explicit user instruction — only the `"ref"` field is updated automatically.
 - **Always use conventional commits** — `feat:`, `fix:`, `docs:`, `refactor:`, `chore(release):`.
 - **Never add "Co-authored by Claude"** or generated-by notes to commits or PRs.
