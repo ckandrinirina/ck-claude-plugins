@@ -3,6 +3,7 @@
 
 # Nested plugin repos — each has its own git history/remote
 /ck-code/
+/ck-code-lite/
 /ck-tools/
 
 # Machine-local Claude Code settings
