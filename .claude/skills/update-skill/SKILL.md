@@ -1,9 +1,10 @@
 ---
 name: update-skill
 description: >
-  Use when creating a new skill, agent, or references file in ck-code or ck-tools,
-  or updating an existing one. Covers design, token-efficiency review, and full
-  marketplace release (version bump, tag, GitHub Release).
+  Use when creating a new skill, agent, or references file in any plugin of this
+  marketplace (ck-code, ck-code-lite, ck-tools), or updating an existing one.
+  Covers design, token-efficiency review, and full marketplace release
+  (version bump, tag, GitHub Release).
 argument-hint: "[skill-name or agent-name]  # e.g. parallel-build or conflict-analyzer"
 ---
 
@@ -27,12 +28,17 @@ References:
 
 Determine what is being created or updated:
 
+`<plugin>` is one of `ck-code`, `ck-code-lite`, `ck-tools`.
+
 | Target type | Path |
 |---|---|
-| Skill (ck-code) | `ck-code/skills/<name>/SKILL.md` |
-| Skill (ck-tools) | `ck-tools/skills/<name>/SKILL.md` |
-| Agent | `ck-code/agents/<name>.md` |
-| References file | `ck-code/skills/<name>/references/<file>.md` |
+| Skill | `<plugin>/skills/<name>/SKILL.md` |
+| Agent | `<plugin>/agents/<name>.md` |
+| Skill-scoped references file | `<plugin>/skills/<name>/references/<file>.md` |
+| Plugin-wide references file | `<plugin>/references/<file>.md` |
+
+A references file is skill-scoped when exactly one skill reads it, and plugin-wide when
+two or more do. Never duplicate the same contract into several skills' `references/`.
 
 If `$ARGUMENTS` is provided, locate existing files:
 
@@ -71,9 +77,11 @@ All skills follow these conventions (copy-paste template in `references/template
 
 ### 2.2 Agent Conventions
 
-Agents in `ck-code/agents/` are lightweight delegation targets:
+Agents in `<plugin>/agents/` are lightweight delegation targets:
 
-- Frontmatter: `name`, `description`, `tools` list only
+- Frontmatter: `name`, `description`, `tools` list, and optionally `model`
+- Dispatched by fully qualified type (`ck-code:qa-validator`, `ck-code-lite:qa-validator`).
+  Two plugins may define an agent of the same name — never dispatch one unqualified
 - Three mandatory sections: **Inputs**, **Outputs**, **Constraints**
 - Constraints must include: "Never commit or push"
 - No phases, no release logic — agents execute one focused task
@@ -128,10 +136,11 @@ can, then keep the rest.
 
 ### 4.1 Determine Plugin and Bump Type
 
-| Where the change lives | Plugin to bump |
-|---|---|
-| `ck-code/skills/` or `ck-code/agents/` | `ck-code/.claude-plugin/plugin.json` |
-| `ck-tools/skills/` | `ck-tools/.claude-plugin/plugin.json` |
+| Where the change lives | Plugin to bump | Marketplace source |
+|---|---|---|
+| `ck-code/skills\|agents\|references/` | `ck-code/.claude-plugin/plugin.json` | local `"./"` — no ref |
+| `ck-code-lite/skills\|agents\|references/` | `ck-code-lite/.claude-plugin/plugin.json` | github — **ref must be bumped** |
+| `ck-tools/skills\|agents\|references/` | `ck-tools/.claude-plugin/plugin.json` | github — **ref must be bumped** |
 
 | Change type | Semver bump |
 |---|---|
@@ -188,27 +197,7 @@ git -C /Users/admin/Dev/ck-claude-plugins/<plugin> add CHANGELOG.md
 git -C /Users/admin/Dev/ck-claude-plugins/<plugin> commit -m "chore(release): update CHANGELOG for vX.Y.Z"
 ```
 
-### 4.3.5 Update marketplace.json (ck-tools only)
-
-For `ck-tools` releases only (ck-code uses a local `"source": "./"` — no ref to update):
-
-Edit `ck-code/.claude-plugin/marketplace.json` — update the `"ref"` field for
-the `ck-tools` entry to `"vX.Y.Z"`:
-
-```bash
-# Verify current ref first
-grep '"ref"' /Users/admin/Dev/ck-claude-plugins/ck-code/.claude-plugin/marketplace.json
-```
-
-Then commit to the ck-code repo:
-
-```bash
-git -C /Users/admin/Dev/ck-claude-plugins/ck-code add .claude-plugin/marketplace.json
-git -C /Users/admin/Dev/ck-claude-plugins/ck-code commit -m "chore(release): update ck-tools ref to vX.Y.Z in marketplace"
-git -C /Users/admin/Dev/ck-claude-plugins/ck-code push origin main
-```
-
-### 4.3.7 Update README (if documentation is missing)
+### 4.3.3 Update README (if documentation is missing)
 
 Read `<plugin>/README.md` and check whether the new or changed skill/agent is
 documented (look for its name in the Skills section):
@@ -251,18 +240,48 @@ EOF
 )"
 ```
 
-Verify release is live:
+Verify release is live — this is the **gate** for Phase 4.5:
 ```bash
 gh release list --repo ckandrinirina/<plugin> | head -3
+```
+
+### 4.5 Update marketplace.json ref (github-sourced plugins only)
+
+Applies to every plugin whose marketplace entry uses the github source — currently
+`ck-code-lite` and `ck-tools`. Skip for `ck-code`, which uses a local `"source": "./"`
+and has no ref.
+
+**This step runs only after 4.4 has confirmed the tag and Release exist.** `ck-marketplace`
+is public: a ref pushed ahead of its tag points at nothing and breaks `/plugin install`
+for every user until the tag lands.
+
+```bash
+grep -A4 '"name": "<plugin>"' /Users/admin/Dev/ck-claude-plugins/ck-code/.claude-plugin/marketplace.json
+```
+
+Edit the `"ref"` field for that plugin's entry to `"vX.Y.Z"`, then commit to the ck-code
+repo — the marketplace file lives there regardless of which plugin was released:
+
+```bash
+git -C /Users/admin/Dev/ck-claude-plugins/ck-code add .claude-plugin/marketplace.json
+git -C /Users/admin/Dev/ck-claude-plugins/ck-code commit -m "chore(release): update <plugin> ref to vX.Y.Z in marketplace"
+git -C /Users/admin/Dev/ck-claude-plugins/ck-code push origin main
+```
+
+Confirm the published manifest serves the new ref:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/.claude-plugin/marketplace.json | grep -A4 '"<plugin>"'
 ```
 
 ## RULES
 
 - **Never skip Phase 3** — every skill ships to production users; token efficiency is not optional. Checks 1–5 are hard. Check 6 (size) is a target you compress toward after offloading and de-duplicating — if the skill still exceeds it and cutting more would lose a guarantee or needed clarity, keep it over the target and note why.
 - **Never push a tag without creating a GitHub Release** — a tag alone is invisible in the marketplace.
-- **Always update marketplace.json ref** for every ck-tools version bump (Phase 4.3.5) — a stale ref silently serves an old version to all users.
+- **Always update marketplace.json ref** for every version bump of a github-sourced plugin — `ck-code-lite`, `ck-tools` (Phase 4.5) — a stale ref silently serves an old version to all users.
+- **Never push a marketplace ref before its tag and Release exist** (Phase 4.5 follows 4.4) — a ref pointing at a missing tag breaks `/plugin install` for every user of the public marketplace.
 - **Always update CHANGELOG.md** for every release (Phase 4.3.2) — one entry per version, Keep a Changelog format.
-- **Always update README.md** when adding a new skill or changing an existing skill's purpose (Phase 4.3.7) — undocumented skills are invisible to users.
+- **Always update README.md** when adding a new skill or changing an existing skill's purpose (Phase 4.3.3) — undocumented skills are invisible to users.
 - **Always update `migrate` and the version gate on any architecture-layout change** (Phase 2.4) — a `design` change that alters the doc folder/file structure must ship the matching migration (`migrate`, plus `design sync`) and a `LAYOUT` bump in the same release, or existing projects can never upgrade.
 - **Never add or remove a marketplace.json plugin entry** without explicit user instruction — only the `"ref"` field is updated automatically.
 - **Always use conventional commits** — `feat:`, `fix:`, `docs:`, `refactor:`, `chore(release):`.

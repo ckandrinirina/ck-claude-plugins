@@ -80,14 +80,30 @@ One section per change type. Omit empty sections.
 ## Plugin Paths Quick Reference
 
 ```
-ck-code:   /Users/admin/Dev/ck-claude-plugins/ck-code/
-ck-tools:  /Users/admin/Dev/ck-claude-plugins/ck-tools/
+ck-code:       /Users/admin/Dev/ck-claude-plugins/ck-code/
+ck-code-lite:  /Users/admin/Dev/ck-claude-plugins/ck-code-lite/
+ck-tools:      /Users/admin/Dev/ck-claude-plugins/ck-tools/
 
 plugin.json locations:
   ck-code/.claude-plugin/plugin.json
+  ck-code-lite/.claude-plugin/plugin.json
   ck-tools/.claude-plugin/plugin.json
+
+marketplace.json (single file, lives in the ck-code repo, covers all three):
+  ck-code/.claude-plugin/marketplace.json
 
 GitHub repos:
   https://github.com/ckandrinirina/ck-code
+  https://github.com/ckandrinirina/ck-code-lite
   https://github.com/ckandrinirina/ck-tools
 ```
+
+## Marketplace Source Forms
+
+| Plugin | Source in marketplace.json | Ref bumped on release? |
+|---|---|---|
+| ck-code | `"./"` (the marketplace repo is ck-code itself) | no — nothing to bump |
+| ck-code-lite | `{"source":"github","repo":"ckandrinirina/ck-code-lite","ref":"vX.Y.Z"}` | **yes** |
+| ck-tools | `{"source":"github","repo":"ckandrinirina/ck-tools","ref":"vX.Y.Z"}` | **yes** |
+
+The ref is bumped only after the plugin's tag and GitHub Release exist (Phase 4.5).
