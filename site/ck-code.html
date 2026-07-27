@@ -132,7 +132,7 @@
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 3 · epics and sized stories</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:plan docs/specifications.md</span></div>
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 4 · (optional) push the plan to GitHub Issues</span></span></div>
-            <div class="cmd"><span class="pr">›</span><span>/ck-code:to-issues --mode stories</span></div>
+            <div class="cmd"><span class="pr">›</span><span>/ck-code:ship --to-issues --mode stories</span></div>
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 5 · find the first story, then build &amp; ship it</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:track next</span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:build</span></div>
@@ -154,22 +154,18 @@
           <table>
             <thead><tr><th>Command</th><th>Purpose</th><th>Output</th></tr></thead>
             <tbody>
-              <tr><td><code>/ck-code:pre-spec</code></td><td>Generate a stakeholder-ready feature spec for review (no code/jargon).</td><td>docs/pre-specs/ &amp; optional Issue</td></tr>
-              <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs.</td><td>docs/architecture/</td></tr>
-              <tr><td><code>/ck-code:doc-optimizer</code></td><td>Migrate, sync or token-diet architecture docs (incl. one-shot v3 <code>upgrade</code>).</td><td>v3 docs + VERSION.md</td></tr>
-              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>).</td><td>.claude/skills/experts &amp; guides</td></tr>
-              <tr><td><code>/ck-code:convention</code></td><td>Capture house conventions into a guide every expert reads; create/adjust skills.</td><td>guides/conventions/</td></tr>
-              <tr><td><code>/ck-code:plan</code></td><td>Create epics, single-dispatch stories and a roadmap.</td><td>tasks/ + FEATURE_INDEX</td></tr>
-              <tr><td><code>/ck-code:quick-story</code></td><td>Add one small story to an existing epic without the full plan cycle.</td><td>story file + index rows</td></tr>
-              <tr><td><code>/ck-code:to-issues</code></td><td>Push a plan to GitHub Issues (<code>--mode feature|epics|stories</code>).</td><td>GitHub Issues</td></tr>
-              <tr><td><code>/ck-code:track</code></td><td>Progress dashboard — status, next story, completion %.</td><td>status report</td></tr>
-              <tr><td><code>/ck-code:build</code></td><td>Implement a story with TDD + QA.</td><td>source code + tests</td></tr>
+              <tr><td><code>/ck-code:spec</code></td><td>Generate a stakeholder-ready feature spec for review (no code/jargon); revises an existing slug or Issue URL.</td><td>feature spec &amp; optional Issue</td></tr>
+              <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs; <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones.</td><td>docs/architecture/</td></tr>
+              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); <code>--conventions</code> captures house rules.</td><td>.claude/skills/experts &amp; guides</td></tr>
+              <tr><td><code>/ck-code:plan</code></td><td>Create epics, sized stories and a roadmap; <code>--quick</code> adds one small story to an existing epic.</td><td>tasks/ + FEATURE_INDEX</td></tr>
+              <tr><td><code>/ck-code:track</code></td><td>Progress dashboard — <code>status</code>, <code>next</code> story, <code>progress</code>.</td><td>status report</td></tr>
+              <tr><td><code>/ck-code:build</code></td><td>Implement one story with TDD + QA; implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests</td></tr>
               <tr><td><code>/ck-code:parallel-build</code></td><td>Implement many ready stories in parallel worktrees, or a whole epic in waves.</td><td>parallel results + conflict report</td></tr>
-              <tr><td><code>/ck-code:fix</code></td><td>Diagnose &amp; fix a bug across stories; can create stub stories in the right epic.</td><td>minimal fix + regression test</td></tr>
-              <tr><td><code>/ck-code:sync</code></td><td>Reconcile STORIES_INDEX, EPIC story lists and story files when they drift.</td><td>repaired index + epics</td></tr>
-              <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues.</td><td>commit + PR + issue updates</td></tr>
+              <tr><td><code>/ck-code:fix</code></td><td>Diagnose &amp; triage a bug — records a failing repro test + Fix Plan, then routes to <code>build</code>.</td><td>diagnosis + regression test</td></tr>
+              <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; <code>--to-issues</code> publishes a plan to Issues.</td><td>commit + PR + issue updates</td></tr>
               <tr><td><code>/ck-code:explain</code></td><td>Explain what was just implemented, with verification steps.</td><td>walkthrough</td></tr>
-              <tr><td><code>/ck-code:help</code></td><td>Quick reference for all commands.</td><td>this table</td></tr>
+              <tr><td><code>/ck-code:guide</code></td><td>Router — recommends the next step, routes a task to the right skill, looks up command syntax.</td><td>recommendation</td></tr>
+              <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v4 project to the v4 frontmatter layout; stamps <code>tasks/VERSION.md</code>.</td><td>v4 layout + VERSION.md</td></tr>
             </tbody>
           </table>
         </div>

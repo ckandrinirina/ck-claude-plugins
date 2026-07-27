@@ -91,17 +91,18 @@ delta-doc naming, or the `FEATURE_INDEX.Docs` routing — it is **not done** unt
 migration path is updated in the same change. A layout change without a migration strands
 every existing project on the old layout. In the same edit:
 
-1. **`doc-optimizer`** — update its `upgrade` (Phase U) and `sync` (Phase 2) so an
-   old-layout project converts automatically. It is the only v3+ migrator; the version
-   gate routes stale projects to it.
-2. **Version gate** (`ck-code/references/version-gate.md`) — bump the `layout:` version
-   (e.g. `v3 → v4`) so the gate BLOCKs the old layout and sends it to
-   `/ck-code:doc-optimizer upgrade`, and update the `tasks/VERSION.md` stamp value.
+1. **`migrate`** — update its conversion steps so an old-layout project converts
+   automatically. It is the **only** v4 migrator; the version gate routes stale projects
+   to it. (`design`'s own `sync` sub-mode scaffolds feature docs missing from
+   `FEATURE_INDEX` — update it too when the folder shape changes.)
+2. **Version gate** (`ck-code/references/version-gate.md`) — bump the `LAYOUT` constant
+   (e.g. `v4 → v5`) so the gate BLOCKs the old layout and sends it to `/ck-code:migrate`,
+   and update the `tasks/VERSION.md` stamp value.
 3. **Templates single-source** — `design`'s `architecture-templates.md` owns the
-   templates; `doc-optimizer` references them, never redefines. Keep them in lockstep.
+   templates; `migrate` references them, never redefines. Keep them in lockstep.
 
-Release the coupled skills together (`design` + `doc-optimizer` + the gate) in one
-version bump so a user never has a new `design` with an old migrator.
+Release the coupled skills together (`design` + `migrate` + the gate) in one version bump
+so a user never has a new `design` with an old migrator.
 
 ## PHASE 3: TOKEN EFFICIENCY REVIEW
 
@@ -262,7 +263,7 @@ gh release list --repo ckandrinirina/<plugin> | head -3
 - **Always update marketplace.json ref** for every ck-tools version bump (Phase 4.3.5) — a stale ref silently serves an old version to all users.
 - **Always update CHANGELOG.md** for every release (Phase 4.3.2) — one entry per version, Keep a Changelog format.
 - **Always update README.md** when adding a new skill or changing an existing skill's purpose (Phase 4.3.7) — undocumented skills are invisible to users.
-- **Always update `doc-optimizer` and the version gate on any architecture-layout change** (Phase 2.4) — a `design` change that alters the doc folder/file structure must ship the matching migration (`upgrade`/`sync`) and a `layout:` version bump in the same release, or existing projects can never upgrade.
+- **Always update `migrate` and the version gate on any architecture-layout change** (Phase 2.4) — a `design` change that alters the doc folder/file structure must ship the matching migration (`migrate`, plus `design sync`) and a `LAYOUT` bump in the same release, or existing projects can never upgrade.
 - **Never add or remove a marketplace.json plugin entry** without explicit user instruction — only the `"ref"` field is updated automatically.
 - **Always use conventional commits** — `feat:`, `fix:`, `docs:`, `refactor:`, `chore(release):`.
 - **Never add "Co-authored by Claude"** or generated-by notes to commits or PRs.
