@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ck-code-lite — the three-skill fast path for Claude Code | CK Plugins</title>
+  <meta name="description" content="ck-code-lite is a minimal Claude Code workflow plugin: start (architecture + flat plan), build (failing test first, isolated QA, manual sign-off), ship (commit + PR). Two files, no generators, no epics. Free, MIT-licensed." />
+  <meta name="keywords" content="ck-code-lite, Claude Code plugin, TDD, lightweight workflow, task plan, architecture doc, fast prototyping, red green refactor" />
+  <link rel="canonical" href="https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html" />
+  <meta name="theme-color" content="#100f0d" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CK Claude Plugins" />
+  <meta property="og:title" content="ck-code-lite — the three-skill fast path for Claude Code" />
+  <meta property="og:description" content="Three skills, two files. Ship an app fast without losing the steps that keep it correct." />
+  <meta property="og:url" content="https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html" />
+  <meta property="og:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ck-code-lite for Claude Code" />
+  <meta name="twitter:description" content="Three skills, two files, four gates that still hold." />
+  <meta name="twitter:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ck-code-lite",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Claude Code",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "softwareVersion": "0.1.0",
+    "license": "https://opensource.org/licenses/MIT",
+    "description": "Minimal three-skill workflow plugin for Claude Code: architecture doc, flat task plan, test-first build loop and commit/PR.",
+    "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html"
+  }
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="index.html" aria-label="CK Claude Plugins home"><b>ck</b>/plugins<span class="cursor" aria-hidden="true"></span></a>
+      <nav class="nav__links" data-nav-links aria-label="Primary">
+        <a href="index.html#why">Why</a>
+        <a href="ck-code.html">ck-code</a>
+        <a href="ck-code-lite.html" class="active">ck-code-lite</a>
+        <a href="ck-tools.html">ck-tools</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="https://github.com/ckandrinirina/ck-code-lite" rel="noopener" target="_blank">GitHub ↗</a>
+      </nav>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle colour theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn nav__toggle" data-nav-toggle aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="phero wrap">
+      <div data-stagger>
+        <div class="crumb"><a href="index.html">ck/plugins</a> <span>/</span> <span style="color:var(--clay)">ck-code-lite</span></div>
+        <span class="eyebrow">The fast path</span>
+        <h1>Three skills. Two files. Ship anyway.</h1>
+        <p class="lede">Describe what you want, get an architecture doc and a flat task list, then build tasks one at a time — each with a <strong style="color:var(--text)">failing test first</strong>, an <strong style="color:var(--text)">isolated QA pass</strong>, and your own <strong style="color:var(--text)">hands-on sign-off</strong> before it counts as done. Speed comes from deleting ceremony, not from deleting checks.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#install">Install ck-code-lite
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#skills">Browse the skills</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section section--tight" id="skills">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Three skills</span>
+          <h2>start → build → ship</h2>
+          <p>A strict linear order with nothing to route between. Works on Node, Rust, Python, Go, Ruby, PHP and C/C++ — the stack is resolved from your manifest and lockfile, then written down once so it is never guessed again.</p>
+        </div>
+        <div class="skills">
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">start</span><span class="skill__when">// when: a project needs its plan</span></div>
+            <p>Writes <code>docs/ARCHITECTURE.md</code> (stack, folder structure, decisions with reasons, and the project's real test/build/lint commands) and <code>tasks/PLAN.md</code> (a flat list of small tasks with acceptance criteria). Works on a new idea, an existing codebase, or an existing plan you want to extend — re-runs append tasks and never clobber your edits.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:start "a habit tracker with a weekly streak view"</code>
+              <button class="copy-btn" data-copy='/ck-code-lite:start "a habit tracker with a weekly streak view"' aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">build</span><span class="skill__when">// when: implementing one task end to end</span></div>
+            <p>Picks the next ready task, asks its one round of questions, then runs the loop: a failing test per acceptance criterion, the minimum code to pass, a bounded cleanup, an isolated QA pass, and a manual-test gate. No implementation file is created until a test run has been <em>observed</em> failing.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:build T-02</code>
+              <button class="copy-btn" data-copy="/ck-code-lite:build T-02" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">ship</span><span class="skill__when">// when: committing finished work</span></div>
+            <p>Conventional commit with a body a non-engineer can read, then opens a pull request — or appends to the one already open rather than overwriting it. Resolves the base branch from the remote default instead of asking. Works standalone on any git repo, with or without a plan behind it.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:ship</code>
+              <button class="copy-btn" data-copy="/ck-code-lite:ship" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE FOUR GATES -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">What lite does not cut</span>
+          <h2>Four gates that still hold</h2>
+          <p>Every one is written as an absolute rule, not a suggestion. These are the reason lite is fast rather than merely sloppy.</p>
+        </div>
+        <div class="fgrid">
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>A failing test before the code</h3><p>No implementation file is created or edited until a test run has been observed failing. No test runner in the project? <code>build</code> stops and asks — it never proceeds pretending the step happened.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3>QA against every criterion</h3><p>Delegated to an isolated subagent that runs your project's own commands and returns a verdict with <code>file:line</code> citations — so unbounded suite output never floods the session.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Manual sign-off</h3><p>You get concrete steps to try and are asked for the result. Answering <em>ISSUES</em> writes a regression test and loops back through QA — it does not ship.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17h.01M9.1 9a3 3 0 1 1 4.5 3.4c-.8.5-1.6 1.1-1.6 2.1"/><circle cx="12" cy="12" r="10"/></svg></div><h3>Clarify before building</h3><p>One batched question round on genuine ambiguity, before anything is written. Nothing ambiguous means no questions at all — a ceremonial round is treated as a defect.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div><h3>Never a guessed command</h3><p>Commands come from your manifest, lockfile and declared scripts. <code>(none)</code> is a valid answer; an invented npm script is not.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><h3>No AI references</h3><p>Nothing this plugin writes to git mentions Claude, AI, or "generated by". Commits and PRs read as if a person wrote them. Absolute and non-overridable.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PLAN FILE -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">The whole state model</span>
+          <h2>One table, one section per task</h2>
+          <p>There is no generator, no index and nothing to regenerate. Every task ID appears on exactly three lines — the table row, the header, the meta line — so <code>grep -n "T-02" tasks/PLAN.md</code> is the entire consistency check. Break it with an editor and you can fix it with an editor.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>ID</th><th>Title</th><th>Status</th><th>Size</th><th>Needs</th></tr></thead>
+            <tbody>
+              <tr><td><code>T-01</code></td><td>User can sign in with email</td><td>done</td><td>M</td><td>—</td></tr>
+              <tr><td><code>T-02</code></td><td>Session survives a page reload</td><td>doing</td><td>S</td><td><code>T-01</code></td></tr>
+              <tr><td><code>T-03</code></td><td>Signing out clears the session</td><td>todo</td><td>S</td><td><code>T-02</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p>Statuses are <code>todo</code>, <code>doing</code>, <code>done</code>, <code>blocked</code> — nothing else parses. Tasks are <code>S</code> or <code>M</code> only; anything larger gets split before it is written. A task is <strong>ready</strong> when it is <code>todo</code> and everything in <code>Needs</code> is <code>done</code>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LITE OR FULL -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal"><span class="eyebrow">Choosing</span><h2>ck-code-lite or ck-code?</h2><p>They are <strong style="color:var(--text)">alternatives, not companions</strong> — enable one per project. Both expose <code>build</code> and <code>ship</code>, and running a project through both layouts will not end well.</p></div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th></th><th>ck-code-lite</th><th>ck-code</th></tr></thead>
+            <tbody>
+              <tr><td>Skills</td><td>3</td><td>12</td></tr>
+              <tr><td>Planning artefacts</td><td>2 files</td><td>epics, per-story files, generated indexes</td></tr>
+              <tr><td>Architecture</td><td>1 doc</td><td>per-feature docs + shared globals</td></tr>
+              <tr><td>Parallel builds</td><td>no</td><td>yes, in git worktrees</td></tr>
+              <tr><td>Generated expert skills</td><td>no</td><td>yes (<code>team</code>)</td></tr>
+              <tr><td>Bug triage workflow</td><td>no</td><td>yes (<code>fix</code>)</td></tr>
+              <tr><td>Best for</td><td>getting an app working</td><td>a codebase several people maintain</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <p>Start here. Move to <a href="ck-code.html">ck-code</a> when the task list outgrows a single file, or when more than one person is planning the work.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMMAND REF -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal"><span class="eyebrow">Slash commands</span><h2>Quick reference</h2></div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>/ck-code-lite:start</code></td><td>Create or extend <code>docs/ARCHITECTURE.md</code> and <code>tasks/PLAN.md</code>. Accepts a feature description or a spec-file path; empty re-runs append to the existing plan.</td></tr>
+              <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end. Optional task ID such as <code>T-03</code>; with no argument it picks the next ready task interactively.</td></tr>
+              <tr><td><code>/ck-code-lite:ship</code></td><td>Commit and open or update a PR. Optional task ID; runs standalone on any git repo when there is no plan.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALL -->
+    <section class="section" id="install">
+      <div class="wrap">
+        <div class="shead reveal"><span class="eyebrow">Install</span><h2>Same marketplace as ck-code</h2><p>Add the marketplace once, then install whichever plugin fits the project.</p></div>
+        <div style="max-width:640px; display:grid; gap:12px; margin-top:30px" class="reveal">
+          <div class="snippet"><code><span class="pr">$</span> /plugin marketplace add ckandrinirina/ck-code</code>
+            <button class="copy-btn" data-copy="/plugin marketplace add ckandrinirina/ck-code" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+          <div class="snippet"><code><span class="pr">$</span> /plugin install ck-code-lite@ck-marketplace</code>
+            <button class="copy-btn" data-copy="/plugin install ck-code-lite@ck-marketplace" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p>ck-code-lite stays dormant until a project enables it. Add <code>"enabledPlugins": { "ck-code-lite@ck-marketplace": true }</code> to that project's <code>.claude/settings.json</code> — and don't enable <code>ck-code</code> alongside it in the same project.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="cta reveal">
+          <h2>Get something working today</h2>
+          <p>Three commands from an idea to a committed, tested, manually-verified feature.</p>
+          <div class="cta__btns">
+            <a class="btn btn--primary" href="#install">Install ck-code-lite</a>
+            <a class="btn btn--ghost" href="changelog.html">See the changelog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand"><a class="brand" href="index.html"><b>ck</b>/plugins</a><p>Open-source plugins that keep AI-assisted software engineering grounded in your real design.</p></div>
+        <div class="footer__cols">
+          <div class="footer__col"><h4>Plugins</h4><a href="ck-code.html">ck-code</a><a href="ck-code-lite.html">ck-code-lite</a><a href="ck-tools.html">ck-tools</a><a href="changelog.html">Changelog</a></div>
+          <div class="footer__col"><h4>Resources</h4><a href="index.html#start">Get started</a><a href="index.html#why">Why use it</a><a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank">Claude Code ↗</a></div>
+          <div class="footer__col"><h4>Project</h4><a href="https://github.com/ckandrinirina/ck-code-lite" rel="noopener" target="_blank">ck-code-lite repo ↗</a><a href="https://github.com/ckandrinirina/ck-code-lite/issues" rel="noopener" target="_blank">Report an issue ↗</a></div>
+        </div>
+      </div>
+      <div class="footer__base"><span>© <span id="yr">2026</span> ckandrinirina · MIT License</span><span>Built for <a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank">Claude Code</a></span></div>
+    </div>
+  </footer>
+  <script src="assets/main.js" defer></script>
+</body>
+</html>

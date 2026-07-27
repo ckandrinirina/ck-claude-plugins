@@ -253,6 +253,7 @@ html[data-theme='light'] .terminal__bar .tdot { background: #d9d1c4; }
 
 /* ---- Plugin split cards ---- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.split--3 { grid-template-columns: repeat(3, 1fr); }
 .pcard {
   position: relative; border: 1px solid var(--line); border-radius: var(--radius);
   background: linear-gradient(180deg, var(--card), var(--bg-soft));
@@ -453,8 +454,11 @@ td strong { color: var(--text); font-weight: 600; }
 [data-stagger] > *:nth-child(6) { animation-delay: 0.45s; }
 
 /* ---- Responsive ---- */
+@media (max-width: 1080px) {
+  .split--3 { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 880px) {
-  .split, .why, .fgrid { grid-template-columns: 1fr; }
+  .split, .why, .fgrid, .split--3 { grid-template-columns: 1fr; }
   .nav__links { display: none; }
   .nav__links.open {
     display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0;

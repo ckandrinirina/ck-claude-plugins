@@ -11,4 +11,5 @@
 
 # Local changelog previews (CI fetches these from each plugin repo)
 /site/ck-code-changelog.md
+/site/ck-code-lite-changelog.md
 /site/ck-tools-changelog.md
