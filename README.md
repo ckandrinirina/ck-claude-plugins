@@ -14,7 +14,7 @@ This repository hosts **`ck-marketplace`**, the Claude Code marketplace for thre
 
 `ck-code` delivers features; `ck-tools` handles the surrounding work. They're built to coexist without overlapping.
 
-**`ck-code` or `ck-code-lite`?** They are alternatives, not companions — enable one per project. Start with `ck-code-lite` to get an app working; move to `ck-code` when the task list outgrows a single file or more than one person is planning the work.
+**`ck-code` or `ck-code-lite`?** They are alternatives, not companions — enable one per project. Start with `ck-code-lite` to get an app working; move to `ck-code` when the task list outgrows a single file or more than one person is planning the work. Moving up is one command — `/ck-code:migrate` converts a lite project's plan and architecture doc to the full layout in a single revertable commit.
 
 ## Install
 
