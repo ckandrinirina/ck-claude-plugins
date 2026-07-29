@@ -5,7 +5,7 @@ description: >
   marketplace (ck-code, ck-code-lite, ck-tools), or updating an existing one.
   Covers design, token-efficiency review, and full marketplace release
   (version bump, tag, GitHub Release).
-argument-hint: "[skill-name or agent-name]  # e.g. parallel-build or conflict-analyzer"
+argument-hint: "[skill-name or agent-name]  # e.g. build or conflict-analyzer"
 ---
 
 # Update Skill — Create or Update Skills & Agents, Then Release
