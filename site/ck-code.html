@@ -30,7 +30,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Claude Code",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "softwareVersion": "5.5.2",
+    "softwareVersion": "5.6.0",
     "license": "https://opensource.org/licenses/MIT",
     "description": "Spec-driven workflow plugin for Claude Code: design, plan, build and ship with TDD, SOLID checks and per-project expert skills.",
     "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html"
@@ -157,7 +157,7 @@
             <tbody>
               <tr><td><code>/ck-code:spec</code></td><td>Generate a stakeholder-ready feature spec for review (no code/jargon); revises an existing slug or Issue URL.</td><td>feature spec &amp; optional Issue</td></tr>
               <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs; <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones.</td><td>docs/architecture/</td></tr>
-              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/experts &amp; guides</td></tr>
+              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>
               <tr><td><code>/ck-code:plan</code></td><td>Create epics, sized stories and a roadmap; <code>--quick</code> adds one small story to an existing epic.</td><td>tasks/ + FEATURE_INDEX</td></tr>
               <tr><td><code>/ck-code:track</code></td><td>Progress dashboard — <code>status</code>, <code>next</code> story, <code>progress</code>.</td><td>status report</td></tr>
               <tr><td><code>/ck-code:build</code></td><td>Implement stories with TDD + QA — one inline, many at once in parallel worktrees (story IDs), or a whole epic in waves (<code>--epic NN</code>); implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests; conflict report in parallel mode</td></tr>
@@ -165,7 +165,7 @@
               <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; <code>--to-issues</code> publishes a plan to Issues.</td><td>commit + PR + issue updates</td></tr>
               <tr><td><code>/ck-code:explain</code></td><td>Explain what was just implemented, with verification steps.</td><td>walkthrough</td></tr>
               <tr><td><code>/ck-code:guide</code></td><td>Router — recommends the next step, routes a task to the right skill, looks up command syntax.</td><td>recommendation</td></tr>
-              <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v4 project — or a ck-code-lite project — to the v4 frontmatter layout; stamps <code>tasks/VERSION.md</code>.</td><td>v4 layout + VERSION.md</td></tr>
+              <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v5 project — or a ck-code-lite project — to the v5 layout (frontmatter, generated indexes, flat team-skill folders); stamps <code>tasks/VERSION.md</code>.</td><td>v5 layout + VERSION.md</td></tr>
             </tbody>
           </table>
         </div>
