@@ -149,16 +149,14 @@ Run these checks before marking the skill ready. Fix every issue found.
 3. **Heavy data offloaded** — static tables, templates, or examples > 50 lines live in references/
 4. **Rules are absolute** — `"Never X"` not `"Try to avoid X"` or `"Consider X"`
 5. **Bash examples use real commands** — no pseudo-code, no `<placeholder>` values
-6. **Size target — compress toward it, but keep clarity** — simple skills ≤ 250 lines;
-   complex multi-phase skills ≤ 450 lines. First offload heavy data to references/ and
-   remove duplication (checks 2–3); then compress prose. If the skill still exceeds the
-   target *after* those passes and further cutting would lose a guarantee, a correctness
-   detail, or needed clarity, **keep it over the target** and note the overage and why.
-   The target is a ceiling to pull toward, never a reason to delete content that earns its
-   lines. Checks 1–5 are hard; only this one yields to clarity.
+6. **Compactable?** — there is no line budget. Scan for prose that repeats itself, filler,
+   and heavy data that belongs in references/ (checks 2–3); compress or offload that. If
+   every remaining line carries a guarantee, a correctness detail, or needed clarity,
+   **keep the skill as long as it is** — length is never itself a defect. Never cut
+   content to hit a number.
 
-If checks 1–5 fail, fix inline before proceeding to Phase 4. For check 6, compress what you
-can, then keep the rest.
+If checks 1–5 fail, fix inline before proceeding to Phase 4. Check 6 never blocks a release:
+compact what is genuinely redundant, keep everything that earns its place.
 
 ## PHASE 4: RELEASE
 
@@ -304,7 +302,7 @@ curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/.claude-
 
 ## RULES
 
-- **Never skip Phase 3** — every skill ships to production users; token efficiency is not optional. Checks 1–5 are hard. Check 6 (size) is a target you compress toward after offloading and de-duplicating — if the skill still exceeds it and cutting more would lose a guarantee or needed clarity, keep it over the target and note why.
+- **Never skip Phase 3** — every skill ships to production users; token efficiency is not optional. Checks 1–5 are hard. Check 6 asks only whether the skill *can* be compacted: offload and de-duplicate, and if what remains all earns its place, keep it at whatever length it is. There is no line limit.
 - **Never push a tag without creating a GitHub Release** — a tag alone is invisible in the marketplace.
 - **Always update marketplace.json ref** for every version bump of a github-sourced plugin — `ck-code-lite`, `ck-tools` (Phase 4.5) — a stale ref silently serves an old version to all users.
 - **Never push a marketplace ref before its tag and Release exist** (Phase 4.5 follows 4.4) — a ref pointing at a missing tag breaks `/plugin install` for every user of the public marketplace.
