@@ -142,6 +142,34 @@ users get a lite plugin whose plans the current migrator cannot read.
 
 ## PHASE 3: TOKEN EFFICIENCY REVIEW
 
+### 3.0 Frontmatter must parse (hard gate, run first)
+
+A skill whose frontmatter is invalid YAML loses **all** of it — `name`, `description`,
+`argument-hint`, `effort` — and the harness registers nothing. There is no error message;
+the skill simply stops existing. The usual cause is a `": "` inside an unquoted
+`description:`, which YAML reads as a nested mapping (`` `status: bug` `` and
+`(token diet: dedup …)` both shipped broken this way).
+
+Run this over every skill and agent touched, and fix any `FAIL` before continuing:
+
+```bash
+ruby -ryaml -e '
+ARGV.each do |f|
+  fm = File.read(f)[/\A---\n(.*?)\n---\n/m, 1]
+  begin
+    d = YAML.safe_load(fm)
+    puts "OK    #{f}  name=#{d["name"]}  desc=#{d["description"].to_s.length}"
+  rescue => e
+    puts "FAIL  #{f}  #{e.message.lines.first.strip}"
+  end
+end' <paths-to-changed-SKILL.md-and-agent-files>
+```
+
+Fix by **rephrasing to remove the `": "`** (an em dash or a comma reads better anyway) —
+prefer that over quoting the whole description, which then has to escape its own quotes.
+
+### 3.1 Efficiency checks
+
 Run these checks before marking the skill ready. Fix every issue found.
 
 1. **Description ≤ 500 chars and workflow-free** — no phase names, no step summaries
@@ -302,6 +330,7 @@ curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/.claude-
 
 ## RULES
 
+- **Never ship a skill whose frontmatter does not parse as YAML** (Phase 3.0) — an unquoted `": "` in a `description:` silently drops the entire frontmatter and the skill registers as nothing. Run the parse check on every touched file; rephrase rather than quote.
 - **Never skip Phase 3** — every skill ships to production users; token efficiency is not optional. Checks 1–5 are hard. Check 6 asks only whether the skill *can* be compacted: offload and de-duplicate, and if what remains all earns its place, keep it at whatever length it is. There is no line limit.
 - **Never push a tag without creating a GitHub Release** — a tag alone is invisible in the marketplace.
 - **Always update marketplace.json ref** for every version bump of a github-sourced plugin — `ck-code-lite`, `ck-tools` (Phase 4.5) — a stale ref silently serves an old version to all users.
