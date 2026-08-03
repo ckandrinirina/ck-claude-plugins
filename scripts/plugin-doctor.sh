@@ -265,6 +265,34 @@ PY
   esac
 }
 
+# The official manifest validator. Catches a misspelled or foreign plugin.json field
+# that this script has no table for, and that Claude Code would silently ignore at
+# load time. --strict promotes those warnings to errors, which is the point of running
+# it in a release gate. Skipped (not failed) when the CLI is unavailable.
+check_manifest() {
+  local plugin="$1" out
+  command -v claude >/dev/null 2>&1 || { row "manifest" "claude CLI not on PATH — skipped" WARN; return 0; }
+  if out=$(claude plugin validate "./$plugin" --strict 2>&1); then
+    row "manifest" "validate --strict clean" OK
+  else
+    row "manifest" "$(printf '%s' "$out" | tr '\n' ' ' | cut -c1-100)" ERROR
+  fi
+}
+
+# Executables in bin/ are added to the Bash tool's PATH. A non-executable file there is
+# invisible at runtime with no error, and every skill that calls it as a bare command fails.
+check_bin() {
+  local plugin="$1" f n=0 bad=0
+  [ -d "$plugin/bin" ] || return 0
+  for f in "$plugin"/bin/*; do
+    [ -e "$f" ] || continue
+    n=$((n+1))
+    [ -x "$f" ] || { bad=$((bad+1)); row "bin" "$(basename "$f") is not executable (chmod +x)" ERROR; }
+  done
+  [ "$bad" -eq 0 ] && [ "$n" -gt 0 ] && row "bin" "$n executable(s) on PATH" OK
+  return 0
+}
+
 # ---- run ---------------------------------------------------------------------
 echo
 for plugin in "${PLUGINS[@]}"; do
@@ -282,6 +310,8 @@ for plugin in "${PLUGINS[@]}"; do
   check_json           "$plugin"
   check_layout_const   "$plugin"
   check_marketplace_ref "$plugin"
+  check_bin            "$plugin"
+  check_manifest       "$plugin"
   echo
 done
 
