@@ -160,6 +160,7 @@
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Epics + sized stories with dependency graphs</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Per-project expert &amp; language-guide skills</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> TDD + SOLID build loop, parallel worktree builds</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Issues + a Projects board tracked through to merged</li>
             </ul>
             <div class="pcard__foot">
               <a class="pcard__link" href="ck-code.html">Read the ck-code docs
@@ -238,6 +239,11 @@
             <p>Push epics and stories to labelled GitHub Issues, then keep branches, commits, PRs and Issues linked automatically through to merge.</p>
           </div>
           <div class="fcard reveal">
+            <div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18"/></svg></div>
+            <h3>A board that tells the truth</h3>
+            <p>Story cards move themselves: <em>Ready to Ship</em> when the work is finished, <em>In Review</em> once a PR is open, <em>Done</em> only when it reaches the trunk branch. Merge in the browser and the next sync catches it.</p>
+          </div>
+          <div class="fcard reveal">
             <div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
             <h3>Token-lean by default</h3>
             <p>Per-skill effort tuning, read-only tool hardening and dynamic context injection cut tokens and round-trips — pair with <code>/fast</code> for small stories.</p>
@@ -269,7 +275,8 @@
           <div class="step"><div class="step__n">2</div><div class="step__b"><code>/ck-code:team</code><p>Create the expert &amp; language-guide skills your stack needs.</p></div></div>
           <div class="step"><div class="step__n">3</div><div class="step__b"><code>/ck-code:plan docs/specifications.md</code><p>Break the architecture into epics and sized stories.</p></div></div>
           <div class="step"><div class="step__n">4</div><div class="step__b"><code>/ck-code:build</code><p>Implement the next story with TDD and the built-in QA loop.</p></div></div>
-          <div class="step"><div class="step__n">5</div><div class="step__b"><code>/ck-code:ship</code><p>Commit with conventional commits, open a PR, update the Issue.</p></div></div>
+          <div class="step"><div class="step__n">5</div><div class="step__b"><code>/ck-code:ship</code><p>Commit with conventional commits, open a PR, update the Issue and move the card.</p></div></div>
+          <div class="step"><div class="step__n">6</div><div class="step__b"><code>/ck-code:track</code><p>See what is ready, what is in review, and what actually reached the trunk.</p></div></div>
         </div>
 
         <div class="callout reveal">

@@ -92,7 +92,7 @@
           <div class="fcard reveal"><div class="fcard__ico">2</div><h3>Plan</h3><p>Architecture → epics &amp; sized stories.</p></div>
           <div class="fcard reveal"><div class="fcard__ico">3</div><h3>Team</h3><p>Generate experts &amp; guides for your stack.</p></div>
           <div class="fcard reveal"><div class="fcard__ico">4</div><h3>Build</h3><p>Implement each story with TDD + QA.</p></div>
-          <div class="fcard reveal"><div class="fcard__ico">5</div><h3>Ship</h3><p>Commit, PR, update GitHub Issues.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico">5</div><h3>Ship</h3><p>Commit, PR, Issues and board — through to merged.</p></div>
         </div>
       </div>
     </section>
@@ -108,9 +108,40 @@
           <div class="fcard reveal"><h3>SOLID checks</h3><p>Every implementation is reviewed against single-responsibility, open/closed, Liskov, interface-segregation and dependency-inversion.</p></div>
           <div class="fcard reveal"><h3>Project-tailored experts</h3><p>Auto-generated per-project expert and language-guide skills, refreshed via context7 for current best practices.</p></div>
           <div class="fcard reveal"><h3>Parallel multi-story builds</h3><p>Implement unblocked stories at once in isolated git worktrees, with conflict analysis before merge.</p></div>
-          <div class="fcard reveal"><h3>GitHub Issues integration</h3><p>Push epics and stories to Issues with size labels and parent/child links; PRs and Issues stay connected.</p></div>
+          <div class="fcard reveal"><h3>GitHub Issues integration</h3><p>Push epics and stories to Issues in one call — labels, parent/child links, and native sub-issues that give each epic a progress bar. Re-running finishes an interrupted publish; nothing is created twice.</p></div>
+          <div class="fcard reveal"><h3>One source of truth</h3><p>Story state lives only in the story file's frontmatter. <code>STORIES_INDEX.md</code> and <code>FEATURE_INDEX.md</code> are generated views of it, so they cannot drift — there is no reconciler and no hand-edited table.</p></div>
+          <div class="fcard reveal"><h3>Projects board that follows the work</h3><p>The board is one more generated view. Each sync re-asks GitHub what became of every recorded PR, so a merge you clicked in the browser lands on the board with nothing running locally.</p></div>
+          <div class="fcard reveal"><h3>Design-system fidelity</h3><p>Link a <a href="https://claude.ai/design" rel="noopener" target="_blank" style="color:var(--clay)">claude.ai/design</a> system and ck-code caches its tokens and component sources into the repo, then builds UI exactly against them. Fully offline after one sync.</p></div>
+          <div class="fcard reveal"><h3>A doctor for the project</h3><p><code>/ck-code:doctor</code> reports what is broken — unparseable frontmatter, drifted indexes, dependencies that resolve to nothing, orphan branches — and names the command that fixes each one.</p></div>
           <div class="fcard reveal"><h3>Capability-tier model selection</h3><p>Agents pick the right Claude tier (fast / balanced / advanced) per story size — no hardcoded model IDs.</p></div>
           <div class="fcard reveal"><h3>Token-lean by default</h3><p>Per-skill effort tuning, read-only tool hardening and dynamic context injection cut tokens and round-trips.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DELIVERY AXIS -->
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">New in 6.4</span>
+          <h2>&ldquo;Done&rdquo; is not the same as &ldquo;shipped&rdquo;</h2>
+          <p>A story can be finished and still be nowhere near your users. ck-code tracks the two facts separately, so a board column never overstates what has actually landed on the trunk branch.</p>
+        </div>
+        <div class="table-wrap reveal" style="margin-top:34px">
+          <table>
+            <thead><tr><th>Story state</th><th>What it means</th><th>Board column</th></tr></thead>
+            <tbody>
+              <tr><td><code>in-progress</code></td><td>Being implemented right now.</td><td>In Progress</td></tr>
+              <tr><td><code>done</code> · no PR</td><td>Acceptance criteria met, QA green — but nothing has been opened for review.</td><td>Ready to Ship</td></tr>
+              <tr><td><code>done</code> · PR open</td><td>Waiting on review. The work exists, but not on the trunk.</td><td>In Review</td></tr>
+              <tr><td><code>done</code> · merged</td><td>On the trunk branch. Genuinely shipped.</td><td>Done</td></tr>
+              <tr><td><code>bug</code></td><td>A defect was diagnosed against it — actionable work, at any stage.</td><td>Bugs</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p><strong>Dependencies still unblock on <code>done</code>, not on merged.</strong> Work you can build on is finished work — waiting for a merge would stall every project that reviews a whole epic at once. Set <code>trunk_branch</code> in <code>tasks/SETTINGS.md</code> when your integration branch is not the repository default, and every PR targets it automatically.</p>
         </div>
       </div>
     </section>
@@ -132,8 +163,9 @@
             <div class="cmd"><span class="pr">›</span><span>/ck-code:team --standard</span></div>
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 3 · epics and sized stories</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:plan docs/specifications.md</span></div>
-            <div class="cmd"><span class="pr">›</span><span><span class="cm"># 4 · (optional) push the plan to GitHub Issues</span></span></div>
+            <div class="cmd"><span class="pr">›</span><span><span class="cm"># 4 · (optional) push the plan to GitHub Issues + a Projects board</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:ship --to-issues --mode stories</span></div>
+            <div class="cmd"><span class="pr">›</span><span>/ck-code:config board</span></div>
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 5 · find the first story, then build &amp; ship it</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:track next</span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:build</span></div>
@@ -142,7 +174,7 @@
         </div>
         <div class="callout reveal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-          <p>After <code>/ck-code:team</code>, your <code>.claude/skills/</code> holds <code>experts/{frontend,backend,qa,…}</code> (invoked as <code>/expert-frontend</code>, etc.) and <code>guides/{rust,axum,react-native,…}</code> auto-loaded when relevant files are touched — all tailored to the architecture you fed in.</p>
+          <p>After <code>/ck-code:team</code>, your <code>.claude/skills/</code> holds <code>expert-frontend/</code>, <code>expert-backend/</code>, <code>expert-qa/</code>… (invoked as <code>/expert-frontend</code>, etc.) and <code>guide-rust/</code>, <code>guide-axum/</code>, <code>guide-react-native/</code>… auto-loaded when relevant files are touched — all tailored to the architecture you fed in. The folders are flat by design: Claude Code never registers a skill nested one level deeper.</p>
         </div>
       </div>
     </section>
@@ -156,16 +188,18 @@
             <thead><tr><th>Command</th><th>Purpose</th><th>Output</th></tr></thead>
             <tbody>
               <tr><td><code>/ck-code:spec</code></td><td>Generate a stakeholder-ready feature spec for review (no code/jargon); revises an existing slug or Issue URL.</td><td>feature spec &amp; optional Issue</td></tr>
-              <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs; <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones.</td><td>docs/architecture/</td></tr>
+              <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs; <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones, <code>ds</code> links a Claude design system and caches it into the repo.</td><td>docs/architecture/</td></tr>
               <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>
               <tr><td><code>/ck-code:plan</code></td><td>Create epics, sized stories and a roadmap; <code>--quick</code> adds one small story to an existing epic.</td><td>tasks/ + FEATURE_INDEX</td></tr>
               <tr><td><code>/ck-code:track</code></td><td>Progress dashboard — <code>status</code>, <code>next</code> story, <code>progress</code>.</td><td>status report</td></tr>
               <tr><td><code>/ck-code:build</code></td><td>Implement stories with TDD + QA — one inline, many at once in parallel worktrees (story IDs), or a whole epic in waves (<code>--epic NN</code>); implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests; conflict report in parallel mode</td></tr>
               <tr><td><code>/ck-code:fix</code></td><td>Diagnose &amp; triage a bug — records a failing repro test + Fix Plan, then routes to <code>build</code>.</td><td>diagnosis + regression test</td></tr>
-              <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; <code>--to-issues</code> publishes a plan to Issues.</td><td>commit + PR + issue updates</td></tr>
+              <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; records the PR on the story so the board can follow it to merge. <code>--promote</code> opens the epic/feature PR, <code>--to-issues</code> publishes a plan to Issues.</td><td>commit + PR + issue updates</td></tr>
               <tr><td><code>/ck-code:explain</code></td><td>Explain what was just implemented, with verification steps.</td><td>walkthrough</td></tr>
               <tr><td><code>/ck-code:guide</code></td><td>Router — recommends the next step, routes a task to the right skill, looks up command syntax.</td><td>recommendation</td></tr>
-              <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v5 project — or a ck-code-lite project — to the v5 layout (frontmatter, generated indexes, flat team-skill folders); stamps <code>tasks/VERSION.md</code>.</td><td>v5 layout + VERSION.md</td></tr>
+              <tr><td><code>/ck-code:doctor</code></td><td>Read-only health report — layout stamp, story frontmatter that will not parse, indexes drifted from the stories, unresolvable dependencies, orphan epic branches, stale board mapping. Names the command that fixes each finding.</td><td>findings + fixes</td></tr>
+              <tr><td><code>/ck-code:config</code></td><td>Project settings in <code>tasks/SETTINGS.md</code> — GitHub issue tracking on/off, the trunk branch every PR targets, and the Projects board whose columns mirror story state.</td><td>tasks/SETTINGS.md + board</td></tr>
+              <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v6 project — or a ck-code-lite project — to the v6 layout (frontmatter, generated indexes, flat team-skill folders, epic numbers unique across every plan); stamps <code>tasks/VERSION.md</code>.</td><td>v6 layout + VERSION.md</td></tr>
             </tbody>
           </table>
         </div>
@@ -181,7 +215,7 @@
           <div class="fcard reveal"><h3>Feature additions</h3><p>ck-code reads your current architecture, scopes the feature, and generates only the new epics and stories.</p></div>
           <div class="fcard reveal"><h3>Disciplined AI coding</h3><p>Enforce TDD and SOLID even in long autonomous sessions — the build loop won't ship untested code.</p></div>
           <div class="fcard reveal"><h3>Parallel team builds</h3><p>Fan unblocked stories across worktrees and let agents build in parallel, with conflict analysis before merge.</p></div>
-          <div class="fcard reveal"><h3>GitHub-integrated planning</h3><p>Turn a story plan into a labelled, linked Issue tree with a single command.</p></div>
+          <div class="fcard reveal"><h3>GitHub-integrated planning</h3><p>Turn a story plan into a labelled, linked Issue tree with a single command, then let the Projects board track it from Todo to merged.</p></div>
           <div class="fcard reveal"><h3>Up-to-date practices</h3><p>Expert skills are refreshed via <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> so guidance reflects current framework docs.</p></div>
         </div>
       </div>
@@ -210,7 +244,7 @@
           </div>
         </div>
 
-        <p style="margin-top:26px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility and v3 migration notes.</p>
+        <p style="margin-top:26px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility notes. Projects created by an older ck-code upgrade in one step with <code>/ck-code:migrate</code>.</p>
       </div>
     </section>
 
