@@ -25,6 +25,13 @@ for a in "$@"; do
 done
 [ ${#PLUGINS[@]} -eq 0 ] && PLUGINS=(ck-code ck-code-lite ck-tools)
 
+# Almost every check below shells out to python3; without it they would read empty
+# output as a pass. A release gate must fail loudly, never silently degrade.
+command -v python3 >/dev/null 2>&1 || {
+  echo "plugin-doctor: python3 is required — install it and re-run." >&2
+  exit 1
+}
+
 ERRORS=0
 WARNS=0
 
@@ -198,8 +205,12 @@ check_names() {
 
 check_shell() {
   local plugin="$1" n=0 bad=""
-  for f in "$plugin"/scripts/*.sh; do
+  # bin/ wrappers have no .sh extension — include anything there with a sh shebang.
+  for f in "$plugin"/scripts/*.sh "$plugin"/bin/*; do
     [ -f "$f" ] || continue
+    case "$f" in
+      */bin/*) head -1 "$f" 2>/dev/null | grep -q '^#!.*sh' || continue ;;
+    esac
     n=$((n+1))
     bash -n "$f" 2>/dev/null || bad="$bad$f"$'\n'
   done
@@ -228,13 +239,18 @@ check_layout_const() {
   local plugin="$1"
   [ -f "$plugin/scripts/session-start.sh" ] || return 0
   [ -f "$plugin/references/version-gate.md" ] || return 0
-  local hook gate
+  local hook gate doctor
   hook=$(awk -F= '/^LAYOUT=/{print $2; exit}' "$plugin/scripts/session-start.sh")
   gate=$(awk '/^LAYOUT[ \t]*=/{print $NF; exit}' "$plugin/references/version-gate.md")
-  if [ -n "$hook" ] && [ "$hook" = "$gate" ]; then
-    row "layout const" "hook=$hook gate=$gate" OK
+  # ck-doctor.sh derives its expectation from version-gate.md at runtime, but its
+  # offline fallback is a third copy of the constant — keep it in lockstep too.
+  doctor=$gate
+  [ -f "$plugin/scripts/ck-doctor.sh" ] && \
+    doctor=$(awk -F'"' '/^FALLBACK_LAYOUT=/{print $2; exit}' "$plugin/scripts/ck-doctor.sh")
+  if [ -n "$hook" ] && [ "$hook" = "$gate" ] && [ "$doctor" = "$gate" ]; then
+    row "layout const" "hook=$hook gate=$gate doctor=$doctor" OK
   else
-    row "layout const" "hook=${hook:-?} gate=${gate:-?}" ERROR
+    row "layout const" "hook=${hook:-?} gate=${gate:-?} doctor=${doctor:-?}" ERROR
   fi
 }
 
