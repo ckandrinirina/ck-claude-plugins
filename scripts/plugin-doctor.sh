@@ -293,6 +293,101 @@ check_bin() {
   return 0
 }
 
+# The cross-skill invocation contract (ck-code/references/skill-invocation.md).
+# Every check here exists because the defect it catches actually shipped:
+#   targets   — a hand-off naming a skill that does not exist is a dead end.
+#   reachable — `disable-model-invocation` removes a skill from the Skill tool's
+#               registry, so a documented hand-off to it silently never fires.
+#               This shipped: `team` was an invocation target AND carried the
+#               flag, so build's team gate could never actually run it.
+#   allowed   — a write skill without `Skill` in allowed-tools costs the user a
+#               second permission prompt on every hand-off.
+#   readonly  — a read-only skill runs inside an Explore fork with no Write/Edit,
+#               so a Skill() call from one fails at the callee's first file write.
+# `allowed`/`readonly` are scoped to ck-code: it is the plugin that adopted the
+# contract, and ck-tools / ck-code-lite must not be failed by a rule they never took on.
+CONTRACT_PLUGIN='ck-code'
+check_skill_interop() {
+  local plugin="$1" res
+  res=$(PLUGIN="$plugin" CONTRACT="$CONTRACT_PLUGIN" python3 - <<'PY'
+import os, re, glob
+
+plugin  = os.environ['PLUGIN']
+scoped  = plugin == os.environ['CONTRACT']
+root    = os.path.dirname(os.path.abspath(plugin)) or '.'
+
+def frontmatter(path):
+    t = open(path).read()
+    m = re.match(r'---\n(.*?)\n---\n', t, re.S)
+    return (m.group(1) if m else ''), t
+
+skills = {}          # name -> (frontmatter, body)
+for f in sorted(glob.glob(f'{plugin}/skills/*/SKILL.md')):
+    skills[os.path.basename(os.path.dirname(f))] = frontmatter(f)
+
+# Every Skill({ skill: <quote><plugin>:<name><quote> }) call in this plugin's markdown.
+# The quote char is matched with `.` on purpose — a literal quote class here would
+# desync bash 3.2's $( ) scanner, which counts quotes even inside a quoted heredoc.
+CALL = re.compile(r'Skill\(\{\s*skill\s*:\s*.([\w-]+):([\w-]+).')
+targets = set()
+for f in glob.glob(f'{plugin}/**/*.md', recursive=True):
+    for m in CALL.finditer(open(f).read()):
+        targets.add((m.group(1), m.group(2), f))
+
+bad_target, bad_reach, bad_allowed, bad_readonly = [], [], [], []
+
+for tplugin, tname, where in sorted(targets):
+    tpath = os.path.join(root, tplugin, 'skills', tname, 'SKILL.md')
+    if not os.path.exists(tpath):
+        bad_target.append(f'{where} -> {tplugin}:{tname} (no such skill)')
+        continue
+    tfm, _ = frontmatter(tpath)
+    if re.search(r'^disable-model-invocation:\s*true\s*$', tfm, re.M):
+        bad_reach.append(f'{tplugin}:{tname} is an invocation target but sets '
+                         f'disable-model-invocation (referenced from {where})')
+
+if scoped:
+    for name, (fm, body) in sorted(skills.items()):
+        dis = re.search(r'^disallowed-tools:.*$', fm, re.M)
+        readonly = bool(dis) and 'Write' in dis.group(0)
+        al = re.search(r'^allowed-tools:[ \t]*(.*)$', fm, re.M)
+        allowed = al.group(1) if al else ''
+        has_skill = re.search(r'(^|[\s,])Skill([\s,]|$)', allowed) is not None
+        if readonly:
+            if CALL.search(body):
+                bad_readonly.append(f'{name} is read-only but calls Skill()')
+            if has_skill:
+                bad_readonly.append(f'{name} is read-only but lists Skill in allowed-tools')
+        else:
+            if not has_skill:
+                bad_allowed.append(f'{name} is a write skill without Skill in allowed-tools')
+
+# Only emit labels that were actually evaluated. Reporting "clean" for a rule a
+# plugin was never checked against reads as a pass it never earned.
+checks = [('targets', bad_target), ('reachable', bad_reach)]
+if scoped:
+    checks += [('allowed', bad_allowed), ('readonly', bad_readonly)]
+for label, rows in checks:
+    print(f'#{label}\t{len(rows)}')
+    for r in rows:
+        print(r)
+PY
+)
+  local label n block
+  for label in targets reachable allowed readonly; do
+    n=$(printf '%s\n' "$res" | awk -F'\t' -v L="#$label" '$1==L{print $2}')
+    [ -z "$n" ] && continue
+    if [ "$n" -gt 0 ]; then
+      row "interop" "$label — $n violation(s)" ERROR
+      block=$(printf '%s\n' "$res" | awk -v L="#$label" '
+        $0 ~ "^"L"\t" {f=1; next} /^#/ {f=0} f')
+      printf '%s\n' "$block" | sed 's/^/                  ✗ /'
+    else
+      row "interop" "$label clean" OK
+    fi
+  done
+}
+
 # ---- run ---------------------------------------------------------------------
 echo
 for plugin in "${PLUGINS[@]}"; do
@@ -312,6 +407,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_marketplace_ref "$plugin"
   check_bin            "$plugin"
   check_manifest       "$plugin"
+  check_skill_interop  "$plugin"
   echo
 done
 
