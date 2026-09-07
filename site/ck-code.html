@@ -30,7 +30,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Claude Code",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "softwareVersion": "6.9.0",
+    "softwareVersion": "6.10.0",
     "license": "https://opensource.org/licenses/MIT",
     "description": "Spec-driven workflow plugin for Claude Code: design, plan, build and ship with TDD, SOLID checks and per-project expert skills.",
     "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html"
@@ -197,8 +197,9 @@
               <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; records the PR on the story so the board can follow it to merge. <code>--promote</code> opens the epic/feature PR, <code>--to-issues</code> publishes a plan to Issues.</td><td>commit + PR + issue updates</td></tr>
               <tr><td><code>/ck-code:explain</code></td><td>Explain what was just implemented, with verification steps.</td><td>walkthrough</td></tr>
               <tr><td><code>/ck-code:guide</code></td><td>Router — recommends the next step, routes a task to the right skill, looks up command syntax.</td><td>recommendation</td></tr>
-              <tr><td><code>/ck-code:doctor</code></td><td>Read-only health report — layout stamp, story frontmatter that will not parse, indexes drifted from the stories, unresolvable dependencies, orphan epic branches, stale board mapping. Names the command that fixes each finding.</td><td>findings + fixes</td></tr>
+              <tr><td><code>/ck-code:doctor</code></td><td>Read-only health report — layout stamp, story frontmatter that will not parse, indexes drifted from the stories, unresolvable dependencies, orphan epic branches, stale board mapping, a vendored copy that is stale, duplicated or uncommitted. Names the command that fixes each finding.</td><td>findings + fixes</td></tr>
               <tr><td><code>/ck-code:config</code></td><td>Project settings in <code>tasks/SETTINGS.md</code> — GitHub issue tracking on/off, the trunk branch every PR targets, and the Projects board whose columns mirror story state.</td><td>tasks/SETTINGS.md + board</td></tr>
+              <tr><td><code>/ck-code:vendor</code></td><td>Copy ck-code into the project itself so the repo carries its own plugin — a clone on any machine runs every <code>/ck-code:*</code> command with no marketplace install. <code>update</code> 3-way syncs a new release without overwriting a file you edited; <code>dedupe</code> stops the doubled slash menu two live copies produce.</td><td>.claude/skills/ck-code/ + settings</td></tr>
               <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v6 project — or a ck-code-lite project — to the v6 layout (frontmatter, generated indexes, flat team-skill folders, epic numbers unique across every plan); stamps <code>tasks/VERSION.md</code>.</td><td>v6 layout + VERSION.md</td></tr>
             </tbody>
           </table>
