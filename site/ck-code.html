@@ -30,7 +30,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Claude Code",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "softwareVersion": "6.12.0",
+    "softwareVersion": "6.14.0",
     "license": "https://opensource.org/licenses/MIT",
     "description": "Spec-driven workflow plugin for Claude Code: design, plan, build and ship with TDD, SOLID checks and per-project expert skills.",
     "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html"
@@ -114,7 +114,7 @@
           <div class="fcard reveal"><h3>Design-system fidelity</h3><p>Link a <a href="https://claude.ai/design" rel="noopener" target="_blank" style="color:var(--clay)">claude.ai/design</a> system and ck-code caches its tokens and component sources into the repo, then builds UI exactly against them. Fully offline after one sync.</p></div>
           <div class="fcard reveal"><h3>A doctor for the project</h3><p><code>/ck-code:doctor</code> reports what is broken — unparseable frontmatter, drifted indexes, dependencies that resolve to nothing, orphan branches — and names the command that fixes each one.</p></div>
           <div class="fcard reveal"><h3>Capability-tier model selection</h3><p>Agents pick the right Claude tier (fast / balanced / advanced) per story size — no hardcoded model IDs.</p></div>
-          <div class="fcard reveal"><h3>Token-lean by default</h3><p>Per-skill effort tuning, read-only tool hardening and dynamic context injection cut tokens and round-trips.</p></div>
+          <div class="fcard reveal"><h3>Token-lean by default</h3><p>Per-skill effort tuning, read-only tool hardening and dynamic context injection cut tokens and round-trips. Commands are written in the forms an optional <a href="https://github.com/ckandrinirina/rtk" rel="noopener" target="_blank">RTK</a> hook can filter, so a full test suite comes back as its failures alone &mdash; never required, and <code>/ck-code:doctor</code> reports whether it is wired.</p></div>
         </div>
       </div>
     </section>

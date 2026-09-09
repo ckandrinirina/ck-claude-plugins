@@ -30,7 +30,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Claude Code",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "softwareVersion": "2.2.2",
+    "softwareVersion": "2.3.0",
     "license": "https://opensource.org/licenses/MIT",
     "description": "Utility toolkit plugin for Claude Code: dependency upgrades, releases, commits, PRs and GitHub Issues.",
     "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html"
@@ -140,6 +140,7 @@
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h3>Date-scoped cycles</h3><p>Recurring work lives in dated folders so multiple cycles coexist without overwriting history.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Explicit confirmation</h3><p>Anything that writes to a remote — commits, PRs, Issues — asks first. No silent side-effects.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3>Repo-aware</h3><p>Detects the package manager, framework and project conventions (via <code>CLAUDE.md</code>) before acting.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div><h3>RTK-filterable commands</h3><p>Test, lint and git commands are written in the forms an optional <a href="https://github.com/ckandrinirina/rtk" rel="noopener" target="_blank">RTK</a> hook can filter, so verbose output shrinks to its signal before it reaches context. Never required, never hardcoded.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0zM12 7v5l3 3"/></svg></div><h3>Zero-token formatting</h3><p>A <code>PostToolUse</code> hook auto-formats edits (prettier / rustfmt / ruff / black / gofmt) at no model-token cost.</p></div>
         </div>
       </div>
