@@ -30,7 +30,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Claude Code",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "softwareVersion": "6.16.0",
+    "softwareVersion": "6.17.0",
     "license": "https://opensource.org/licenses/MIT",
     "description": "Spec-driven workflow plugin for Claude Code: design, plan, build and ship with TDD, SOLID checks and per-project expert skills.",
     "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html"
@@ -107,15 +107,15 @@
           <div class="fcard reveal"><h3>TDD enforcement</h3><p>Red/green/refactor cycle. No production code without a failing test first.</p></div>
           <div class="fcard reveal"><h3>SOLID checks</h3><p>Every implementation is reviewed against single-responsibility, open/closed, Liskov, interface-segregation and dependency-inversion.</p></div>
           <div class="fcard reveal"><h3>Project-tailored experts</h3><p>Auto-generated per-project expert and language-guide skills, refreshed via context7 for current best practices.</p></div>
-          <div class="fcard reveal"><h3>Parallel multi-story builds</h3><p>Implement unblocked stories at once in isolated git worktrees, with conflict analysis before merge.</p></div>
+          <div class="fcard reveal"><h3>Parallel multi-story builds</h3><p>Implement unblocked stories at once in isolated git worktrees, with conflict analysis before merge. Gitignored config such as <code>.env</code> reaches each worktree through <code>.worktreeinclude</code>.</p></div>
           <div class="fcard reveal"><h3>GitHub Issues integration</h3><p>Push epics and stories to Issues in one call — labels, parent/child links, and native sub-issues that give each epic a progress bar. Re-running finishes an interrupted publish; nothing is created twice.</p></div>
           <div class="fcard reveal"><h3>One source of truth</h3><p>Story state lives only in the story file's frontmatter. <code>STORIES_INDEX.md</code> and <code>FEATURE_INDEX.md</code> are generated views of it, so they cannot drift — there is no reconciler and no hand-edited table.</p></div>
           <div class="fcard reveal"><h3>Projects board that follows the work</h3><p>The board is one more generated view. Each sync re-asks GitHub what became of every recorded PR, so a merge you clicked in the browser lands on the board with nothing running locally.</p></div>
           <div class="fcard reveal"><h3>Design-system fidelity</h3><p>Link a <a href="https://claude.ai/design" rel="noopener" target="_blank" style="color:var(--clay)">claude.ai/design</a> system and ck-code caches its tokens and component sources into the repo, then builds UI exactly against them. Fully offline after one sync.</p></div>
-          <div class="fcard reveal"><h3>A doctor for the project</h3><p><code>/ck-code:doctor</code> reports what is broken — unparseable frontmatter, drifted indexes, dependencies that resolve to nothing, orphan branches — and names the command that fixes each one.</p></div>
+          <div class="fcard reveal"><h3>A doctor for the project</h3><p><code>/ck-code:doctor</code> reports what is broken — unparseable frontmatter, drifted indexes, dependencies that resolve to nothing, orphan branches, a gitignored <code>.env</code> parallel worktrees would lack — and names the command that fixes each one.</p></div>
           <div class="fcard reveal"><h3>Capability-tier model selection</h3><p>Agents pick the right Claude tier (fast / balanced / advanced) per story size — no hardcoded model IDs.</p></div>
           <div class="fcard reveal"><h3>Every prompt goes through the workflow</h3><p>A <code>UserPromptSubmit</code> hook routes each free-text prompt in an adopted project to the best-fit skill &mdash; a bug report runs <code>/ck-code:fix</code>, &ldquo;ship it&rdquo; runs <code>/ck-code:ship</code>, a one-off edit is still made under the project&rsquo;s expert skills &mdash; announced in one line and invoked. Silent on slash commands, short replies and repos that never adopted ck-code.</p></div>
-          <div class="fcard reveal"><h3>Token-lean by default</h3><p>Per-skill effort tuning, read-only tool hardening and dynamic context injection cut tokens and round-trips. Commands are written in the forms an optional <a href="https://github.com/ckandrinirina/rtk" rel="noopener" target="_blank">RTK</a> hook can filter, so a full test suite comes back as its failures alone &mdash; never required, and <code>/ck-code:doctor</code> reports whether it is wired.</p></div>
+          <div class="fcard reveal"><h3>Token-lean by default</h3><p>Per-skill effort tuning, read-only tool hardening and dynamic context injection cut tokens and round-trips. Commands are written in the forms an optional <a href="https://github.com/ckandrinirina/rtk" rel="noopener" target="_blank">RTK</a> hook can filter, so a full test suite comes back as its failures alone &mdash; never required, and <code>/ck-code:doctor</code> reports whether it is wired. Slow suites run once per code state into a log that is read, never re-run, and the TDD inner loop runs only the story's own tests.</p></div>
         </div>
       </div>
     </section>
@@ -198,7 +198,7 @@
               <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; records the PR on the story so the board can follow it to merge. <code>--promote</code> opens the epic/feature PR, <code>--to-issues</code> publishes a plan to Issues.</td><td>commit + PR + issue updates</td></tr>
               <tr><td><code>/ck-code:explain</code></td><td>Explain what was just implemented, with verification steps.</td><td>walkthrough</td></tr>
               <tr><td><code>/ck-code:guide</code></td><td>Router — recommends the next step, routes a task to the right skill, looks up command syntax.</td><td>recommendation</td></tr>
-              <tr><td><code>/ck-code:doctor</code></td><td>Read-only health report — layout stamp, story frontmatter that will not parse, indexes drifted from the stories, unresolvable dependencies, orphan epic branches, stale board mapping, a missing ck-code-required guard. Names the command that fixes each finding.</td><td>findings + fixes</td></tr>
+              <tr><td><code>/ck-code:doctor</code></td><td>Read-only health report — layout stamp, story frontmatter that will not parse, indexes drifted from the stories, unresolvable dependencies, orphan epic branches, stale board mapping, a missing ck-code-required guard, a gitignored <code>.env</code> with no <code>.worktreeinclude</code>. Names the command that fixes each finding.</td><td>findings + fixes</td></tr>
               <tr><td><code>/ck-code:config</code></td><td>Project settings in <code>tasks/SETTINGS.md</code> — GitHub issue tracking on/off, the trunk branch every PR targets, and the Projects board whose columns mirror story state.</td><td>tasks/SETTINGS.md + board</td></tr>
               <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v6 project — or a ck-code-lite project — to the v6 layout (frontmatter, generated indexes, flat team-skill folders, epic numbers unique across every plan); stamps <code>tasks/VERSION.md</code>.</td><td>v6 layout + VERSION.md</td></tr>
             </tbody>
@@ -245,7 +245,7 @@
           </div>
         </div>
 
-        <p style="margin-top:26px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility notes. Projects created by an older ck-code upgrade in one step with <code>/ck-code:migrate</code>.</p>
+        <p style="margin-top:26px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required; built and tested against 2.1.280), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility notes. Projects created by an older ck-code upgrade in one step with <code>/ck-code:migrate</code>.</p>
       </div>
     </section>
 
