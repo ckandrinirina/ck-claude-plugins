@@ -30,7 +30,7 @@
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Claude Code",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "softwareVersion": "6.17.1",
+    "softwareVersion": "7.0.0",
     "license": "https://opensource.org/licenses/MIT",
     "description": "Spec-driven workflow plugin for Claude Code: design, plan, build and ship with TDD, SOLID checks and per-project expert skills.",
     "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html"
@@ -109,8 +109,8 @@
           <div class="fcard reveal"><h3>Project-tailored experts</h3><p>Auto-generated per-project expert and language-guide skills, refreshed via context7 for current best practices.</p></div>
           <div class="fcard reveal"><h3>Parallel multi-story builds</h3><p>Implement unblocked stories at once in isolated git worktrees, with conflict analysis before merge. Gitignored config such as <code>.env</code> reaches each worktree through <code>.worktreeinclude</code>.</p></div>
           <div class="fcard reveal"><h3>GitHub Issues integration</h3><p>Push epics and stories to Issues in one call — labels, parent/child links, and native sub-issues that give each epic a progress bar. Re-running finishes an interrupted publish; nothing is created twice.</p></div>
-          <div class="fcard reveal"><h3>One source of truth</h3><p>Story state lives only in the story file's frontmatter. <code>STORIES_INDEX.md</code> and <code>FEATURE_INDEX.md</code> are generated views of it, so they cannot drift — there is no reconciler and no hand-edited table.</p></div>
-          <div class="fcard reveal"><h3>Projects board that follows the work</h3><p>The board is one more generated view. Each sync re-asks GitHub what became of every recorded PR, so a merge you clicked in the browser lands on the board with nothing running locally.</p></div>
+          <div class="fcard reveal"><h3>One source of truth, no bookkeeping commits</h3><p>Story state lives only in the story file's frontmatter, and a plan's in its <code>OVERVIEW.md</code> record. <code>STORIES_INDEX.md</code> and <code>EPICS_INDEX.md</code> are generated views that are never committed: they regenerate at every session start, so your history holds the work, not index updates.</p></div>
+          <div class="fcard reveal"><h3>Delivery that follows the work</h3><p>Each sync re-asks GitHub what became of every recorded PR, with or without a Projects board, so a merge you clicked in the browser lands on the story and the board with nothing running locally. <code>/ck-code:doctor --fix</code> repairs any drift in one pass.</p></div>
           <div class="fcard reveal"><h3>Design-system fidelity</h3><p>Link a <a href="https://claude.ai/design" rel="noopener" target="_blank" style="color:var(--clay)">claude.ai/design</a> system and ck-code caches its tokens and component sources into the repo, then builds UI exactly against them. Fully offline after one sync.</p></div>
           <div class="fcard reveal"><h3>A doctor for the project</h3><p><code>/ck-code:doctor</code> reports what is broken — unparseable frontmatter, drifted indexes, dependencies that resolve to nothing, orphan branches, a gitignored <code>.env</code> parallel worktrees would lack — and names the command that fixes each one.</p></div>
           <div class="fcard reveal"><h3>Capability-tier model selection</h3><p>Agents pick the right Claude tier (fast / balanced / advanced) per story size — no hardcoded model IDs.</p></div>
@@ -159,13 +159,13 @@
           <div class="terminal__bar"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span><span class="ttitle">first run — new project</span></div>
           <div class="terminal__body">
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 1 · architecture docs from the spec</span></span></div>
-            <div class="cmd"><span class="pr">›</span><span>/ck-code:design docs/specifications.md</span></div>
+            <div class="cmd"><span class="pr">›</span><span>/ck-code:design docs/specs/2026-09-24_notes/spec.md</span></div>
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 2 · experts + language guides for your stack</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:team --standard</span></div>
-            <div class="cmd"><span class="pr">›</span><span><span class="cm"># 3 · epics and sized stories</span></span></div>
-            <div class="cmd"><span class="pr">›</span><span>/ck-code:plan docs/specifications.md</span></div>
+            <div class="cmd"><span class="pr">›</span><span><span class="cm"># 3 · epics and sized stories (asks the integration level once)</span></span></div>
+            <div class="cmd"><span class="pr">›</span><span>/ck-code:plan</span></div>
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 4 · (optional) push the plan to GitHub Issues + a Projects board</span></span></div>
-            <div class="cmd"><span class="pr">›</span><span>/ck-code:ship --to-issues --mode stories</span></div>
+            <div class="cmd"><span class="pr">›</span><span>/ck-code:plan --publish --mode stories</span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:config board</span></div>
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># 5 · find the first story, then build &amp; ship it</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/ck-code:track next</span></div>
@@ -189,18 +189,18 @@
             <thead><tr><th>Command</th><th>Purpose</th><th>Output</th></tr></thead>
             <tbody>
               <tr><td><code>/ck-code:spec</code></td><td>Generate a stakeholder-ready feature spec for review (no code/jargon); revises an existing slug or Issue URL; offers a Claude Design brief on a UI project.</td><td>feature spec, optional Issue &amp; design brief</td></tr>
-              <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs; <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones, <code>ds [url]</code> links a Claude design system from a pasted URL and caches it into the repo.</td><td>docs/architecture/</td></tr>
-              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>
-              <tr><td><code>/ck-code:plan</code></td><td>Create epics, sized stories and a roadmap; <code>--quick</code> adds one small story to an existing epic.</td><td>tasks/ + FEATURE_INDEX</td></tr>
+              <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs (with no argument it finds the spec marked ready); <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones, <code>ds [url]</code> links a Claude design system from a pasted URL and caches it into the repo.</td><td>docs/architecture/</td></tr>
+              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--refresh</code> regenerates only the skills a stack change made stale; <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>
+              <tr><td><code>/ck-code:plan</code></td><td>Create epics, sized stories and a roadmap, and ask the plan's integration level once (a PR per story, per epic, or one for the plan); <code>--quick</code> adds one small story and hands it to build; <code>--publish</code> pushes the plan to GitHub Issues.</td><td>tasks/ with an OVERVIEW.md record</td></tr>
               <tr><td><code>/ck-code:track</code></td><td>Progress dashboard — <code>status</code>, <code>next</code> story, <code>progress</code>.</td><td>status report</td></tr>
               <tr><td><code>/ck-code:build</code></td><td>Implement stories with TDD + QA — one inline, many at once in parallel worktrees (story IDs), or a whole epic in waves (<code>--epic NN</code>); implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests; conflict report in parallel mode</td></tr>
               <tr><td><code>/ck-code:fix</code></td><td>Diagnose &amp; triage a bug — records a failing repro test + Fix Plan, then routes to <code>build</code>.</td><td>diagnosis + regression test</td></tr>
-              <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; records the PR on the story so the board can follow it to merge. <code>--promote</code> opens the epic/feature PR, <code>--to-issues</code> publishes a plan to Issues.</td><td>commit + PR + issue updates</td></tr>
+              <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; records the PR on the story so the board can follow it to merge. One confirmation covers files, message and PR target; <code>--promote</code> opens the epic or plan PR.</td><td>commit + PR + issue updates</td></tr>
               <tr><td><code>/ck-code:explain</code></td><td>Explain what was just implemented, with verification steps.</td><td>walkthrough</td></tr>
               <tr><td><code>/ck-code:guide</code></td><td>Router — recommends the next step, routes a task to the right skill, looks up command syntax.</td><td>recommendation</td></tr>
-              <tr><td><code>/ck-code:doctor</code></td><td>Read-only health report — layout stamp, story frontmatter that will not parse, indexes drifted from the stories, unresolvable dependencies, orphan epic branches, stale board mapping, a missing ck-code-required guard, a gitignored <code>.env</code> with no <code>.worktreeinclude</code>. Names the command that fixes each finding.</td><td>findings + fixes</td></tr>
-              <tr><td><code>/ck-code:config</code></td><td>Project settings in <code>tasks/SETTINGS.md</code> — GitHub issue tracking on/off, the trunk branch every PR targets, and the Projects board whose columns mirror story state.</td><td>tasks/SETTINGS.md + board</td></tr>
-              <tr><td><code>/ck-code:migrate</code></td><td>One-shot upgrade of a pre-v6 project — or a ck-code-lite project — to the v6 layout (frontmatter, generated indexes, flat team-skill folders, epic numbers unique across every plan); stamps <code>tasks/VERSION.md</code>.</td><td>v6 layout + VERSION.md</td></tr>
+              <tr><td><code>/ck-code:doctor</code></td><td>Health report — layout stamp (older or newer than the plugin), story frontmatter that will not parse, committed views, stale expert skills, unresolvable dependencies, orphan epic branches, stale board mapping, a missing ck-code-required guard, a gitignored <code>.env</code> with no <code>.worktreeinclude</code>. Names the command that fixes each finding; <code>--fix</code> reconciles delivery, the board and GitHub Issues in one pass.</td><td>findings + fixes</td></tr>
+              <tr><td><code>/ck-code:config</code></td><td>Project settings in <code>tasks/SETTINGS.md</code> — GitHub issue tracking on/off, the trunk branch every PR targets, the Projects board whose columns mirror story state, and a plan's integration level.</td><td>tasks/SETTINGS.md + board</td></tr>
+              <tr><td><code>/ck-code:migrate</code></td><td>Upgrade a v6, older or ck-code-lite project to the v7 layout (plan records, views out of git, a stable version stamp): previews a tested conversion, asks once, lands one revertable commit.</td><td>v7 layout + VERSION.md</td></tr>
             </tbody>
           </table>
         </div>

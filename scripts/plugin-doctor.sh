@@ -139,6 +139,9 @@ PY
 # are filtered everywhere, so only genuinely-template *paths* need listing here.
 LINK_SKIP='skills/design/references/architecture-templates.md
 skills/design/references/maintenance-playbook.md
+skills/team/references/expert-templates.md
+skills/team/references/guide-templates.md
+skills/team/references/examples.md
 skills/dependency-upgrade/references/templates.md
 skills/release-prep/references/templates.md'
 check_links() {
