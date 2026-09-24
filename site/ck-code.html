@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ck-code — spec-driven development plugin for Claude Code | CK Plugins</title>
-  <meta name="description" content="ck-code is a spec-driven workflow plugin for Claude Code: design → plan → team → build → ship. Architecture docs, epics & stories, per-project expert skills, TDD with SOLID checks, parallel worktree builds and GitHub Issues integration." />
+  <meta name="description" content="ck-code is a spec-driven workflow plugin for Claude Code: design → team → plan → build → ship. Architecture docs, epics & stories, per-project expert skills, TDD with SOLID checks, parallel worktree builds and GitHub Issues integration." />
   <meta name="keywords" content="ck-code, Claude Code plugin, spec-driven development, TDD, SOLID, architecture documentation, epics stories, parallel builds, GitHub Issues, context7" />
   <link rel="canonical" href="https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html" />
   <meta name="theme-color" content="#100f0d" />
@@ -89,10 +89,47 @@
         </div>
         <div class="fgrid" style="grid-template-columns:repeat(5,1fr); margin-top:38px">
           <div class="fcard reveal"><div class="fcard__ico">1</div><h3>Design</h3><p>Spec → per-feature architecture docs.</p></div>
-          <div class="fcard reveal"><div class="fcard__ico">2</div><h3>Plan</h3><p>Architecture → epics &amp; sized stories.</p></div>
-          <div class="fcard reveal"><div class="fcard__ico">3</div><h3>Team</h3><p>Generate experts &amp; guides for your stack.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico">2</div><h3>Team</h3><p>Generate experts &amp; guides for your stack.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico">3</div><h3>Plan</h3><p>Architecture → epics &amp; sized stories.</p></div>
           <div class="fcard reveal"><div class="fcard__ico">4</div><h3>Build</h3><p>Implement each story with TDD + QA.</p></div>
           <div class="fcard reveal"><div class="fcard__ico">5</div><h3>Ship</h3><p>Commit, PR, Issues and board — through to merged.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW IN 7.0 -->
+    <section class="section section--tight" id="v7">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">New in 7.0</span>
+          <h2>Your history holds the work, not the bookkeeping</h2>
+          <p>On a real 12-epic project, 113 of 277 commits only regenerated indexes or recorded a state change. Version 7 removes that bookkeeping, fixes three bugs in the state model, and cuts the questions each story costs.</p>
+        </div>
+        <div class="fgrid" style="margin-top:34px">
+          <div class="fcard reveal"><h3>Views out of git</h3><p><code>STORIES_INDEX.md</code> and <code>EPICS_INDEX.md</code> are regenerated at every session start and on every read. They are never committed, so no state change needs a commit of its own and parallel worktrees never conflict on them.</p></div>
+          <div class="fcard reveal"><h3>A record per plan</h3><p>Each plan carries an <code>OVERVIEW.md</code> with its integration level (a PR per story, per epic, or one for the plan), branch, PR and issue. <code>plan</code> asks the level once; <code>build</code> never asks it again.</p></div>
+          <div class="fcard reveal"><h3>A stable version stamp</h3><p><code>tasks/VERSION.md</code> reads <code>layout: v7</code> and <code>requires: ck-code &gt;= 7.0.0</code>. Updating the plugin never dirties your tree, and a teammate on an older plugin is told to update, never to migrate.</p></div>
+          <div class="fcard reveal"><h3>One command to repair drift</h3><p><code>/ck-code:doctor --fix</code> asks GitHub about every recorded PR, records work merged with no PR, moves the board cards and closes delivered issues, with or without a Projects board.</p></div>
+          <div class="fcard reveal"><h3>Experts that know they are stale</h3><p>Each generated expert and guide records the tech stack it was written against. When the stack changes, <code>/ck-code:doctor</code> and the session start name the stale ones, and <code>/ck-code:team --refresh</code> regenerates just those.</p></div>
+          <div class="fcard reveal"><h3>Fewer questions, fewer retypes</h3><p><code>ship</code> asks once, covering files, message and PR target. <code>fix</code> asks nothing when given a story, and <code>design</code> and <code>plan</code> find what the previous step wrote. The hand-off chain runs from spec to published plan without a retype.</p></div>
+        </div>
+        <div class="table-wrap reveal" style="margin-top:30px">
+          <table>
+            <thead><tr><th>In 6.x</th><th>In 7.0</th></tr></thead>
+            <tbody>
+              <tr><td><code>/ck-code:sync</code></td><td><code>/ck-code:doctor --fix</code></td></tr>
+              <tr><td><code>/ck-code:ship --to-issues</code></td><td><code>/ck-code:plan --publish</code></td></tr>
+              <tr><td><code>/ck-code:ship --integration</code></td><td><code>/ck-code:config integration &lt;plan&gt; &lt;level&gt;</code></td></tr>
+              <tr><td><code>integration: feature</code>, <code>feat/…</code> branch</td><td><code>integration: plan</code>, <code>plan/…</code> branch</td></tr>
+              <tr><td><code>FEATURE_INDEX.md</code></td><td><code>EPICS_INDEX.md</code>, not committed</td></tr>
+              <tr><td><code>PROJECT_OVERVIEW.md</code></td><td><code>OVERVIEW.md</code> with a frontmatter record</td></tr>
+              <tr><td><code>pre-spec.md</code></td><td><code>spec.md</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.7 1 6.4 2.6L21 8"/><path d="M21 3v5h-5"/></svg>
+          <p><strong>Upgrading a 6.x project takes one command.</strong> <code>/ck-code:migrate</code> shows the exact changes, asks once, and lands them in a single revertable commit. The conversion is a tested script, not prose the model re-derives: on a real 12-epic project it added 16 lines and removed 104. Older layouts (v3 to v5) and ck-code-lite projects upgrade with the same command.</p>
         </div>
       </div>
     </section>
@@ -102,17 +139,17 @@
       <div class="wrap">
         <div class="shead reveal"><span class="eyebrow">Highlights</span><h2>What's in the box</h2></div>
         <div class="fgrid">
-          <div class="fcard reveal"><h3>Automatic architecture docs</h3><p>Split markdown in <code>docs/architecture/</code> — overview, folder structure, tech stack, components, data flow, API contracts, database schema, dev guide.</p></div>
+          <div class="fcard reveal"><h3>Automatic architecture docs</h3><p>Split markdown in <code>docs/architecture/</code> — overview, folder structure, tech stack, configuration, dev guide and <code>_shared.md</code>, plus one self-contained doc per feature covering its components, APIs and data.</p></div>
           <div class="fcard reveal"><h3>Epic &amp; story planning</h3><p>Stories sized S/M so one agent finishes each in a pass, with explicit dependency graphs in <code>tasks/</code>.</p></div>
           <div class="fcard reveal"><h3>TDD enforcement</h3><p>Red/green/refactor cycle. No production code without a failing test first.</p></div>
           <div class="fcard reveal"><h3>SOLID checks</h3><p>Every implementation is reviewed against single-responsibility, open/closed, Liskov, interface-segregation and dependency-inversion.</p></div>
-          <div class="fcard reveal"><h3>Project-tailored experts</h3><p>Auto-generated per-project expert and language-guide skills, refreshed via context7 for current best practices.</p></div>
+          <div class="fcard reveal"><h3>Project-tailored experts</h3><p>Auto-generated per-project expert and language-guide skills, researched via context7 for current best practices. They link your architecture docs instead of copying them, and <code>--refresh</code> keeps them in step with your stack.</p></div>
           <div class="fcard reveal"><h3>Parallel multi-story builds</h3><p>Implement unblocked stories at once in isolated git worktrees, with conflict analysis before merge. Gitignored config such as <code>.env</code> reaches each worktree through <code>.worktreeinclude</code>.</p></div>
-          <div class="fcard reveal"><h3>GitHub Issues integration</h3><p>Push epics and stories to Issues in one call — labels, parent/child links, and native sub-issues that give each epic a progress bar. Re-running finishes an interrupted publish; nothing is created twice.</p></div>
+          <div class="fcard reveal"><h3>GitHub Issues integration</h3><p><code>/ck-code:plan --publish</code> pushes the plan, its epics or its stories to Issues in one call — labels, parent/child links, and native sub-issues that give each epic a progress bar. Re-running finishes an interrupted publish; nothing is created twice.</p></div>
           <div class="fcard reveal"><h3>One source of truth, no bookkeeping commits</h3><p>Story state lives only in the story file's frontmatter, and a plan's in its <code>OVERVIEW.md</code> record. <code>STORIES_INDEX.md</code> and <code>EPICS_INDEX.md</code> are generated views that are never committed: they regenerate at every session start, so your history holds the work, not index updates.</p></div>
           <div class="fcard reveal"><h3>Delivery that follows the work</h3><p>Each sync re-asks GitHub what became of every recorded PR, with or without a Projects board, so a merge you clicked in the browser lands on the story and the board with nothing running locally. <code>/ck-code:doctor --fix</code> repairs any drift in one pass.</p></div>
           <div class="fcard reveal"><h3>Design-system fidelity</h3><p>Link a <a href="https://claude.ai/design" rel="noopener" target="_blank" style="color:var(--clay)">claude.ai/design</a> system and ck-code caches its tokens and component sources into the repo, then builds UI exactly against them. Fully offline after one sync.</p></div>
-          <div class="fcard reveal"><h3>A doctor for the project</h3><p><code>/ck-code:doctor</code> reports what is broken — unparseable frontmatter, drifted indexes, dependencies that resolve to nothing, orphan branches, a gitignored <code>.env</code> parallel worktrees would lack — and names the command that fixes each one.</p></div>
+          <div class="fcard reveal"><h3>A doctor for the project</h3><p><code>/ck-code:doctor</code> reports what is broken — a layout older or newer than the plugin, unparseable frontmatter, committed views, dependencies that resolve to nothing, stale experts, orphan branches, a gitignored <code>.env</code> parallel worktrees would lack — and names the command that fixes each one. <code>--fix</code> repairs the GitHub drift itself.</p></div>
           <div class="fcard reveal"><h3>Capability-tier model selection</h3><p>Agents pick the right Claude tier (fast / balanced / advanced) per story size — no hardcoded model IDs.</p></div>
           <div class="fcard reveal"><h3>Every prompt goes through the workflow</h3><p>A <code>UserPromptSubmit</code> hook routes each free-text prompt in an adopted project to the best-fit skill &mdash; a bug report runs <code>/ck-code:fix</code>, &ldquo;ship it&rdquo; runs <code>/ck-code:ship</code>, a one-off edit is still made under the project&rsquo;s expert skills &mdash; announced in one line and invoked. Silent on slash commands, short replies and repos that never adopted ck-code.</p></div>
           <div class="fcard reveal"><h3>Token-lean by default</h3><p>Per-skill effort tuning, read-only tool hardening and dynamic context injection cut tokens and round-trips. Commands are written in the forms an optional <a href="https://github.com/ckandrinirina/rtk" rel="noopener" target="_blank">RTK</a> hook can filter, so a full test suite comes back as its failures alone &mdash; never required, and <code>/ck-code:doctor</code> reports whether it is wired. Slow suites run once per code state into a log that is read, never re-run, and the TDD inner loop runs only the story's own tests.</p></div>
@@ -124,7 +161,7 @@
     <section class="section section--tight">
       <div class="wrap">
         <div class="shead reveal">
-          <span class="eyebrow">New in 6.4</span>
+          <span class="eyebrow">Delivery</span>
           <h2>&ldquo;Done&rdquo; is not the same as &ldquo;shipped&rdquo;</h2>
           <p>A story can be finished and still be nowhere near your users. ck-code tracks the two facts separately, so a board column never overstates what has actually landed on the trunk branch.</p>
         </div>
@@ -142,7 +179,7 @@
         </div>
         <div class="callout reveal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-          <p><strong>Dependencies still unblock on <code>done</code>, not on merged.</strong> Work you can build on is finished work — waiting for a merge would stall every project that reviews a whole epic at once. Set <code>trunk_branch</code> in <code>tasks/SETTINGS.md</code> when your integration branch is not the repository default, and every PR targets it automatically.</p>
+          <p><strong>Dependencies unblock on <code>done</code> (or <code>skip</code>), not on merged.</strong> Work you can build on is finished work — waiting for a merge would stall every project that reviews a whole epic at once. Set <code>trunk_branch</code> in <code>tasks/SETTINGS.md</code> when your integration branch is not the repository default, and every PR targets it automatically.</p>
         </div>
       </div>
     </section>
@@ -153,7 +190,7 @@
         <div class="shead reveal">
           <span class="eyebrow">Example of use</span>
           <h2>A greenfield project, start to finish</h2>
-          <p>Say you have a one-page spec for a task-tracking API in <code>docs/specifications.md</code>. Here's the whole loop.</p>
+          <p>Say you wrote a one-page spec for a task-tracking API with <code>/ck-code:spec</code>. Here's the whole loop; each step also offers the next one as a single question.</p>
         </div>
         <div class="terminal reveal" style="max-width:760px; margin-top:34px">
           <div class="terminal__bar"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span><span class="ttitle">first run — new project</span></div>
@@ -245,7 +282,7 @@
           </div>
         </div>
 
-        <p style="margin-top:26px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required; built and tested against 2.1.280), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility notes. Projects created by an older ck-code upgrade in one step with <code>/ck-code:migrate</code>.</p>
+        <p style="margin-top:26px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required; built and tested against 2.1.280), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility notes. Projects created by an older ck-code, 6.x included, upgrade in one step with <code>/ck-code:migrate</code> (see <a href="#v7" style="color:var(--clay)">New in 7.0</a>).</p>
       </div>
     </section>
 
