@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.4.1",
+      "softwareVersion": "7.4.2",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -307,7 +307,7 @@
               <tr><td><code>/ck-code:build</code></td><td>Implement stories with TDD + QA — one inline, many at once in parallel worktrees (story IDs), or a whole epic in waves (<code>--epic NN</code>); implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests; conflict report in parallel mode</td></tr>
               <tr><td><code>/ck-code:fix</code></td><td>Diagnose &amp; triage a bug — records a failing repro test + Fix Plan, then routes to <code>build</code>.</td><td>diagnosis + regression test</td></tr>
               <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; records the PR on the story so the board can follow it to merge. One confirmation covers files, message and PR target; <code>--promote</code> opens the epic or plan PR.</td><td>commit + PR + issue updates</td></tr>
-              <tr><td><code>/ck-code:verify</code></td><td>Hand-test a whole feature before promoting it. Builds one checklist from every story's human check plus the cross-story flows, grouped by epic, and walks you through it two items at a time with exact steps. A pass ticks the story; an issue goes to <code>fix</code> in your words. The session is saved, so a re-run, even in a new chat, resumes at the next item; <code>--all</code> retests everything.</td><td>tasks/&lt;plan&gt;/CHECKLIST.md + checklist/</td></tr>
+              <tr><td><code>/ck-code:verify</code></td><td>Hand-test a whole feature before promoting it. Builds one checklist from every story's human check plus the cross-story flows, grouped by epic, and walks you through it two items at a time with exact steps. A pass ticks the story; an issue goes to <code>fix</code> in your words. The session is saved, so a re-run, even in a new chat, resumes at the next item; <code>--all</code> retests everything, and <code>--recheck</code> resets the checklist so you retest from step 1.</td><td>tasks/&lt;plan&gt;/CHECKLIST.md + checklist/</td></tr>
               <tr><td><code>/ck-code:explain</code></td><td>Explain what was just implemented, with verification steps.</td><td>walkthrough</td></tr>
               <tr><td><code>/ck-code:guide</code></td><td>Router — recommends the next step, routes a task to the right skill, looks up command syntax.</td><td>recommendation</td></tr>
               <tr><td><code>/ck-code:doctor</code></td><td>Health report — layout stamp (older or newer than the plugin), story frontmatter that will not parse, committed views, stale expert skills, unresolvable dependencies, orphan epic branches, stale board mapping, a missing ck-code-required guard, a gitignored <code>.env</code> with no <code>.worktreeinclude</code>. Names the command that fixes each finding; <code>--fix</code> reconciles delivery, the board and GitHub Issues in one pass.</td><td>findings + fixes</td></tr>
