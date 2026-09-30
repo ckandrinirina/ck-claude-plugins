@@ -327,6 +327,28 @@ Confirm the published manifest serves the new ref:
 curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/.claude-plugin/marketplace.json | grep -A4 '"<plugin>"'
 ```
 
+### 4.6 Sync the site (every release, every plugin)
+
+The site in `site/` (this repo, deployed to GitHub Pages on push to `main`) documents every
+plugin. A release is **not done** until the site matches it:
+
+1. `grep -rn "<old version>" site/` — bump each hit to the new version (the page's JSON-LD
+   `softwareVersion`, any version badge or card text).
+2. Update the plugin's page (`site/<plugin>.html`) and its card in `site/index.html`, and
+   `site/llms.txt` when it lists the changed skill: the command table row, new flags or
+   arguments, and a new skill's row. Keep each page's `<title>` ≤ 60 chars and its
+   description ≤ 160.
+3. Commit and push in this repo:
+
+```bash
+git -C /Users/admin/Dev/ck-claude-plugins add site/
+git -C /Users/admin/Dev/ck-claude-plugins commit -m "docs(site): sync <plugin> to X.Y.Z — <change>"
+git -C /Users/admin/Dev/ck-claude-plugins push origin main
+```
+
+The changelog page reads the plugins' CHANGELOGs at run time and `sitemap.xml` `lastmod` is
+stamped by the deploy workflow, so neither needs a hand edit.
+
 ## RULES
 
 - **Never release while `plugin-doctor.sh` reports an ERROR** (Phase 3.0) — every check in it exists because that defect already shipped once. An unquoted `": "` in a `description:` silently drops the entire frontmatter and the skill registers as nothing.
@@ -334,6 +356,7 @@ curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/.claude-
 - **Never push a tag without creating a GitHub Release** — a tag alone is invisible in the marketplace.
 - **Always update marketplace.json ref** for every version bump of a github-sourced plugin — `ck-code-lite`, `ck-tools` (Phase 4.5) — a stale ref silently serves an old version to all users.
 - **Never push a marketplace ref before its tag and Release exist** (Phase 4.5 follows 4.4) — a ref pointing at a missing tag breaks `/plugin install` for every user of the public marketplace.
+- **Always sync the site** (`site/`) after every plugin release (Phase 4.6) — version, the plugin page, the index card; the owner asked for it on every update.
 - **Always update CHANGELOG.md** for every release (Phase 4.3.2) — one entry per version, Keep a Changelog format.
 - **Always update README.md** when adding a new skill or changing an existing skill's purpose (Phase 4.3.3) — undocumented skills are invisible to users.
 - **Always update `migrate` and the version gate on any architecture-layout change** (Phase 2.4) — a `design` change that alters the doc folder/file structure must ship the matching migration (`migrate`, plus `design sync`) and a `LAYOUT` bump in the same release, or existing projects can never upgrade.
