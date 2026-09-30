@@ -3,38 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ck-tools — utility toolkit plugin for Claude Code | CK Plugins</title>
-  <meta name="description" content="ck-tools is a toolkit of repo-level utility skills for Claude Code: deliver (commit + PR), implement (on-the-go stories), dependency-upgrade (audited upgrades), gh-issue and release-prep. Coexists with ck-code. Free, MIT-licensed." />
+  <title>ck-tools — Commit, PR and Release Toolkit for Claude Code</title>
+  <meta name="description" content="ck-tools is a free Claude Code plugin of repo utilities: conventional commits and PRs, audited dependency upgrades, GitHub issues and release prep." />
   <meta name="keywords" content="ck-tools, Claude Code plugin, dependency upgrade, conventional commits, pull request, GitHub issue, release prep, changelog, repo utilities" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html" />
   <meta name="theme-color" content="#100f0d" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="CK Claude Plugins" />
-  <meta property="og:title" content="ck-tools — utility toolkit plugin for Claude Code" />
-  <meta property="og:description" content="Repo-level utility skills for Claude Code: deliver, implement, dependency-upgrade, gh-issue, release-prep, bmad-guide." />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="ck-tools — Commit, PR and Release Toolkit for Claude Code" />
+  <meta property="og:description" content="ck-tools is a free Claude Code plugin of repo utilities: conventional commits and PRs, audited dependency upgrades, GitHub issues and release prep." />
   <meta property="og:url" content="https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html" />
   <meta property="og:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="ck-tools for Claude Code" />
-  <meta name="twitter:description" content="A utility toolkit for Claude Code." />
+  <meta name="twitter:title" content="ck-tools — Commit, PR and Release Toolkit for Claude Code" />
+  <meta name="twitter:description" content="ck-tools is a free Claude Code plugin of repo utilities: conventional commits and PRs, audited dependency upgrades, GitHub issues and release prep." />
   <meta name="twitter:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <meta name="twitter:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" />
   <link rel="stylesheet" href="assets/styles.css" />
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "ck-tools",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Claude Code",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "softwareVersion": "2.3.0",
-    "license": "https://opensource.org/licenses/MIT",
-    "description": "Utility toolkit plugin for Claude Code: dependency upgrades, releases, commits, PRs and GitHub Issues.",
-    "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html"
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html#app",
+      "name": "ck-tools",
+      "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html",
+      "description": "Utility toolkit plugin for Claude Code: conventional commits and pull requests, audited dependency upgrades, GitHub Issues, release preparation and BMAD guidance.",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Claude Code plugin",
+      "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
+      "softwareRequirements": "Claude Code",
+      "softwareVersion": "2.3.0",
+      "dateModified": "2026-09-30",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "license": "https://opensource.org/licenses/MIT",
+      "downloadUrl": "https://github.com/ckandrinirina/ck-tools",
+      "sameAs": [
+        "https://github.com/ckandrinirina/ck-tools"
+      ],
+      "author": {
+        "@id": "https://ckandrinirina.github.io/ck-claude-plugins/#author"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://ckandrinirina.github.io/ck-claude-plugins/#author",
+        "name": "ckandrinirina",
+        "url": "https://github.com/ckandrinirina",
+        "sameAs": [
+          "https://github.com/ckandrinirina"
+        ]
+      },
+      "image": "https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "CK Claude Plugins",
+          "item": "https://ckandrinirina.github.io/ck-claude-plugins/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ck-tools",
+          "item": "https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 </head>
 <body>

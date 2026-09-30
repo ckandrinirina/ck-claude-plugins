@@ -1,0 +1,22 @@
+# CK Claude Plugins
+
+> Free, open-source (MIT) plugins for Claude Code, Anthropic's agentic coding tool. ck-code brings spec-driven development to AI coding; ck-code-lite is its three-skill fast path; ck-tools is a repo utility toolkit. Install from the ck-marketplace Claude Code plugin marketplace.
+
+Install: `/plugin marketplace add ckandrinirina/ck-code`, then `/plugin install ck-code@ck-marketplace` (or `ck-code-lite@ck-marketplace`, `ck-tools@ck-marketplace`), restart Claude Code, and enable per project with `"enabledPlugins": { "ck-code@ck-marketplace": true }` in `.claude/settings.json`.
+
+## Plugins
+
+- [ck-code](https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html): spec-driven workflow — spec → architecture docs → epics and sized stories → per-project expert skills → TDD builds (inline or in parallel git worktrees) → whole-feature manual test checklist (`/ck-code:verify`, resumable, grouped by epic) → commits, PRs, GitHub Issues and a Projects board tracked to merge.
+- [ck-code-lite](https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html): three skills (start, build, ship) and two files (docs/ARCHITECTURE.md, tasks/PLAN.md) — test-first builds with isolated QA and manual sign-off, for small apps and prototypes. Upgrades to ck-code with `/ck-code:migrate`.
+- [ck-tools](https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html): repo utilities for any git project — deliver (conventional commit + PR), implement, dependency-upgrade, gh-issue, release-prep, showcase, bmad-guide.
+
+## ck-code commands
+
+spec, design, team, plan, track, build, fix, verify, ship, explain, guide, doctor, config, migrate — each invoked as `/ck-code:<name>`.
+
+## Source and releases
+
+- [ck-code on GitHub](https://github.com/ckandrinirina/ck-code) — also hosts the marketplace manifest
+- [ck-code-lite on GitHub](https://github.com/ckandrinirina/ck-code-lite)
+- [ck-tools on GitHub](https://github.com/ckandrinirina/ck-tools)
+- [Changelog](https://ckandrinirina.github.io/ck-claude-plugins/changelog.html)

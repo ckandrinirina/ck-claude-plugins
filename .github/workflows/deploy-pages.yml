@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history, for the sitemap's lastmod dates
 
       - name: Assemble site
         run: |
@@ -39,6 +41,17 @@ jobs:
           curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/CHANGELOG.md      -o _site/ck-code-changelog.md
           curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code-lite/main/CHANGELOG.md -o _site/ck-code-lite-changelog.md
           curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-tools/main/CHANGELOG.md     -o _site/ck-tools-changelog.md
+          # Each sitemap <lastmod> is the page's last commit; the changelog page is rebuilt
+          # from the plugin repos on every deploy, so it takes today's date
+          today=$(date -u +%F)
+          awk -v today="$today" '
+            /<loc>/ { f = $0; sub(/.*ck-claude-plugins\//, "", f); sub(/<\/loc>.*/, "", f); if (f == "") f = "index.html" }
+            /<lastmod>/ {
+              d = today
+              if (f != "changelog.html") { cmd = "git log -1 --format=%cs -- site/" f; cmd | getline d; close(cmd); if (d == "") d = today }
+              sub(/<lastmod>[^<]*<\/lastmod>/, "<lastmod>" d "</lastmod>")
+            }
+            { print }' site/sitemap.xml > _site/sitemap.xml
           # GitHub Pages skips files/dirs starting with "_" unless this exists
           touch _site/.nojekyll
 
