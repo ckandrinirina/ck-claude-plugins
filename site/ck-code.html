@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.4.2",
+      "softwareVersion": "7.5.0",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -165,7 +165,7 @@
           <div class="fcard reveal"><h3>A record per plan</h3><p>Each plan carries an <code>OVERVIEW.md</code> with its integration level (a PR per story, per epic, or one for the plan), branch, PR and issue. <code>plan</code> asks the level once; <code>build</code> never asks it again.</p></div>
           <div class="fcard reveal"><h3>A stable version stamp</h3><p><code>tasks/VERSION.md</code> reads <code>layout: v7</code> and <code>requires: ck-code &gt;= 7.0.0</code>. Updating the plugin never dirties your tree, and a teammate on an older plugin is told to update, never to migrate.</p></div>
           <div class="fcard reveal"><h3>One command to repair drift</h3><p><code>/ck-code:doctor --fix</code> asks GitHub about every recorded PR, records work merged with no PR, moves the board cards and closes delivered issues, with or without a Projects board.</p></div>
-          <div class="fcard reveal"><h3>Experts that know they are stale</h3><p>Each generated expert and guide records the tech stack it was written against. When the stack changes, <code>/ck-code:doctor</code> and the session start name the stale ones, and <code>/ck-code:team --refresh</code> regenerates just those.</p></div>
+          <div class="fcard reveal"><h3>Experts that know they are stale</h3><p>Each generated expert and guide records the tech stack it was written against. When the stack changes, in the docs or in the code (a package migration, a major bump), <code>/ck-code:doctor</code>, the session start and <code>/ck-code:ship</code> name the stale ones, and <code>/ck-code:team --refresh</code> updates just those, after one approval. A new dependency or a minor bump never triggers it.</p></div>
           <div class="fcard reveal"><h3>Fewer questions, fewer retypes</h3><p><code>ship</code> asks once, covering files, message and PR target. <code>fix</code> asks nothing when given a story, and <code>design</code> and <code>plan</code> find what the previous step wrote. The hand-off chain runs from spec to published plan without a retype.</p></div>
         </div>
         <div class="table-wrap reveal" style="margin-top:30px">
@@ -301,7 +301,7 @@
             <tbody>
               <tr><td><code>/ck-code:spec</code></td><td>Generate a stakeholder-ready feature spec for review (no code/jargon); revises an existing slug or Issue URL; offers a Claude Design brief on a UI project.</td><td>feature spec, optional Issue &amp; design brief</td></tr>
               <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs (with no argument it finds the spec marked ready); <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones, <code>ds [url]</code> links a Claude design system from a pasted URL and caches it into the repo.</td><td>docs/architecture/</td></tr>
-              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--refresh</code> regenerates only the skills a stack change made stale; <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>
+              <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--refresh</code> regenerates only the skills a stack change made stale (docs or code), after one approval; <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>
               <tr><td><code>/ck-code:plan</code></td><td>Create epics, sized stories and a roadmap, and ask the plan's integration level once (a PR per story, per epic, or one for the plan); <code>--quick</code> adds one small story and hands it to build; <code>--publish</code> pushes the plan to GitHub Issues.</td><td>tasks/ with an OVERVIEW.md record</td></tr>
               <tr><td><code>/ck-code:track</code></td><td>Progress dashboard — <code>status</code>, <code>next</code> story, <code>progress</code>.</td><td>status report</td></tr>
               <tr><td><code>/ck-code:build</code></td><td>Implement stories with TDD + QA — one inline, many at once in parallel worktrees (story IDs), or a whole epic in waves (<code>--epic NN</code>); implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests; conflict report in parallel mode</td></tr>
