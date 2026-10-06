@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.6.1",
+      "softwareVersion": "7.7.0",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -299,6 +299,7 @@
           <table>
             <thead><tr><th>Command</th><th>Purpose</th><th>Output</th></tr></thead>
             <tbody>
+              <tr><td><code>/ck-code:init</code></td><td>Bring ck-code into a project: checks the tools it needs (installs none), stamps the layout and installs the committed guard; on an existing codebase it inventories your docs and writes the architecture docs as built, with no spec (<code>design: built</code>, never re-planned). <code>--deps-only</code> re-checks the dependencies.</td><td><code>tasks/VERSION.md</code>, <code>.claude/</code>, <code>docs/architecture/</code></td></tr>
               <tr><td><code>/ck-code:spec</code></td><td>Generate a stakeholder-ready feature spec for review (no code/jargon); revises an existing slug or Issue URL; offers a Claude Design brief on a UI project.</td><td>feature spec, optional Issue &amp; design brief</td></tr>
               <tr><td><code>/ck-code:design</code></td><td>Refine a spec into feature-scoped architecture docs (with no argument it finds the spec marked ready); <code>optimize</code> token-diets them, <code>sync</code> scaffolds missing ones, <code>ds [url]</code> links a Claude design system from a pasted URL and caches it into the repo.</td><td>docs/architecture/</td></tr>
               <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--refresh</code> regenerates only the skills a stack change made stale (docs or code), after one approval; <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>

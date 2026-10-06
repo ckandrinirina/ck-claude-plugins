@@ -12,7 +12,7 @@ Install: `/plugin marketplace add ckandrinirina/ck-code`, then `/plugin install 
 
 ## ck-code commands
 
-spec, design, team, plan, track, build, fix, verify, ship, explain, guide, doctor, config, migrate — each invoked as `/ck-code:<name>`.
+init, spec, design, team, plan, track, build, fix, verify, ship, explain, guide, doctor, config, migrate — each invoked as `/ck-code:<name>`.
 
 ## Source and releases
 

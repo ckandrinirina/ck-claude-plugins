@@ -123,7 +123,7 @@
           "name": "Does ck-code work on an existing codebase?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. ck-code reads the current architecture, scopes a new feature against it and generates only the new epics and stories. A ck-code-lite project upgrades to ck-code with /ck-code:migrate."
+            "text": "Yes. /ck-code:init sets ck-code up on an existing codebase without a spec: it checks the tools ck-code needs, then reads your docs and code and writes the architecture as built. After that, ck-code scopes each new feature against that architecture and generates only the new epics and stories. A ck-code-lite project upgrades to ck-code with /ck-code:migrate."
           }
         },
         {
@@ -245,7 +245,7 @@
             <h3>ck-code</h3>
             <p class="pcard__sub">Spec-driven development: design → plan → team → build → ship.</p>
             <ul>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Turns a spec into per-feature architecture docs</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Turns a spec, or an existing codebase, into per-feature architecture docs</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Epics + sized stories with dependency graphs</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Per-project expert &amp; language-guide skills</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> TDD + SOLID build loop, parallel worktree builds</li>
@@ -389,7 +389,7 @@
           <details class="reveal"><summary>How do I install a CK plugin in Claude Code?</summary><p>Run /plugin marketplace add ckandrinirina/ck-code, then /plugin install ck-code@ck-marketplace (or ck-code-lite or ck-tools), and restart Claude Code. Enable it per project by adding &quot;enabledPlugins&quot;: { &quot;ck-code@ck-marketplace&quot;: true } to the project&#x27;s .claude/settings.json.</p></details>
           <details class="reveal"><summary>Should I use ck-code, ck-code-lite or ck-tools?</summary><p>Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with three skills and two files. Use ck-tools alongside either one, or on any repository, for commits, pull requests, dependency upgrades, issues and releases.</p></details>
           <details class="reveal"><summary>Are the plugins free?</summary><p>Yes. All three plugins are open source under the MIT License. You only need Claude Code; the gh CLI is needed for GitHub Issue features.</p></details>
-          <details class="reveal"><summary>Does ck-code work on an existing codebase?</summary><p>Yes. ck-code reads the current architecture, scopes a new feature against it and generates only the new epics and stories. A ck-code-lite project upgrades to ck-code with /ck-code:migrate.</p></details>
+          <details class="reveal"><summary>Does ck-code work on an existing codebase?</summary><p>Yes. /ck-code:init sets ck-code up on an existing codebase without a spec: it checks the tools ck-code needs, then reads your docs and code and writes the architecture as built. After that, ck-code scopes each new feature against that architecture and generates only the new epics and stories. A ck-code-lite project upgrades to ck-code with /ck-code:migrate.</p></details>
           <details class="reveal"><summary>How does ck-code keep AI-written code correct?</summary><p>Every story is built test-first: a failing test, then the minimum code, then a refactor, with SOLID checks and an isolated QA pass. Before a feature is promoted, /ck-code:verify walks a person through a manual test checklist that resumes where they stopped, and hands any issue to /ck-code:fix.</p></details>
         </div>
       </div>
