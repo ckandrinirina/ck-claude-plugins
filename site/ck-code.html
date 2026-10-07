@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.7.0",
+      "softwareVersion": "7.8.0",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -305,7 +305,7 @@
               <tr><td><code>/ck-code:team</code></td><td>Derive per-project expert + guide skills (depth <code>--basic/--standard/--max</code>); offers house-rules capture inline at the plan prompt (<code>--conventions</code> re-runs it alone); <code>--refresh</code> regenerates only the skills a stack change made stale (docs or code), after one approval; <code>--workflow</code> runs the big fan-outs as resumable scripted workflows.</td><td>.claude/skills/expert-* &amp; guide-*</td></tr>
               <tr><td><code>/ck-code:plan</code></td><td>Create epics, sized stories and a roadmap, and ask the plan's integration level once (a PR per story, per epic, or one for the plan); <code>--quick</code> adds one small story and hands it to build; <code>--publish</code> pushes the plan to GitHub Issues.</td><td>tasks/ with an OVERVIEW.md record</td></tr>
               <tr><td><code>/ck-code:track</code></td><td>Progress dashboard — <code>status</code>, <code>next</code> story, <code>progress</code>.</td><td>status report</td></tr>
-              <tr><td><code>/ck-code:build</code></td><td>Implement stories with TDD + QA — one inline, many at once in parallel worktrees (story IDs), or a whole epic in waves (<code>--epic NN</code>); implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests; conflict report in parallel mode</td></tr>
+              <tr><td><code>/ck-code:build</code></td><td>Implement stories with TDD + QA, each built by a sub-agent so the main context stays small — one on its own branch, many at once in parallel worktrees (story IDs), or a whole epic in waves (<code>--epic NN</code>); implements a triaged <code>bug</code> story in Bug-Fix Mode.</td><td>source code + tests; conflict report in parallel mode</td></tr>
               <tr><td><code>/ck-code:fix</code></td><td>Diagnose &amp; triage a bug — records a failing repro test + Fix Plan, then routes to <code>build</code>.</td><td>diagnosis + regression test</td></tr>
               <tr><td><code>/ck-code:ship</code></td><td>Commit (conventional), open a PR, update GitHub Issues; records the PR on the story so the board can follow it to merge. One confirmation covers files, message and PR target; <code>--promote</code> opens the epic or plan PR.</td><td>commit + PR + issue updates</td></tr>
               <tr><td><code>/ck-code:verify</code></td><td>Hand-test a whole feature before promoting it. Builds one checklist from every story's human check plus the cross-story flows, grouped by epic, and walks you through it two items at a time with exact steps. A pass ticks the story; an issue goes to <code>fix</code> in your words. The session is saved, so a re-run, even in a new chat, resumes at the next item; <code>--all</code> retests everything, and <code>--recheck</code> resets the checklist so you retest from step 1.</td><td>tasks/&lt;plan&gt;/CHECKLIST.md + checklist/</td></tr>
