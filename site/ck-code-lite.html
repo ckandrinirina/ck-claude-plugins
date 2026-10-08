@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.0.1",
+      "softwareVersion": "1.1.0",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -225,7 +225,7 @@
               <tr><td>Skills</td><td>3</td><td>12</td></tr>
               <tr><td>Planning artefacts</td><td>2 files</td><td>epics, per-story files, generated indexes</td></tr>
               <tr><td>Architecture</td><td>1 core doc + area docs as it grows</td><td>per-feature docs + shared globals</td></tr>
-              <tr><td>Parallel builds</td><td>yes, inside <code>build</code> — dependency-ordered waves</td><td>yes, in git worktrees — build output reclaimed after</td></tr>
+              <tr><td>Parallel builds</td><td>yes, inside <code>build</code> — dependency-ordered waves, unattended with <code>--auto</code></td><td>yes, in git worktrees — build output reclaimed after</td></tr>
               <tr><td>Generated expert skills</td><td>no</td><td>yes (<code>team</code>)</td></tr>
               <tr><td>Bug triage workflow</td><td>no</td><td>yes (<code>fix</code>)</td></tr>
               <tr><td>Best for</td><td>getting an app working</td><td>a codebase several people maintain</td></tr>
@@ -248,7 +248,7 @@
             <thead><tr><th>Command</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><code>/ck-code-lite:start</code></td><td>Create or extend <code>docs/ARCHITECTURE.md</code> and <code>tasks/PLAN.md</code>. Accepts a feature description or a spec-file path; empty re-runs append to the existing plan.</td></tr>
-              <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end — optional task ID such as <code>T-03</code>, or several IDs or <code>--waves</code> to build independent tasks at once in dependency-ordered waves. With no argument it picks the next ready task interactively.</td></tr>
+              <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end — optional task ID such as <code>T-03</code>, or several IDs or <code>--waves</code> to build independent tasks at once in dependency-ordered waves. Add <code>--auto</code> to run the waves unattended: every question takes its recommended answer, QA still gates every merge, and the manual checks arrive as one checklist at the end. With no argument it picks the next ready task interactively.</td></tr>
               <tr><td><code>/ck-code-lite:ship</code></td><td>Commit and open or update a PR. Optional task ID; runs standalone on any git repo when there is no plan.</td></tr>
             </tbody>
           </table>
