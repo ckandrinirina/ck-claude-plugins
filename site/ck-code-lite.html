@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ck-code-lite — Lightweight TDD Workflow for Claude Code</title>
-  <meta name="description" content="ck-code-lite is a free three-skill Claude Code plugin: an architecture doc and flat task plan, test-first builds with isolated QA, then commit and PR. No epics." />
+  <meta name="description" content="ck-code-lite is a free four-skill Claude Code plugin: design first with Claude Design, a flat task plan, test-first builds with isolated QA, then a PR." />
   <meta name="keywords" content="ck-code-lite, Claude Code plugin, TDD, lightweight workflow, task plan, architecture doc, fast prototyping, red green refactor" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html" />
@@ -13,7 +13,7 @@
   <meta property="og:site_name" content="CK Claude Plugins" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:title" content="ck-code-lite — Lightweight TDD Workflow for Claude Code" />
-  <meta property="og:description" content="ck-code-lite is a free three-skill Claude Code plugin: an architecture doc and flat task plan, test-first builds with isolated QA, then commit and PR. No epics." />
+  <meta property="og:description" content="ck-code-lite is a free four-skill Claude Code plugin: design first with Claude Design, a flat task plan, test-first builds with isolated QA, then a PR." />
   <meta property="og:url" content="https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html" />
   <meta property="og:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
   <meta property="og:image:type" content="image/png" />
@@ -22,7 +22,7 @@
   <meta property="og:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="ck-code-lite — Lightweight TDD Workflow for Claude Code" />
-  <meta name="twitter:description" content="ck-code-lite is a free three-skill Claude Code plugin: an architecture doc and flat task plan, test-first builds with isolated QA, then commit and PR. No epics." />
+  <meta name="twitter:description" content="ck-code-lite is a free four-skill Claude Code plugin: design first with Claude Design, a flat task plan, test-first builds with isolated QA, then a PR." />
   <meta name="twitter:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
   <meta name="twitter:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -39,12 +39,12 @@
       "@id": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html#app",
       "name": "ck-code-lite",
       "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html",
-      "description": "Minimal three-skill workflow plugin for Claude Code: architecture doc, flat task plan, test-first build loop with isolated QA, and commit/PR.",
+      "description": "Minimal four-skill workflow plugin for Claude Code: design first with Claude Design, architecture doc, flat task plan, test-first build loop with isolated QA, and commit/PR.",
       "applicationCategory": "DeveloperApplication",
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.1.2",
+      "softwareVersion": "1.2.0",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -121,7 +121,7 @@
       <div data-stagger>
         <div class="crumb"><a href="index.html">ck/plugins</a> <span>/</span> <span style="color:var(--clay)">ck-code-lite</span></div>
         <span class="eyebrow">The fast path</span>
-        <h1>Three skills. Two files. Ship anyway.</h1>
+        <h1>Four skills. Two files. Ship anyway.</h1>
         <p class="lede">Describe what you want, get an architecture doc and a flat task list, then build tasks one at a time — each with a <strong style="color:var(--text)">failing test first</strong>, an <strong style="color:var(--text)">isolated QA pass</strong>, and your own <strong style="color:var(--text)">hands-on sign-off</strong> before it counts as done. Speed comes from deleting ceremony, not from deleting checks.</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="#install">Install ck-code-lite
@@ -136,9 +136,9 @@
     <section class="section section--tight" id="skills">
       <div class="wrap">
         <div class="shead reveal">
-          <span class="eyebrow">Three skills</span>
-          <h2>start → build → ship</h2>
-          <p>A strict linear order with nothing to route between. Works on Node, Rust, Python, Go, Ruby, PHP and C/C++ — the stack is resolved from your manifest and lockfile, then written down once so it is never guessed again.</p>
+          <span class="eyebrow">Four skills</span>
+          <h2>start → design → build → ship</h2>
+          <p>A strict linear order with nothing to route between — <code>design</code> only when there is a UI to draw. Works on Node, Rust, Python, Go, Ruby, PHP and C/C++ — the stack is resolved from your manifest and lockfile, then written down once so it is never guessed again.</p>
         </div>
         <div class="skills">
           <article class="skill reveal">
@@ -146,6 +146,14 @@
             <p>Writes <code>docs/ARCHITECTURE.md</code> (stack, folder structure, decisions with reasons, and the project's real test/build/lint commands) and <code>tasks/PLAN.md</code> (a flat list of small tasks with acceptance criteria). Stack versions come from the package registry and best practices from context7, never from model memory — each is recorded with the date it was checked, so builds code to them without fetching anything. Works on a new idea, an existing codebase, or an existing plan you want to extend — re-runs append tasks and never clobber your edits.</p>
             <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:start "a habit tracker with a weekly streak view"</code>
               <button class="copy-btn" data-copy='/ck-code-lite:start "a habit tracker with a weekly streak view"' aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">design</span><span class="skill__when">// when: a UI should be designed before it is built</span></div>
+            <p>Offered once by <code>start</code> on any project with a UI. Claude describes the product back to you, asks only what the design depends on, and writes <code>docs/design-brief.md</code>: a complete prompt for <a href="https://claude.ai/design">claude.ai/design</a> with real screens, real content, every empty, loading and error state, and output conventions the plugin reads back. The prompt lands on your clipboard. Paste the finished design system's URL back and every token and card is cached in the repo. UI tasks then port each component exactly, and QA fails any hard-coded value a token covers.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:design</code>
+              <button class="copy-btn" data-copy="/ck-code-lite:design" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
             </div>
           </article>
 
@@ -248,6 +256,7 @@
             <thead><tr><th>Command</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><code>/ck-code-lite:start</code></td><td>Create or extend <code>docs/ARCHITECTURE.md</code> and <code>tasks/PLAN.md</code>. Accepts a feature description or a spec-file path; empty re-runs append to the existing plan. Looks up current stack versions and best practices, and refreshes them after 90 days.</td></tr>
+              <tr><td><code>/ck-code-lite:design</code></td><td>Design the UI with Claude Design before building it. With no argument or an idea, it describes the product with you and writes the paste-ready brief (<code>docs/design-brief.md</code>, copied to the clipboard). With a <code>claude.ai/design</code> URL, it links the design system and caches every token and card under <code>docs/design-system/</code>. Run it again to refresh the cache.</td></tr>
               <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end — optional task ID such as <code>T-03</code>, or several IDs or <code>--waves</code> to build independent tasks at once in dependency-ordered waves. Add <code>--auto</code> to run the waves unattended: every question takes its recommended answer, QA still gates every merge, and the manual checks arrive as one checklist at the end. With no argument it picks the next ready task interactively.</td></tr>
               <tr><td><code>/ck-code-lite:ship</code></td><td>Commit and open or update a PR. Optional task ID; runs standalone on any git repo when there is no plan.</td></tr>
             </tbody>

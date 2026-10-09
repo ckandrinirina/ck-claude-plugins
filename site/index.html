@@ -107,7 +107,7 @@
           "name": "Should I use ck-code, ck-code-lite or ck-tools?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with three skills and two files. Use ck-tools alongside either one, or on any repository, for commits, pull requests, dependency upgrades, issues and releases."
+            "text": "Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with four skills and two files. Use ck-tools alongside either one, or on any repository, for commits, pull requests, dependency upgrades, issues and releases."
           }
         },
         {
@@ -261,13 +261,14 @@
           <article class="pcard reveal">
             <span class="pcard__tag">/ck-code-lite</span>
             <h3>ck-code-lite</h3>
-            <p class="pcard__sub">The fast path: start → build → ship. Three skills, two files.</p>
+            <p class="pcard__sub">The fast path: start → design → build → ship. Four skills, two files.</p>
             <ul>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> One architecture doc, split into areas as it grows</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> A failing test before any implementation code</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Isolated QA pass + your own manual sign-off</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Scripted plan access — cost tracks open work, not project age</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Unattended waves with <code>--auto</code>, no questions until done</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Design first with Claude Design: brief written for you, UI built to the cached design</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Current stack versions + context7 best practices, cached in the doc</li>
             </ul>
             <div class="pcard__foot">
@@ -389,7 +390,7 @@
         <div class="faq">
           <details class="reveal"><summary>What is ck-code?</summary><p>ck-code is a free, open-source plugin for Claude Code that brings spec-driven development to AI coding. It turns a project spec into architecture docs, epics and sized stories, builds each story with test-driven development and an isolated QA pass, walks you through a manual test checklist, and ships commits, pull requests and GitHub Issues.</p></details>
           <details class="reveal"><summary>How do I install a CK plugin in Claude Code?</summary><p>Run /plugin marketplace add ckandrinirina/ck-code, then /plugin install ck-code@ck-marketplace (or ck-code-lite or ck-tools), and restart Claude Code. Enable it per project by adding &quot;enabledPlugins&quot;: { &quot;ck-code@ck-marketplace&quot;: true } to the project&#x27;s .claude/settings.json.</p></details>
-          <details class="reveal"><summary>Should I use ck-code, ck-code-lite or ck-tools?</summary><p>Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with three skills and two files. Use ck-tools alongside either one, or on any repository, for commits, pull requests, dependency upgrades, issues and releases.</p></details>
+          <details class="reveal"><summary>Should I use ck-code, ck-code-lite or ck-tools?</summary><p>Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with four skills and two files. Use ck-tools alongside either one, or on any repository, for commits, pull requests, dependency upgrades, issues and releases.</p></details>
           <details class="reveal"><summary>Are the plugins free?</summary><p>Yes. All three plugins are open source under the MIT License. You only need Claude Code; the gh CLI is needed for GitHub Issue features.</p></details>
           <details class="reveal"><summary>Does ck-code work on an existing codebase?</summary><p>Yes. /ck-code:init sets ck-code up on an existing codebase without a spec: it checks the tools ck-code needs, then reads your docs and code and writes the architecture as built. After that, ck-code scopes each new feature against that architecture and generates only the new epics and stories. A ck-code-lite project upgrades to ck-code with /ck-code:migrate.</p></details>
           <details class="reveal"><summary>How does ck-code keep AI-written code correct?</summary><p>Every story is built test-first: a failing test, then the minimum code, then a refactor, with SOLID checks and an isolated QA pass. Before a feature is promoted, /ck-code:verify walks a person through a manual test checklist that resumes where they stopped, and hands any issue to /ck-code:fix.</p></details>
