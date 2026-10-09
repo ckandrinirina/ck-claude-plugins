@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.1.0",
+      "softwareVersion": "1.1.1",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -143,7 +143,7 @@
         <div class="skills">
           <article class="skill reveal">
             <div class="skill__top"><span class="skill__name">start</span><span class="skill__when">// when: a project needs its plan</span></div>
-            <p>Writes <code>docs/ARCHITECTURE.md</code> (stack, folder structure, decisions with reasons, and the project's real test/build/lint commands) and <code>tasks/PLAN.md</code> (a flat list of small tasks with acceptance criteria). Works on a new idea, an existing codebase, or an existing plan you want to extend — re-runs append tasks and never clobber your edits.</p>
+            <p>Writes <code>docs/ARCHITECTURE.md</code> (stack, folder structure, decisions with reasons, and the project's real test/build/lint commands) and <code>tasks/PLAN.md</code> (a flat list of small tasks with acceptance criteria). Stack versions come from the package registry and best practices from context7, never from model memory — each is recorded with the date it was checked, so builds code to them without fetching anything. Works on a new idea, an existing codebase, or an existing plan you want to extend — re-runs append tasks and never clobber your edits.</p>
             <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:start "a habit tracker with a weekly streak view"</code>
               <button class="copy-btn" data-copy='/ck-code-lite:start "a habit tracker with a weekly streak view"' aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
             </div>
@@ -247,7 +247,7 @@
           <table>
             <thead><tr><th>Command</th><th>What it does</th></tr></thead>
             <tbody>
-              <tr><td><code>/ck-code-lite:start</code></td><td>Create or extend <code>docs/ARCHITECTURE.md</code> and <code>tasks/PLAN.md</code>. Accepts a feature description or a spec-file path; empty re-runs append to the existing plan.</td></tr>
+              <tr><td><code>/ck-code-lite:start</code></td><td>Create or extend <code>docs/ARCHITECTURE.md</code> and <code>tasks/PLAN.md</code>. Accepts a feature description or a spec-file path; empty re-runs append to the existing plan. Looks up current stack versions and best practices, and refreshes them after 90 days.</td></tr>
               <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end — optional task ID such as <code>T-03</code>, or several IDs or <code>--waves</code> to build independent tasks at once in dependency-ordered waves. Add <code>--auto</code> to run the waves unattended: every question takes its recommended answer, QA still gates every merge, and the manual checks arrive as one checklist at the end. With no argument it picks the next ready task interactively.</td></tr>
               <tr><td><code>/ck-code-lite:ship</code></td><td>Commit and open or update a PR. Optional task ID; runs standalone on any git repo when there is no plan.</td></tr>
             </tbody>
