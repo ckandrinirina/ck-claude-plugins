@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.10.1",
+      "softwareVersion": "7.10.2",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -164,7 +164,7 @@
           <div class="fcard reveal"><h3>Views out of git</h3><p><code>STORIES_INDEX.md</code> and <code>EPICS_INDEX.md</code> are regenerated at every session start and on every read. They are never committed, so no state change needs a commit of its own and parallel worktrees never conflict on them.</p></div>
           <div class="fcard reveal"><h3>A record per plan</h3><p>Each plan carries an <code>OVERVIEW.md</code> with its integration level (a PR per story, per epic, or one for the plan), branch, PR and issue. <code>plan</code> asks the level once; <code>build</code> never asks it again.</p></div>
           <div class="fcard reveal"><h3>Epic numbers safe across teammates</h3><p>A plan still in a PR, or planned at the same moment on another machine, never gets your epic number. <code>plan</code> reserves each new epic (and each <code>--quick</code> story) on the git remote with one atomic push, so the server decides every race: the second planner simply takes the next number, and nobody waits. Offline, it falls back to scanning every branch and warns. If a clash still slips through, the next <code>plan</code>, <code>build</code> or <code>doctor --fix</code> renumbers the losing side automatically, as long as its epic has not started.</p></div>
-          <div class="fcard reveal"><h3>A stable version stamp</h3><p><code>tasks/VERSION.md</code> reads <code>layout: v7</code> and <code>requires: ck-code &gt;= 7.0.0</code>. Updating the plugin never dirties your tree, and a teammate on an older plugin is told to update, never to migrate.</p></div>
+          <div class="fcard reveal"><h3>A stable version stamp</h3><p><code>tasks/VERSION.md</code> reads <code>layout: v7</code> and <code>requires: ck-code &gt;= 7.0.0</code>. Updating the plugin never dirties your tree, and a teammate on an older plugin is told to update, never to migrate. A ck-code-lite project is refused as the wrong plugin, with the <code>/ck-code-lite:</code> command to use instead.</p></div>
           <div class="fcard reveal"><h3>One command to repair drift</h3><p><code>/ck-code:doctor --fix</code> asks GitHub about every recorded PR, records work merged with no PR, moves the board cards and closes delivered issues, with or without a Projects board.</p></div>
           <div class="fcard reveal"><h3>Experts that know they are stale</h3><p>Each generated expert and guide records the tech stack it was written against. When the stack changes, in the docs or in the code (a package migration, a major bump), <code>/ck-code:doctor</code>, the session start and <code>/ck-code:ship</code> name the stale ones, and <code>/ck-code:team --refresh</code> updates just those, after one approval. A new dependency or a minor bump never triggers it.</p></div>
           <div class="fcard reveal"><h3>Fewer questions, fewer retypes</h3><p><code>ship</code> asks once, covering files, message and PR target. <code>fix</code> asks nothing when given a story, and <code>design</code> and <code>plan</code> find what the previous step wrote. The hand-off chain runs from spec to published plan without a retype.</p></div>
