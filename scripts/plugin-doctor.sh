@@ -298,6 +298,20 @@ check_manifest() {
   fi
 }
 
+# A plugin with a mod (a `modules` key in hooks/hooks.json) ships its tests beside it:
+# `claude plugin test` runs every *.test.ts[x] against the engine itself, offline. A mod
+# whose hooks fail there fails in every session, so a red run blocks the release.
+check_mod_tests() {
+  local plugin="$1" out
+  grep -q '"modules"' "$plugin/hooks/hooks.json" 2>/dev/null || return 0
+  command -v claude >/dev/null 2>&1 || { row "mod tests" "claude CLI not on PATH — skipped" WARN; return 0; }
+  if out=$(cd "$plugin" && claude plugin test . 2>&1); then
+    row "mod tests" "$(printf '%s' "$out" | grep -E '^ *[0-9]+ pass' | tr -s ' ' | sed 's/^ //')" OK
+  else
+    row "mod tests" "$(printf '%s' "$out" | grep -E '^[(]fail[)]|^ *[0-9]+ fail' | head -2 | tr '\n' ' ' | cut -c1-100)" ERROR
+  fi
+}
+
 # Executables in bin/ are added to the Bash tool's PATH. A non-executable file there is
 # invisible at runtime with no error, and every skill that calls it as a bare command fails.
 check_bin() {
@@ -426,6 +440,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_marketplace_ref "$plugin"
   check_bin            "$plugin"
   check_manifest       "$plugin"
+  check_mod_tests      "$plugin"
   check_skill_interop  "$plugin"
   echo
 done
