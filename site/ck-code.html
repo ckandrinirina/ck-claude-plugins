@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.14.3",
+      "softwareVersion": "7.15.0",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -202,7 +202,7 @@
           <div class="fcard reveal"><h3>Whole-feature manual testing</h3><p><code>/ck-code:verify</code> turns every story's human check and every cross-story flow into one checklist, then walks you through it with steps precise enough for a tester who has never seen the code. A pass ticks the story; an issue is handed to <code>fix</code> in your own words.</p></div>
           <div class="fcard reveal"><h3>A checklist that keeps its state</h3><p>Each item is a Markdown file with YAML frontmatter, grouped in a folder per epic like the stories. The test session is saved too, so stopping mid-way loses nothing and a new chat resumes at the next item.</p></div>
           <div class="fcard reveal"><h3>Scripted, not re-derived</h3><p><code>ck-checklist</code> allocates IDs, records answers, keeps the previous result and orders the session epic by epic. The model writes test steps; the script owns the state, and a smoke suite tests it.</p></div>
-          <div class="fcard reveal"><h3>QA that runs once</h3><p><code>ck-qa</code> runs each build, test and lint command once per code state and lets a later QA step reuse a result on an identical tree. A story checks only the tests its diff affects; the full suite runs once per wave.</p></div>
+          <div class="fcard reveal"><h3>QA that runs once</h3><p><code>ck-qa</code> runs each build, test and lint command once per code state and lets a later QA step reuse a result on an identical tree. Scope comes from <code>ck-affected</code>, a script: a story runs only the tests its diff can reach, up the import chain, and the backstop runs each <em>area</em> the change touches — a backoffice change never runs the client&rsquo;s suite.</p></div>
           <div class="fcard reveal"><h3>Tighter TDD</h3><p>One behaviour per red-green cycle, a test-prune scan in the refactor step, and a lint pass on only the files a story touched. Faster loops, the same guarantees.</p></div>
           <div class="fcard reveal"><h3>Promotion that asks first</h3><p><code>ship --promote</code> warns while the plan's checklist still has open items: promote anyway, or stop and finish testing with <code>/ck-code:verify</code>.</p></div>
         </div>
