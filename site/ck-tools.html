@@ -44,8 +44,8 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "2.3.1",
-      "dateModified": "2026-09-30",
+      "softwareVersion": "2.4.0",
+      "dateModified": "2026-10-14",
       "isAccessibleForFree": true,
       "offers": {
         "@type": "Offer",
@@ -185,6 +185,30 @@
       </div>
     </section>
 
+    <!-- PLAN-LIMIT BAND -->
+    <section class="section section--tight" id="usage">
+      <div class="wrap">
+        <div class="shead reveal"><span class="eyebrow">Plan-limit band</span><h2>Your 5-hour and weekly limits, always in sight</h2><p>A mod draws one row above the prompt: how much of each window you have used, whether your pace is safe or will run out before the reset, and when it resets.</p></div>
+        <div class="snippet reveal" style="margin-top:30px; overflow-x:auto"><code>5h ██░░░░░░ 20% ✓ safe · ~49% at reset · resets 2h57m &nbsp;&nbsp; 7d █████░░░ 61% ✓ safe · ~71% at reset · resets 22h57m</code></div>
+        <div class="table-wrap reveal" style="margin-top:22px">
+          <table>
+            <thead><tr><th>Verdict</th><th>Means</th></tr></thead>
+            <tbody>
+              <tr><td><code>✓ safe · ~49% at reset</code></td><td>At the pace so far, the window ends under 85%.</td></tr>
+              <tr><td><code>⚠ tight · ~96% at reset</code></td><td>It ends between 85% and 100%.</td></tr>
+              <tr><td><code>✗ out in 1h30m</code></td><td>It runs out before the reset, in that long.</td></tr>
+              <tr><td><code>✗ limit hit</code></td><td>The window is used up.</td></tr>
+              <tr><td><code>/usage-pace</code> · <code>/usage-band</code></td><td>The full report, and hide or show the band. No model turn.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p><strong>Pace</strong> is use divided by the share of the window that has passed: 40% used one hour into a 5-hour window runs out in 1h30m. Each window toasts once at 80% and 95% (<code>usage_alert_at</code>) and once when the pace will run it out. The figures exist on a claude.ai Pro or Max plan, after a session's first response; the last one is kept, so a new session shows it at once. Enable ck-tools in <code>~/.claude/settings.json</code> to see the band in every session; ck-code's and ck-code-lite's bands draw under it. Turn it off with the <code>usage_band</code> setting.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- PRINCIPLES -->
     <section class="section section--tight">
       <div class="wrap">
@@ -236,7 +260,7 @@
         </div>
         <div class="callout reveal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-          <p>Like ck-code, ck-tools stays dormant until a project enables it. Add <code>"enabledPlugins": { "ck-tools@ck-marketplace": true }</code> to that project's <code>.claude/settings.json</code>.</p>
+          <p>Like ck-code, ck-tools stays dormant until a project enables it. Add <code>"enabledPlugins": { "ck-tools@ck-marketplace": true }</code> to that project's <code>.claude/settings.json</code>, or to <code>~/.claude/settings.json</code> to have it, and its <a href="#usage">plan-limit band</a>, in every session.</p>
         </div>
       </div>
     </section>
