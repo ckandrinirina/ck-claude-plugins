@@ -12,7 +12,7 @@ Install: `/plugin marketplace add ckandrinirina/ck-code`, then `/plugin install 
 
 ## ck-code commands
 
-init, spec, design, team, plan, track, build, fix, verify, ship, explain, guide, doctor, config, migrate — each invoked as `/ck-code:<name>`. The ck-code mod (Claude Code ≥ 2.1.287) adds commands that print with no model turn — `/ck-status`, `/ck-next`, `/ck-progress`, `/ck-waves NN`, `/ck-check` — plus `/ck-agents` (live agents pane), `/ck-verify-pane` (checklist with buttons), `/ck-band` (the story band above the prompt; the session also compacts itself after a wave run) and `/ck-profile` (time and tokens per skill).
+init, spec, design, team, plan, track, build, fix, verify, ship, explain, guide, doctor, config, migrate — each invoked as `/ck-code:<name>`. The ck-code mod (Claude Code ≥ 2.1.287) adds commands that print with no model turn — `/ck-status`, `/ck-next`, `/ck-progress`, `/ck-waves NN`, `/ck-check` — plus `/ck-agents` (live agents pane), `/ck-verify-pane` (checklist with buttons), `/ck-band` (the story band above the prompt; the session also compacts itself after a wave run) and `/ck-profile` (time and tokens per skill); its cost guard caps effort at high, asks before any Fable dispatch, and code search and research run on Haiku agents (`context-scout`, `researcher`).
 
 ## Source and releases
 
