@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.6.1",
+      "softwareVersion": "1.6.2",
       "dateModified": "2026-09-30",
       "isAccessibleForFree": true,
       "offers": {
@@ -262,7 +262,7 @@
               <tr><td><code>/ck-code-lite:design</code></td><td>Design the UI with Claude Design before building it. With no argument or an idea, it describes the product with you and writes the paste-ready brief (<code>docs/design-brief.md</code>, copied to the clipboard). With a <code>claude.ai/design</code> URL, it links the design system and caches every token and card under <code>docs/design-system/</code>. Run it again to refresh the cache.</td></tr>
               <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end — optional task ID such as <code>T-03</code>, or several IDs or <code>--waves</code> to build independent tasks at once in dependency-ordered waves. Add <code>--auto</code> to run the waves unattended: every question takes its recommended answer, QA still gates every merge, and the manual checks arrive as one checklist at the end. Once a wave run ends with no task left in progress, the mod compacts the session. With no argument it picks the next ready task interactively.</td></tr>
               <tr><td><code>/ck-code-lite:ship</code></td><td>Commit and open or update a PR. Optional task ID; runs standalone on any git repo when there is no plan.</td></tr>
-              <tr><td><code>/lite-status</code> · <code>/lite-waves</code> · <code>/lite-check</code> · <code>/lite-band</code></td><td>The mod&rsquo;s commands with no model turn: open tasks and counts, the wave plan, a plan check, and the band above the prompt (a progress bar, the task in progress, the next build) on or off. A toast cheers each finished task, and the whole plan.</td></tr>
+              <tr><td><code>/lite-status</code> · <code>/lite-waves</code> · <code>/lite-check</code> · <code>/lite-band</code></td><td>The mod&rsquo;s commands with no model turn: open tasks and counts, the wave plan, a plan check, and the band above the prompt (a progress bar, the task in progress, the next build) on or off. A toast cheers each finished task, and the whole plan. In the default TUI, <kbd>ctrl+x tab</kbd> focuses the band, then <kbd>u</kbd> or <kbd>h</kbd> presses Use or Hide.</td></tr>
             </tbody>
           </table>
         </div>
