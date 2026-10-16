@@ -64,7 +64,8 @@ check_frontmatter() {
 
   local out
   if command -v ruby >/dev/null 2>&1; then
-    out=$(printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 ruby -ryaml -e '
+    local rc_file; rc_file=$(mktemp)
+    out=$(printf '%s\n' "$files" | tr '\n' '\0' | { xargs -0 ruby -ryaml -e '
       ARGV.each do |f|
         fm = File.read(f)[/\A---\n(.*?)\n---\n/m, 1]
         (puts "#{f}: no frontmatter fence"; next) if fm.nil?
@@ -72,10 +73,16 @@ check_frontmatter() {
           d = YAML.safe_load(fm)
           puts "#{f}: frontmatter is not a mapping" unless d.is_a?(Hash)
           puts "#{f}: missing name" if d.is_a?(Hash) && d["name"].to_s.empty?
+          puts "#{f}: missing description" if d.is_a?(Hash) && d["description"].to_s.strip.empty?
         rescue => e
           puts "#{f}: #{e.message.lines.first.strip}"
         end
-      end')
+      end' 2>&1; echo $? >"$rc_file"; })
+    # A ruby crash (or xargs failing to run it) must not read as a clean pass.
+    if [ "$(cat "$rc_file")" != "0" ]; then
+      out=$(printf '%s\n%s\n' "$out" "ruby exited non-zero while checking frontmatter" | sed '/^$/d')
+    fi
+    rm -f "$rc_file"
   else
     # No ruby: fall back to the one rule that actually breaks in practice.
     out=$(printf '%s\n' "$files" | while IFS= read -r f; do
@@ -326,6 +333,46 @@ check_bin() {
   return 0
 }
 
+# A hook command the loader cannot exec fails silently at run time. Every script a plugin's
+# hooks/hooks.json runs through ${CLAUDE_PLUGIN_ROOT} must carry the executable bit (-x, as
+# check_bin does). Interpreter-prefixed commands (bash x.sh) only need to exist.
+check_hook_scripts() {
+  local plugin="$1" cfg="$1/hooks/hooks.json" cmds c rel f n=0 bad=0 first
+  [ -f "$cfg" ] || return 0
+  cmds=$(python3 - "$cfg" <<'PY'
+import json, sys
+def walk(o):
+    if isinstance(o, dict):
+        if isinstance(o.get("command"), str):
+            print(o["command"])
+        for v in o.values():
+            walk(v)
+    elif isinstance(o, list):
+        for v in o:
+            walk(v)
+walk(json.load(open(sys.argv[1])))
+PY
+) || { row hooks "hooks.json is not valid JSON" ERROR; return 0; }
+  while IFS= read -r c; do
+    [ -z "$c" ] && continue
+    case "$c" in *CLAUDE_PLUGIN_ROOT*) ;; *) continue ;; esac
+    rel=$(printf '%s' "$c" | sed -n 's/.*CLAUDE_PLUGIN_ROOT}*"*\(\/[^" ]*\).*/\1/p')
+    [ -z "$rel" ] && continue
+    f="$plugin$rel"
+    n=$((n+1))
+    first=$(printf '%s' "$c" | awk '{print $1}')
+    if [ ! -e "$f" ]; then
+      bad=$((bad+1)); row "hooks" "$rel referenced from hooks.json does not exist" ERROR
+    elif [ ! -x "$f" ] && case "$first" in *CLAUDE_PLUGIN_ROOT*) true ;; *) false ;; esac; then
+      bad=$((bad+1)); row "hooks" "$rel is run directly by hooks.json but is not executable (chmod +x)" ERROR
+    fi
+  done <<EOF
+$cmds
+EOF
+  [ "$bad" -eq 0 ] && [ "$n" -gt 0 ] && row "hooks" "$n hook script(s) present and executable" OK
+  return 0
+}
+
 # The cross-skill invocation contract (ck-code/references/skill-invocation.md).
 # Every check here exists because the defect it catches actually shipped:
 #   targets   — a hand-off naming a skill that does not exist is a dead end.
@@ -366,6 +413,13 @@ targets = set()
 for f in glob.glob(f'{plugin}/**/*.md', recursive=True):
     for m in CALL.finditer(open(f).read()):
         targets.add((m.group(1), m.group(2), f))
+
+# Prose hand-offs: invoke the `name` skill via the `Skill` tool. An unqualified name means
+# this plugin. Same two checks as above (target exists, target is model-invocable).
+PROSE = re.compile(r'[Ii]nvoke\s+(?:the\s+)?(?:existing\s+)?`(?:([\w-]+):)?([\w-]+)`\s+skill\s+via\s+the\s+`Skill`\s+tool')
+for f in glob.glob(f'{plugin}/**/*.md', recursive=True):
+    for m in PROSE.finditer(open(f).read()):
+        targets.add((m.group(1) or os.path.basename(os.path.abspath(plugin)), m.group(2), f))
 
 bad_target, bad_reach, bad_allowed, bad_readonly = [], [], [], []
 
@@ -439,6 +493,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_layout_const   "$plugin"
   check_marketplace_ref "$plugin"
   check_bin            "$plugin"
+  check_hook_scripts   "$plugin"
   check_manifest       "$plugin"
   check_mod_tests      "$plugin"
   check_skill_interop  "$plugin"
