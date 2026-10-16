@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ck-code-lite — Lightweight TDD Workflow for Claude Code</title>
-  <meta name="description" content="ck-code-lite is a free four-skill Claude Code plugin: design first with Claude Design, a flat task plan, test-first builds with isolated QA, then a PR." />
+  <meta name="description" content="ck-code-lite is a free five-skill Claude Code plugin: design first with Claude Design, a flat task plan, test-first builds with isolated QA, then a PR." />
   <meta name="keywords" content="ck-code-lite, Claude Code plugin, TDD, lightweight workflow, task plan, architecture doc, fast prototyping, red green refactor" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html" />
@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.7.0",
+      "softwareVersion": "1.8.0",
       "dateModified": "2026-10-14",
       "isAccessibleForFree": true,
       "offers": {
@@ -121,7 +121,7 @@
       <div data-stagger>
         <div class="crumb"><a href="index.html">ck/plugins</a> <span>/</span> <span style="color:var(--clay)">ck-code-lite</span></div>
         <span class="eyebrow">The fast path</span>
-        <h1>Four skills. Two files. Ship anyway.</h1>
+        <h1>Five skills. Two files. Ship anyway.</h1>
         <p class="lede">Describe what you want, get an architecture doc and a flat task list, then build tasks one at a time — each with a <strong style="color:var(--text)">failing test first</strong>, an <strong style="color:var(--text)">isolated QA pass</strong>, and your own <strong style="color:var(--text)">hands-on sign-off</strong> before it counts as done. Speed comes from deleting ceremony, not from deleting checks.</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="#install">Install ck-code-lite
@@ -136,8 +136,8 @@
     <section class="section section--tight" id="skills">
       <div class="wrap">
         <div class="shead reveal">
-          <span class="eyebrow">Four skills</span>
-          <h2>start → design → build → ship</h2>
+          <span class="eyebrow">Five skills</span>
+          <h2>start → design → build → ship → release</h2>
           <p>A strict linear order with nothing to route between — <code>design</code> only when there is a UI to draw. Works on Node, Rust, Python, Go, Ruby, PHP and C/C++ — the stack is resolved from your manifest and lockfile, then written down once so it is never guessed again.</p>
         </div>
         <div class="skills">
@@ -170,6 +170,13 @@
             <p>Conventional commit with a body a non-engineer can read, then opens a pull request — or appends to the one already open rather than overwriting it. Resolves the base branch from the remote default instead of asking. Works standalone on any git repo, with or without a plan behind it.</p>
             <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:ship</code>
               <button class="copy-btn" data-copy="/ck-code-lite:ship" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">release</span><span class="skill__when">// when: a new version should go out</span></div>
+            <p>Releases the way your project does it, from a short recipe in <code>docs/RELEASE.md</code> drafted on the first run: version files and changelog in a release PR, the merge (or one question when only you can merge), the tag, and the build started where it really runs, even a public build repo when the private one has no Actions minutes. Lessons learned in one project are reused by the others on your machine.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:release</code>
+              <button class="copy-btn" data-copy="/ck-code-lite:release" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
             </div>
           </article>
         </div>
@@ -262,6 +269,7 @@
               <tr><td><code>/ck-code-lite:design</code></td><td>Design the UI with Claude Design before building it. With no argument or an idea, it describes the product with you and writes the paste-ready brief (<code>docs/design-brief.md</code>, copied to the clipboard). With a <code>claude.ai/design</code> URL, it links the design system and caches every token and card under <code>docs/design-system/</code>. Run it again to refresh the cache.</td></tr>
               <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end — optional task ID such as <code>T-03</code>, or several IDs or <code>--waves</code> to build independent tasks at once in dependency-ordered waves. Add <code>--auto</code> to run the waves unattended: every question takes its recommended answer, QA still gates every merge, and the manual checks arrive as one checklist at the end. Once a wave run ends with no task left in progress, the mod compacts the session. With no argument it picks the next ready task interactively.</td></tr>
               <tr><td><code>/ck-code-lite:ship</code></td><td>Commit and open or update a PR. Optional task ID; runs standalone on any git repo when there is no plan.</td></tr>
+              <tr><td><code>/ck-code-lite:release</code></td><td>Publish a new version the project's way: bump, release PR, tag, and the build where it really runs. Optional <code>X.Y.Z</code> or <code>patch</code>/<code>minor</code>/<code>major</code>.</td></tr>
               <tr><td><code>/lite-status</code> · <code>/lite-waves</code> · <code>/lite-check</code> · <code>/lite-band</code></td><td>The mod&rsquo;s commands with no model turn: open tasks and counts, the wave plan, a plan check, and the band above the prompt (a progress bar, the task in progress, the next build) on or off. A toast cheers each finished task, and the whole plan. In the default TUI, <kbd>ctrl+x tab</kbd> focuses the band, then <kbd>u</kbd> or <kbd>h</kbd> presses Use or Hide.</td></tr>
             </tbody>
           </table>
