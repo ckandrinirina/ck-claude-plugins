@@ -387,6 +387,19 @@ EOF
 # `allowed`/`readonly` are scoped to ck-code: it is the plugin that adopted the
 # contract, and ck-tools / ck-code-lite must not be failed by a rule they never took on.
 CONTRACT_PLUGIN='ck-code'
+check_shared_copies() {
+  # files each plugin ships its own copy of — the two must stay byte-identical
+  local plugin="$1" mine other
+  case "$plugin" in
+    ck-code)      mine="ck-code/scripts/ck-replicate.mjs"; other="ck-code-lite/bin/ck-lite-replicate" ;;
+    ck-code-lite) mine="ck-code-lite/bin/ck-lite-replicate"; other="ck-code/scripts/ck-replicate.mjs" ;;
+    *) return 0 ;;
+  esac
+  [ -f "$mine" ] && [ -f "$other" ] || return 0
+  if cmp -s "$mine" "$other"; then row "shared copy" "replicate engine identical" OK
+  else row "shared copy" "replicate engine differs from the other plugin's" ERROR; fi
+}
+
 check_skill_interop() {
   local plugin="$1" res
   res=$(PLUGIN="$plugin" CONTRACT="$CONTRACT_PLUGIN" python3 - <<'PY'
@@ -497,6 +510,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_manifest       "$plugin"
   check_mod_tests      "$plugin"
   check_skill_interop  "$plugin"
+  check_shared_copies  "$plugin"
   echo
 done
 
