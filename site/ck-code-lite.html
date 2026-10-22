@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.13.0",
+      "softwareVersion": "1.14.0",
       "dateModified": "2026-10-16",
       "isAccessibleForFree": true,
       "offers": {
@@ -151,7 +151,7 @@
 
           <article class="skill reveal">
             <div class="skill__top"><span class="skill__name">design</span><span class="skill__when">// when: a UI should be designed before it is built</span></div>
-            <p>Offered once by <code>start</code> on any project with a UI. Claude describes the product back to you, asks only what the design depends on, and writes <code>docs/design-brief.md</code>: a complete prompt for <a href="https://claude.ai/design">claude.ai/design</a> with real screens, real content, every empty, loading and error state, and output conventions the plugin reads back. The prompt lands on your clipboard. Paste the finished design system's URL back and every token and card is cached in the repo. UI tasks then port each component exactly, and QA fails any hard-coded value a token covers. Want an existing app copied instead? <code>/ck-code-lite:design replicate &lt;source&gt;</code> captures a website, an Electron or macOS app, an Android or iOS screen or a CLI — Node and Chrome only, no install — writes a <code>REPLICA.md</code> spec with every screen, flow and captured token, and each UI task diffs its screenshot against the reference and fixes what differs.</p>
+            <p>Offered once by <code>start</code> on any project with a UI. Claude describes the product back to you, asks only what the design depends on, and writes <code>docs/design-brief.md</code>: a complete prompt for <a href="https://claude.ai/design">claude.ai/design</a> with real screens, real content, every empty, loading and error state, and output conventions the plugin reads back. The prompt lands on your clipboard. Paste the finished design system's URL back and every token and card is cached in the repo. UI tasks then port each screen and component exactly — no value rounded to a token, nothing added or dropped — screenshot the card and the built screen, diff them and fix what differs; QA fails any hard-coded value, any value off its card and any difference left over. Want an existing app copied instead? <code>/ck-code-lite:design replicate &lt;source&gt;</code> captures a website, an Electron or macOS app, an Android or iOS screen or a CLI — Node and Chrome only, no install — writes a <code>REPLICA.md</code> spec with every screen, flow and captured token, and each UI task diffs its screenshot against the reference and fixes what differs.</p>
             <div class="snippet"><code><span class="pr">$</span> /ck-code-lite:design</code>
               <button class="copy-btn" data-copy="/ck-code-lite:design" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
             </div>
