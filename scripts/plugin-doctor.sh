@@ -398,6 +398,12 @@ check_shared_copies() {
   [ -f "$mine" ] && [ -f "$other" ] || return 0
   if cmp -s "$mine" "$other"; then row "shared copy" "replicate engine identical" OK
   else row "shared copy" "replicate engine differs from the other plugin's" ERROR; fi
+  # the CPU-slot block inside the two QA scripts: one machine-wide queue, one protocol
+  local qa_code="ck-code/scripts/ck-qa.sh" qa_lite="ck-code-lite/bin/ck-lite-qa" slots='/^# >>> ck-cpu-slots/,/^# <<< ck-cpu-slots/p'
+  [ -f "$qa_code" ] && [ -f "$qa_lite" ] || return 0
+  if [ -n "$(sed -n "$slots" "$qa_code")" ] && [ "$(sed -n "$slots" "$qa_code")" = "$(sed -n "$slots" "$qa_lite")" ]; then
+    row "shared copy" "ck-cpu-slots block identical in both QA scripts" OK
+  else row "shared copy" "ck-cpu-slots block differs between ck-qa.sh and ck-lite-qa" ERROR; fi
 }
 
 check_skill_interop() {

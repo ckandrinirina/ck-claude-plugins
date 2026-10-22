@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.21.2",
+      "softwareVersion": "7.22.0",
       "dateModified": "2026-10-16",
       "isAccessibleForFree": true,
       "offers": {
@@ -206,6 +206,7 @@
           <div class="fcard reveal"><h3>Tighter TDD</h3><p>One behaviour per red-green cycle, a test-prune scan in the refactor step, and a lint pass on only the files a story touched. Faster loops, the same guarantees.</p></div>
           <div class="fcard reveal"><h3>Promotion that asks first</h3><p><code>ship --promote</code> warns while the plan's checklist still has open items: promote anyway, or stop and finish testing with <code>/ck-code:verify</code>.</p></div>
           <div class="fcard reveal"><h3>Quick builds for cosmetic stories</h3><p>A size-<code>S</code> story that only changes a label, copy, a style or a constant takes the QUICK route: no expert skills, SOLID write-up or refactor scans, and QA verified with one <code>ck-qa --reuse</code> line instead of a second agent. A test asserting the old value still goes red first, every QA command still runs, and the builder steps back to the full route by itself when the diff grows. <code>--full</code> opts out.</p></div>
+          <div class="fcard reveal"><h3>Parallel builds share the CPU</h3><p>Every <code>ck-qa</code> run on the machine — any project, any worktree, ck-code-lite too — takes one of <code>CK_QA_SLOTS</code> CPU slots first (default cores ÷ 8). Three worktrees building at once take turns instead of each using every core; CMake and cargo get the slot's share of the cores, an installed ccache serves every worktree's cold C/C++ build, and commands run under <code>nice</code>.</p></div>
           <div class="fcard reveal"><h3>Tests never take your focus</h3><p>No e2e run opens a browser or app window in front of you. <code>ck-headless</code> finds headed Playwright, Puppeteer and Cypress setups and Electron suites, and <code>build</code> converts each in its own <code>test(e2e)</code> commit before any story code; <code>ck-qa</code> runs every command with <code>E2E_HEADLESS=1</code>.</p></div>
           <div class="fcard reveal"><h3>Tells you when it is out of date</h3><p>When the marketplace serves a newer ck-code than the one your session loaded, a toast and a row above the prompt say so, with the <code>/plugin update ck-code@ck-marketplace</code> to run. Checked at most every 6 hours; the <code>update_check</code> setting turns it off.</p></div>
         </div>
