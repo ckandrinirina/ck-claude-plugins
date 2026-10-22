@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "2.5.1",
+      "softwareVersion": "2.6.0",
       "dateModified": "2026-10-16",
       "isAccessibleForFree": true,
       "offers": {
@@ -137,7 +137,7 @@
     <section class="section section--tight" id="skills">
       <div class="wrap">
         <div class="shead reveal">
-          <span class="eyebrow">Five skills</span>
+          <span class="eyebrow">Seven skills</span>
           <h2>Composable, audit-trail-first utilities</h2>
           <p>Works with Go, Node, Python, Rust, Java and more. Skills detect your package manager, framework and conventions before acting, and ask before touching anything remote.</p>
         </div>
@@ -179,6 +179,22 @@
             <p>Diff source vs. target branch, summarize PRs in plain language for non-developers, update <code>CHANGELOG.md</code> with PR links, bump the version file (<code>package.json</code> / <code>pyproject.toml</code> / <code>Cargo.toml</code> / <code>VERSION</code>), and print an annotated <code>git tag</code> command. Multi-language output. Never auto-commits, pushes or tags.</p>
             <div class="snippet"><code><span class="pr">$</span> /ck-tools:release-prep dev main --lang=en</code>
               <button class="copy-btn" data-copy="/ck-tools:release-prep dev main --lang=en" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">review-guide</span><span class="skill__when">// when: a PR is too big to review in one pass</span></div>
+            <p>A one-screen map tiers every file — read closely, skim, skip — and points at the hot spots, then walks you through small dependency-ordered steps: intent, the hunks, what to check, questions you should be able to answer. Resumable across sessions; notes post to the PR only on your yes.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-tools:review-guide 123</code>
+              <button class="copy-btn" data-copy='/ck-tools:review-guide 123' aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">understand</span><span class="skill__when">// when: you need to get code, a spec or an error fast</span></div>
+            <p>Explains anything as a step-by-step guide — TL;DR first, a map, a numbered walkthrough with <code>file:line</code> references, pitfalls and self-check questions — in your language. <code>--quick</code> or <code>--deep</code>.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-tools:understand src/billing --lang fr</code>
+              <button class="copy-btn" data-copy='/ck-tools:understand src/billing --lang fr' aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
             </div>
           </article>
         </div>
@@ -241,6 +257,8 @@
               <tr><td><code>/ck-tools:release-prep</code></td><td>Prepare a release from source → target branch. Flags: <code>--lang</code>, <code>--bump</code>, <code>--prerelease</code>, <code>--dry-run</code>.</td></tr>
               <tr><td><code>/ck-tools:bmad-guide</code></td><td>Orient yourself in a BMAD Method project. Detects the installed BMAD version, explains the flow, says where you are and which workflow to run next. Optional task or question, e.g. <code>add payments to my app</code>.</td></tr>
               <tr><td><code>/ck-tools:showcase</code></td><td>Generate a modern presentation or landing website for your product from its docs or codebase, and optionally deploy it to a free host.</td></tr>
+              <tr><td><code>/ck-tools:review-guide</code></td><td>Guided, resumable review of a large PR, branch, commit range or <code>--staged</code> diff in small ordered steps. Flags: <code>--resume</code>, <code>--lang</code>.</td></tr>
+              <tr><td><code>/ck-tools:understand</code></td><td>Explain a file, codebase, spec, diff, error, config, command or concept step by step, in your language. Flags: <code>--quick</code>, <code>--deep</code>, <code>--lang</code>.</td></tr>
             </tbody>
           </table>
         </div>
