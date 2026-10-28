@@ -404,6 +404,11 @@ check_shared_copies() {
   if [ -n "$(sed -n "$slots" "$qa_code")" ] && [ "$(sed -n "$slots" "$qa_code")" = "$(sed -n "$slots" "$qa_lite")" ]; then
     row "shared copy" "ck-cpu-slots block identical in both QA scripts" OK
   else row "shared copy" "ck-cpu-slots block differs between ck-qa.sh and ck-lite-qa" ERROR; fi
+  # the disk-hygiene block: same log pruning and the same Docker ownership rules in both
+  local hyg='/^# >>> ck-qa-hygiene/,/^# <<< ck-qa-hygiene/p'
+  if [ -n "$(sed -n "$hyg" "$qa_code")" ] && [ "$(sed -n "$hyg" "$qa_code")" = "$(sed -n "$hyg" "$qa_lite")" ]; then
+    row "shared copy" "ck-qa-hygiene block identical in both QA scripts" OK
+  else row "shared copy" "ck-qa-hygiene block differs between ck-qa.sh and ck-lite-qa" ERROR; fi
 }
 
 check_skill_interop() {
