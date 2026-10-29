@@ -409,6 +409,34 @@ check_shared_copies() {
   if [ -n "$(sed -n "$hyg" "$qa_code")" ] && [ "$(sed -n "$hyg" "$qa_code")" = "$(sed -n "$hyg" "$qa_lite")" ]; then
     row "shared copy" "ck-qa-hygiene block identical in both QA scripts" OK
   else row "shared copy" "ck-qa-hygiene block differs between ck-qa.sh and ck-lite-qa" ERROR; fi
+  # the wait-loop reaper: the same "only this session, only a QA wait loop" rules in both
+  local reap='/^# >>> ck-qa-reap/,/^# <<< ck-qa-reap/p'
+  if [ -n "$(sed -n "$reap" "$qa_code")" ] && [ "$(sed -n "$reap" "$qa_code")" = "$(sed -n "$reap" "$qa_lite")" ]; then
+    row "shared copy" "ck-qa-reap block identical in both QA scripts" OK
+  else row "shared copy" "ck-qa-reap block differs between ck-qa.sh and ck-lite-qa" ERROR; fi
+  # the agent-worktree lock and sweep rules: ck-worktree.sh and ck-lite
+  local wt='/^# >>> ck-wt/,/^# <<< ck-wt/p' wt_code="ck-code/scripts/ck-worktree.sh" wt_lite="ck-code-lite/bin/ck-lite"
+  if [ -n "$(sed -n "$wt" "$wt_code")" ] && [ "$(sed -n "$wt" "$wt_code")" = "$(sed -n "$wt" "$wt_lite")" ]; then
+    row "shared copy" "ck-wt block identical in ck-worktree.sh and ck-lite" OK
+  else row "shared copy" "ck-wt block differs between ck-worktree.sh and ck-lite" ERROR; fi
+}
+
+# The bug reporter ships in all three plugins and must stay byte-identical: one scrub, one
+# detector, one filing path. It derives the plugin from the plugin.json above it.
+check_shared_reporter() {
+  local plugin="$1" mine f
+  case "$plugin" in
+    ck-code) mine="ck-code/scripts/ck-report.sh" ;;
+    ck-code-lite) mine="ck-code-lite/bin/ck-lite-report" ;;
+    ck-tools) mine="ck-tools/bin/ck-tools-report" ;;
+    *) return 0 ;;
+  esac
+  [ -f "$mine" ] || { row "shared copy" "bug reporter $mine missing" ERROR; return 0; }
+  for f in ck-code/scripts/ck-report.sh ck-code-lite/bin/ck-lite-report ck-tools/bin/ck-tools-report; do
+    [ -f "$f" ] || continue
+    cmp -s "$mine" "$f" || { row "shared copy" "bug reporter differs from $f" ERROR; return 0; }
+  done
+  row "shared copy" "bug reporter identical in every plugin" OK
 }
 
 check_skill_interop() {
@@ -522,6 +550,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_mod_tests      "$plugin"
   check_skill_interop  "$plugin"
   check_shared_copies  "$plugin"
+  check_shared_reporter "$plugin"
   echo
 done
 
