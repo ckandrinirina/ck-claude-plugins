@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.16.1",
+      "softwareVersion": "1.17.1",
       "dateModified": "2026-10-16",
       "isAccessibleForFree": true,
       "offers": {
@@ -274,6 +274,7 @@
               <tr><td><code>/ck-code-lite:design</code></td><td>Design the UI with Claude Design before building it. With no argument or an idea, it describes the product with you and writes the paste-ready brief (<code>docs/design-brief.md</code>, copied to the clipboard). With a <code>claude.ai/design</code> URL, it links the design system and caches every token and card under <code>docs/design-system/</code>. Run it again to refresh the cache. With <code>replicate &lt;url | app | cli cmd | path&gt;</code>, it captures an existing website, Electron or macOS app, Android or iOS screen, or CLI into <code>docs/replica/&lt;slug&gt;/REPLICA.md</code> — screens, flows, captured tokens, components — for <code>start</code> to plan screen by screen.</td></tr>
               <tr><td><code>/ck-code-lite:build</code></td><td>Implement one task end to end — optional task ID such as <code>T-03</code>, several IDs, <code>--group [name]</code> (one feature and the unfinished tasks it needs, nothing else; with no name, the next feature with ready work) or <code>--waves</code> (the whole plan) to build independent tasks at once in dependency-ordered waves. Add <code>--auto</code> to run unattended — alone it builds the next feature with ready work, never the whole plan: every question takes its recommended answer, QA still gates every merge, and the manual checks arrive as one checklist at the end. Once a wave run ends with no task left in progress, the mod compacts the session. With no argument it picks the next ready task interactively.</td></tr>
               <tr><td><code>/ck-code-lite:ship</code></td><td>Commit and open or update a PR. Optional task ID; runs standalone on any git repo when there is no plan.</td></tr>
+              <tr><td><code>/ck-code-lite:report</code></td><td>Report a bug in ck-code-lite itself as a scrubbed GitHub issue, filed after one yes. A hook spots crashes in the plugin's own scripts and offers it automatically.</td></tr>
               <tr><td><code>/ck-code-lite:release</code></td><td>Publish a new version the project's way: bump, release PR, tag, and the build where it really runs. Optional <code>X.Y.Z</code> or <code>patch</code>/<code>minor</code>/<code>major</code>.</td></tr>
               <tr><td><code>/lite-status</code> · <code>/lite-waves</code> · <code>/lite-check</code> · <code>/lite-band</code></td><td>The mod&rsquo;s commands with no model turn: open tasks and counts, the wave plan, a plan check, and the band above the prompt (a progress bar, the task in progress, the next build) on or off. A toast cheers each finished task, and the whole plan. In the default TUI, <kbd>ctrl+x tab</kbd> focuses the band, then <kbd>u</kbd> or <kbd>h</kbd> presses Use or Hide.</td></tr>
             </tbody>
