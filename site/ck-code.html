@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "7.28.0",
+      "softwareVersion": "7.29.0",
       "dateModified": "2026-10-16",
       "isAccessibleForFree": true,
       "offers": {
@@ -370,7 +370,8 @@
           </div>
         </div>
 
-        <p style="margin-top:26px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required; built and tested against 2.1.280), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility notes. Projects created by an older ck-code, 6.x included, upgrade in one step with <code>/ck-code:migrate</code> (see <a href="#v7" style="color:var(--clay)">New in 7.0</a>).</p>
+        <p style="margin-top:26px; font-size:0.95rem"><strong style="color:var(--text)">Cloud sessions</strong> (claude.ai/code, or a cloud session from Desktop or mobile) never install a repo's plugins. A ck-code project commits a small guard (<code>.claude/ck-code-required.sh</code>) that installs ck-code there by itself; type <code>/reload-plugins</code> once and the commands are live. Remote Control uses your own machine's plugins; an SSH session uses the remote host's, where the committed marketplace entry offers the install.</p>
+        <p style="margin-top:14px; font-size:0.95rem">Requirements: <strong style="color:var(--text)">Claude Code</strong> (required; built and tested against 2.1.280), <strong style="color:var(--text)">gh CLI</strong> for Issue features, <strong style="color:var(--text)">git</strong> for parallel builds, and <a href="https://context7.com" rel="noopener" target="_blank" style="color:var(--clay)">context7</a> (recommended) for up-to-date framework docs. See the <a href="https://github.com/ckandrinirina/ck-code" rel="noopener" target="_blank" style="color:var(--clay)">full README on GitHub</a> for compatibility notes. Projects created by an older ck-code, 6.x included, upgrade in one step with <code>/ck-code:migrate</code> (see <a href="#v7" style="color:var(--clay)">New in 7.0</a>).</p>
       </div>
     </section>
 

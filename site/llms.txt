@@ -2,7 +2,7 @@
 
 > Free, open-source (MIT) plugins for Claude Code, Anthropic's agentic coding tool. ck-code brings spec-driven development to AI coding; ck-code-lite is its four-skill fast path; ck-tools is a repo utility toolkit with a plan-limit pace band. Install from the ck-marketplace Claude Code plugin marketplace.
 
-Install: `/plugin marketplace add ckandrinirina/ck-code`, then `/plugin install ck-code@ck-marketplace` (or `ck-code-lite@ck-marketplace`, `ck-tools@ck-marketplace`), restart Claude Code, and enable per project with `"enabledPlugins": { "ck-code@ck-marketplace": true }` in `.claude/settings.json`.
+Install: `/plugin marketplace add ckandrinirina/ck-code`, then `/plugin install ck-code@ck-marketplace` (or `ck-code-lite@ck-marketplace`, `ck-tools@ck-marketplace`), restart Claude Code, and enable per project with `"enabledPlugins": { "ck-code@ck-marketplace": true }` in `.claude/settings.json`. Cloud sessions (claude.ai/code, Desktop or mobile cloud) never install a repo's plugins: ck-code and ck-code-lite projects commit a guard hook that installs the plugin there, then `/reload-plugins` makes it live.
 
 ## Plugins
 
