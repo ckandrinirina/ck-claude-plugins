@@ -67,7 +67,7 @@ check_frontmatter() {
     local rc_file; rc_file=$(mktemp)
     out=$(printf '%s\n' "$files" | tr '\n' '\0' | { xargs -0 ruby -ryaml -e '
       ARGV.each do |f|
-        fm = File.read(f)[/\A---\n(.*?)\n---\n/m, 1]
+        fm = File.read(f, encoding: "UTF-8")[/\A---\n(.*?)\n---\n/m, 1]
         (puts "#{f}: no frontmatter fence"; next) if fm.nil?
         begin
           d = YAML.safe_load(fm)
@@ -423,6 +423,37 @@ check_shared_copies() {
 
 # The bug reporter ships in all three plugins and must stay byte-identical: one scrub, one
 # detector, one filing path. It derives the plugin from the plugin.json above it.
+# Weight. A SKILL.md or agent file is read on every call, so its size is paid in tokens on
+# every run. A file that grew more than 10 % (and more than 512 bytes) since the plugin's last
+# tag gets a WARN, so growth is a decision, never a drift. It never asks to cut content that
+# earns its place; a new file has no baseline and is not compared.
+check_weight() {
+  local plugin="$1" tag out line
+  tag=$(git -C "$plugin" describe --tags --abbrev=0 2>/dev/null) || { row "weight" "no tag to compare with" OK; return 0; }
+  out=$(PLUGIN="$plugin" TAG="$tag" python3 -I - <<'PY'
+import os, glob, subprocess
+p, tag = os.environ['PLUGIN'], os.environ['TAG']
+old_t = new_t = 0
+for f in sorted(glob.glob(f'{p}/skills/*/SKILL.md') + glob.glob(f'{p}/agents/*.md')):
+    rel = os.path.relpath(f, p)
+    r = subprocess.run(['git', '-C', p, 'show', f'{tag}:./{rel}'], capture_output=True)
+    if r.returncode:
+        continue
+    old, new = len(r.stdout), os.path.getsize(f)
+    old_t += old; new_t += new
+    if new - old > 512 and new > old * 1.10:
+        print(f'W\t{rel} {old / 1024:.1f} -> {new / 1024:.1f} KB (+{(new - old) * 100 // old} %)')
+print(f'T\t{old_t / 1024:.0f} -> {new_t / 1024:.0f} KB since {tag}')
+PY
+)
+  while IFS=$'\t' read -r kind line; do
+    case "$kind" in
+      W) row "weight" "$line" WARN ;;
+      T) row "weight" "skills + agents $line" OK ;;
+    esac
+  done <<<"$out"
+}
+
 check_shared_reporter() {
   local plugin="$1" mine f
   case "$plugin" in
@@ -551,6 +582,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_skill_interop  "$plugin"
   check_shared_copies  "$plugin"
   check_shared_reporter "$plugin"
+  check_weight         "$plugin"
   echo
 done
 

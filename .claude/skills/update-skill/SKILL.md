@@ -195,7 +195,9 @@ users get a lite plugin whose plans the current migrator cannot read.
 It reports, per plugin: frontmatter that does not parse, a frontmatter `name:` that
 disagrees with its folder, descriptions over 500 chars, broken relative links, shell
 syntax errors, invalid JSON, `session-start.sh`'s layout constant drifting from
-`version-gate.md`, and a `marketplace.json` ref that lags the plugin's own version.
+`version-gate.md`, a `marketplace.json` ref that lags the plugin's own version, and (WARN)
+a SKILL.md or agent file that grew more than 10 % since the plugin's last tag. Every call pays
+for those files, so name that growth in the release notes, or compact it per check 6.
 
 **Every `ERROR` blocks the release** (the script exits 1); a `WARN` is a judgement call.
 
