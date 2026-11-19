@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.21.0",
+      "softwareVersion": "1.22.0",
       "dateModified": "2026-10-16",
       "isAccessibleForFree": true,
       "offers": {
@@ -102,6 +102,7 @@
         <a href="ck-code-lite.html" class="active">ck-code-lite</a>
         <a href="ck-tools.html">ck-tools</a>
         <a href="changelog.html">Changelog</a>
+        <a href="benchmarks.html">Benchmarks</a>
         <a href="https://github.com/ckandrinirina/ck-code-lite" rel="noopener" target="_blank">GitHub ↗</a>
       </nav>
       <div style="display:flex; gap:10px; align-items:center;">
@@ -194,7 +195,7 @@
         <div class="fgrid">
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>A failing test before the code</h3><p>No implementation file is created or edited until a test run has been observed failing. No test runner in the project? <code>build</code> stops and asks — it never proceeds pretending the step happened.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3>QA against every criterion</h3><p>Delegated to an isolated subagent that runs your project's own commands and returns a verdict with <code>file:line</code> citations — so unbounded suite output never floods the session.</p></div>
-          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3>Only the tests a change can reach</h3><p><code>ck-lite-affected</code> follows imports (and C/C++ <code>#include</code>) with git and grep — a service&rsquo;s test, then the test of the controller that uses it — so a task closes on those tests, not the whole suite. Before the first push, <code>ship</code> runs each area the branch touches, never the others.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3>Only the tests a change can reach</h3><p><code>ck-lite-affected</code> follows imports (and C/C++ <code>#include</code>) with git and grep — a service&rsquo;s test, then the test of the controller that uses it — so a task closes on those tests, not the whole suite. Before the first push, <code>ship</code> runs each area the branch touches, never the others. A failing run prints the fixes other projects on your machine already found for the same error, from <code>~/.claude/ck-lessons.md</code>, and nothing at all when none matches.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Manual sign-off</h3><p>You get concrete steps to try and are asked for the result. Answering <em>ISSUES</em> writes a regression test and loops back through QA — it does not ship.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Quick builds for cosmetic tasks</h3><p>A label, copy or style change skips the context scout, the cleanup pass and the QA agent, and keeps the checks: a test asserting the old value goes red first, the affected tests, build and lint still run, and you still sign off. It steps back to the normal route by itself when the change grows.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg></div><h3>Parallel builds share the CPU</h3><p>Every build and test run on the machine takes one of <code>CK_QA_SLOTS</code> CPU slots first (default cores ÷ 8), so worktrees building at once take turns instead of each using every core. CMake and cargo get the slot's share of the cores, an installed ccache serves every worktree's cold C/C++ build, and commands run under <code>nice</code>. <code>ctest</code> runs in parallel once that passes like a serial run, and on Catch2 a task's own runs execute each test binary once, filtered by file, instead of one process per case. A task runs only its own e2e and integration specs — each whole suite runs once, at ship. A run that has waited 30 s starts anyway on a half-idle machine, and a run still going after an hour is stopped and fails as timed out, so a hang never holds a slot for hours.</p></div>
@@ -321,7 +322,7 @@
       <div class="footer__grid">
         <div class="footer__brand"><a class="brand" href="index.html"><b>ck</b>/plugins</a><p>Open-source plugins that keep AI-assisted software engineering grounded in your real design.</p></div>
         <div class="footer__cols">
-          <div class="footer__col"><h4>Plugins</h4><a href="ck-code.html">ck-code</a><a href="ck-code-lite.html">ck-code-lite</a><a href="ck-tools.html">ck-tools</a><a href="changelog.html">Changelog</a></div>
+          <div class="footer__col"><h4>Plugins</h4><a href="ck-code.html">ck-code</a><a href="ck-code-lite.html">ck-code-lite</a><a href="ck-tools.html">ck-tools</a><a href="changelog.html">Changelog</a><a href="benchmarks.html">Benchmarks</a></div>
           <div class="footer__col"><h4>Resources</h4><a href="index.html#start">Get started</a><a href="index.html#why">Why use it</a><a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank">Claude Code ↗</a></div>
           <div class="footer__col"><h4>Project</h4><a href="https://github.com/ckandrinirina/ck-code-lite" rel="noopener" target="_blank">ck-code-lite repo ↗</a><a href="https://github.com/ckandrinirina/ck-code-lite/issues" rel="noopener" target="_blank">Report an issue ↗</a></div>
         </div>

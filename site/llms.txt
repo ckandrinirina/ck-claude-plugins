@@ -20,3 +20,4 @@ init, spec, design, team, plan, track, build, fix, verify, ship, release, explai
 - [ck-code-lite on GitHub](https://github.com/ckandrinirina/ck-code-lite)
 - [ck-tools on GitHub](https://github.com/ckandrinirina/ck-tools)
 - [Changelog](https://ckandrinirina.github.io/ck-claude-plugins/changelog.html)
+- [Benchmarks](https://ckandrinirina.github.io/ck-claude-plugins/benchmarks.html) — measured build and QA time on real projects, before and after each speed release

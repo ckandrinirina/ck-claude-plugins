@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmarks — Measured Build Speed of ck-code</title>
+  <meta name="description" content="Where an AI coding agent's build time really goes, measured on thousands of ck-code and ck-code-lite QA runs in real projects, and what each release changed." />
+  <meta name="keywords" content="ck-code changelog, ck-tools changelog, Claude Code plugin releases, version history" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://ckandrinirina.github.io/ck-claude-plugins/benchmarks.html" />
+  <meta name="theme-color" content="#100f0d" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="CK Claude Plugins" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Benchmarks — Measured Build Speed of ck-code" />
+  <meta property="og:description" content="Where an AI coding agent's build time really goes, measured on thousands of ck-code and ck-code-lite QA runs in real projects, and what each release changed." />
+  <meta property="og:url" content="https://ckandrinirina.github.io/ck-claude-plugins/benchmarks.html" />
+  <meta property="og:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Benchmarks — Measured Build Speed of ck-code" />
+  <meta name="twitter:description" content="Where an AI coding agent's build time really goes, measured on thousands of ck-code and ck-code-lite QA runs in real projects, and what each release changed." />
+  <meta name="twitter:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <meta name="twitter:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "CK Claude Plugins",
+          "item": "https://ckandrinirina.github.io/ck-claude-plugins/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Benchmarks",
+          "item": "https://ckandrinirina.github.io/ck-claude-plugins/benchmarks.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="index.html" aria-label="CK Claude Plugins home"><b>ck</b>/plugins<span class="cursor" aria-hidden="true"></span></a>
+      <nav class="nav__links" data-nav-links aria-label="Primary">
+        <a href="index.html#why">Why</a>
+        <a href="ck-code.html">ck-code</a>
+        <a href="ck-code-lite.html">ck-code-lite</a>
+        <a href="ck-tools.html">ck-tools</a>
+        <a href="index.html#start">Get started</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="benchmarks.html" class="active">Benchmarks</a>
+        <a href="https://github.com/ckandrinirina/ck-claude-plugins" rel="noopener" target="_blank">GitHub ↗</a>
+      </nav>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle colour theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn nav__toggle" data-nav-toggle aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="phero wrap">
+      <div class="crumb"><a href="index.html">ck/plugins</a> <span>/</span> <span style="color:var(--clay)">benchmarks</span></div>
+      <span class="eyebrow">Measured, not guessed</span>
+      <h1>Benchmarks</h1>
+      <p class="lede">Every speed change in ck-code and ck-code-lite starts from a profile of real build sessions: the Claude Code transcripts of builder and QA agents working on real projects. These are those measurements, before and after the release that answered them. They come from working projects, not a lab, so read them as orders of magnitude.</p>
+    </section>
+
+    <section class="section section--tight" style="padding-top:0">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Finding 1</span>
+          <h2>Round trips cost more than prose</h2>
+          <p>The first profile covered 20 story builds and 63 QA runs on a TypeScript monorepo. Trimming the agents&rsquo; reports would have saved almost nothing. The waste was in calls and in commands run twice.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Measured</th><th>Value</th><th>What changed</th></tr></thead>
+            <tbody>
+              <tr><td>Share of wall time spent generating</td><td>60&ndash;70 %</td><td>Fewer round trips per story: batched calls, inline QA folded into one run</td></tr>
+              <tr><td>API calls per story</td><td>~75, 89 % of them single-tool turns</td><td>One batching rule for the builder</td></tr>
+              <tr><td>Prose in the generated output</td><td>9 %</td><td>Not a lever, left alone</td></tr>
+              <tr><td>Test-suite runs that repeated an identical one</td><td>~20 % (~62 min)</td><td><strong>7.1.0</strong> <code>ck-qa</code>: one run per code state; a later step reuses a pass on the same tree</td></tr>
+              <tr><td>Whole-package lint piped to <code>grep</code>, in the inner loop</td><td>60&ndash;120 s a call, up to 7&times; a story</td><td><strong>7.1.2</strong> lint only the touched files</td></tr>
+              <tr><td>Searches of the whole disk for one file</td><td>each hit the 120 s timeout</td><td><strong>7.1.2</strong> never search from <code>/</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Finding 2</span>
+          <h2>Run only the tests a change can reach</h2>
+          <p>A story&rsquo;s QA now runs the tests its diff reaches up the import chain, or up the <code>#include</code> chain for C and C++. A backstop then runs every area the change touches, and never an untouched one.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Measured</th><th>Before</th><th>After</th></tr></thead>
+            <tbody>
+              <tr><td>Import trace on a 2,500-file monorepo</td><td>15&ndash;120 s (regex only), and it picked too many tests</td><td><strong>2&ndash;7 s</strong> with exact resolution (7.15.0)</td></tr>
+              <tr><td>590-test C++ suite through <code>ctest</code></td><td>82 s serial</td><td><strong>10 s</strong> with <code>-j 8</code>, same 590 passing (7.23.0)</td></tr>
+              <tr><td>Test files a change reaches, C++ project (151 test files)</td><td>all 151, every run</td><td><strong>0&ndash;37</strong>, traced in 1&ndash;14 s (7.30.0)</td></tr>
+              <tr><td>One story&rsquo;s test run, same project</td><td>1,035 s, full serial suite</td><td><strong>166&ndash;278 s</strong> for the 37 heaviest files (7.30.0)</td></tr>
+              <tr><td>Area backstop&rsquo;s share of QA time (2,094 runs, 6 projects)</td><td colspan="2">3&ndash;19 %, cheap enough that it stays on every wave</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Finding 3</span>
+          <h2>The machine, not the model, was the bottleneck</h2>
+          <p>About 600 builder and QA runs on 9 projects showed tool time overtaking model time. Parallel agents queued behind each other, and some waits never ended.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Measured</th><th>Value</th><th>What changed in 7.28.0</th></tr></thead>
+            <tbody>
+              <tr><td>A C++ task&rsquo;s time spent waiting for a CPU slot</td><td>~29 of 50 min</td><td>A run that barely uses the CPU starts beside the others on a half-idle machine</td></tr>
+              <tr><td>QA calls moved to the background by the sub-agent time cap</td><td>500+, followed by 580+ polling loops</td><td>QA waits 170 s, under the 180 s cap, then an explicit <code>wait</code></td></tr>
+              <tr><td>Machine load during waves</td><td>73 median, 391 peak</td><td>A 1-hour deadline per run, which stops the whole process group</td></tr>
+              <tr><td>Hung runs holding a slot</td><td>2&ndash;8 h</td><td>The same deadline</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Finding 4</span>
+          <h2>Every token of instructions is paid on every call</h2>
+          <p>ck-code&rsquo;s builder once loaded about 80 KB of instructions for a story, against 5 KB for ck-code-lite&rsquo;s. Since 7.12.0 the builder reads one short story cycle and loads the rest only when a story needs it. Since 7.31.0 the release gate flags any skill or agent file that grows more than 10 % in a release, so that growth is a decision.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Method</span>
+          <h2>How these numbers were taken</h2>
+          <p>Each profile reads the builder and QA agent transcripts that Claude Code saves on the developer&rsquo;s machine, plus the QA logs that <code>ck-qa</code> writes. The projects are the author&rsquo;s own working projects, named here by kind only. Quality was never traded for these gains: every story still writes a failing test first, passes an isolated QA pass and a full-area backstop, and waits for manual sign-off. Smaller or cheaper models were tried as a lever and deliberately not taken.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand"><a class="brand" href="index.html"><b>ck</b>/plugins</a><p>Open-source plugins that keep AI-assisted software engineering grounded in your real design.</p></div>
+        <div class="footer__cols">
+          <div class="footer__col"><h4>Plugins</h4><a href="ck-code.html">ck-code</a>
+        <a href="ck-code-lite.html">ck-code-lite</a><a href="ck-tools.html">ck-tools</a><a href="changelog.html">Changelog</a><a href="benchmarks.html">Benchmarks</a></div>
+          <div class="footer__col"><h4>Resources</h4><a href="index.html#start">Get started</a><a href="index.html#why">Why use it</a><a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank">Claude Code ↗</a></div>
+          <div class="footer__col"><h4>Project</h4><a href="https://github.com/ckandrinirina/ck-claude-plugins" rel="noopener" target="_blank">GitHub repo ↗</a><a href="https://github.com/ckandrinirina/ck-claude-plugins/issues" rel="noopener" target="_blank">Report an issue ↗</a></div>
+        </div>
+      </div>
+      <div class="footer__base"><span>© <span id="yr">2026</span> ckandrinirina · MIT License</span><span>Built for <a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank">Claude Code</a></span></div>
+    </div>
+  </footer>
+  <script src="assets/main.js" defer></script>
+</body>
+</html>
