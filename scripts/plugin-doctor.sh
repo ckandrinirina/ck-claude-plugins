@@ -431,6 +431,10 @@ check_shared_copies() {
   if [ -n "$(sed -n "$reap" "$qa_code")" ] && [ "$(sed -n "$reap" "$qa_code")" = "$(sed -n "$reap" "$qa_lite")" ]; then
     row "shared copy" "ck-qa-reap block identical in both QA scripts" OK
   else row "shared copy" "ck-qa-reap block differs between ck-qa.sh and ck-lite-qa" ERROR; fi
+  local lane='/^# >>> ck-qa-lane/,/^# <<< ck-qa-lane/p'
+  if [ -n "$(sed -n "$lane" "$qa_code")" ] && [ "$(sed -n "$lane" "$qa_code")" = "$(sed -n "$lane" "$qa_lite")" ]; then
+    row "shared copy" "ck-qa-lane block identical in both QA scripts" OK
+  else row "shared copy" "ck-qa-lane block differs between ck-qa.sh and ck-lite-qa" ERROR; fi
   # the agent-worktree lock and sweep rules: ck-worktree.sh and ck-lite
   local wt='/^# >>> ck-wt/,/^# <<< ck-wt/p' wt_code="ck-code/scripts/ck-worktree.sh" wt_lite="ck-code-lite/bin/ck-lite"
   if [ -n "$(sed -n "$wt" "$wt_code")" ] && [ "$(sed -n "$wt" "$wt_code")" = "$(sed -n "$wt" "$wt_lite")" ]; then
