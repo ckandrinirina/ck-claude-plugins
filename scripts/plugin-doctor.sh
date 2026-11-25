@@ -305,6 +305,23 @@ check_manifest() {
   fi
 }
 
+# A mod's tool.call or tool.run hook, even one that only passes the call on, turns off that
+# tool's move to the background and its live output. ck-code shipped one on every tool, so it
+# did that in every project. Guard Bash at tool.check; count tools from turn.step's toolUses.
+check_mod_hooks() {
+  local plugin="$1" hooks bad
+  grep -q '"modules"' "$plugin/hooks/hooks.json" 2>/dev/null || return 0
+  command -v claude >/dev/null 2>&1 || return 0
+  hooks=$(claude plugin validate "./$plugin" 2>&1 | sed -n 's/.*register\.tsx hooks: //p')
+  [ -n "$hooks" ] || { row "mod hooks" "validate listed no hooks" WARN; return 0; }
+  bad=$(printf '%s\n' "$hooks" | sed 's/, /\n/g' | grep -E '^tool\.(call|run)($|\{tool=Bash\})')
+  if [ -n "$bad" ]; then
+    row "mod hooks" "$(printf '%s' "$bad" | tr '\n' ' ')blocks backgrounding" ERROR
+  else
+    row "mod hooks" "no tool.call hook on Bash or on every tool" OK
+  fi
+}
+
 # A plugin with a mod (a `modules` key in hooks/hooks.json) ships its tests beside it:
 # `claude plugin test` runs every *.test.ts[x] against the engine itself, offline. A mod
 # whose hooks fail there fails in every session, so a red run blocks the release.
@@ -578,6 +595,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_bin            "$plugin"
   check_hook_scripts   "$plugin"
   check_manifest       "$plugin"
+  check_mod_hooks      "$plugin"
   check_mod_tests      "$plugin"
   check_skill_interop  "$plugin"
   check_shared_copies  "$plugin"
