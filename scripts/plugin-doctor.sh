@@ -491,6 +491,21 @@ check_shared_reporter() {
   row "shared copy" "bug reporter identical in every plugin" OK
 }
 
+# Mod files kept word for word across plugins: the update-check row in all three, the look
+# (theme + flat glyphs) in ck-code and ck-code-lite. A fix landed in one copy only is a drift.
+check_shared_mods() {
+  local plugin="$1" f p mine
+  for f in update.tsx theme.ts look.tsx; do
+    mine="$plugin/hooks/mod/$f"
+    [ -f "$mine" ] || continue
+    for p in ck-code ck-code-lite ck-tools; do
+      [ "$p" != "$plugin" ] && [ -f "$p/hooks/mod/$f" ] || continue
+      cmp -s "$mine" "$p/hooks/mod/$f" || { row "shared copy" "mod $f differs from $p's" ERROR; continue 2; }
+    done
+    row "shared copy" "mod $f identical in every plugin that ships it" OK
+  done
+}
+
 check_skill_interop() {
   local plugin="$1" res
   res=$(PLUGIN="$plugin" CONTRACT="$CONTRACT_PLUGIN" python3 - <<'PY'
@@ -604,6 +619,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_skill_interop  "$plugin"
   check_shared_copies  "$plugin"
   check_shared_reporter "$plugin"
+  check_shared_mods    "$plugin"
   check_weight         "$plugin"
   echo
 done
