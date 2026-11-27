@@ -49,7 +49,7 @@ git add -A
 git -c user.name=playground -c user.email=playground@localhost commit -qm "chore: plan"
 cd "$ROOT"
 start=$SECONDS
-PLAYGROUND_UNSAFE=1 PLAYGROUND_MAX_TURNS=150 scripts/playground.sh run lite "/ck-code-lite:build --waves --auto"
+PLAYGROUND_MAX_TURNS=150 scripts/playground.sh run lite "/ck-code-lite:build --waves --auto"
 echo "== took $((SECONDS - start)) s"
 cd "$ROOT/playground/ck-lite-demo"
 git log --oneline | head -8

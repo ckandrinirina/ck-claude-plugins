@@ -7,9 +7,11 @@
 # only the fixture and this script are tracked. Claude runs are non-interactive
 # (`claude -p`) and load the plugin from ./ck-code or ./ck-code-lite via
 # --plugin-dir. Each project's .claude/settings.json turns the marketplace copies
-# off, so commands are never listed twice. It also enables the Claude Code sandbox:
-# Bash writes stay inside the project and there is no network, and acceptEdits only
-# auto-approves edits there. PLAYGROUND_UNSAFE=1 opts into a full permission bypass.
+# off, so commands are never listed twice. It also enables the Claude Code sandbox, with no
+# way out: Bash writes stay inside the project (plus the npm and tool caches), the network
+# reaches only the package registries and context7, a server may listen on a local port (the
+# ck-oneshot boot check), and a command can never retry unsandboxed. acceptEdits only
+# auto-approves edits inside the project. There is no permission-bypass mode.
 #
 # Usage:
 #   scripts/playground.sh reset <code|lite|shot|all>   # recreate from the fixture, one baseline commit
@@ -18,10 +20,10 @@
 #   scripts/playground.sh status [code|lite|shot]      # branches, recent commits, dirty files
 #
 # shot-lite and shot-code run ck-code-lite or ck-code in the ck-oneshot project (the take-over
-# check); a one-shot needs the package registry, so run it with PLAYGROUND_UNSAFE=1.
+# check).
 #
 # Env: PLAYGROUND_MODEL (optional --model), PLAYGROUND_MAX_TURNS (default 60),
-#      PLAYGROUND_UNSAFE=1 (--dangerously-skip-permissions instead of the sandbox).
+#      (PLAYGROUND_UNSAFE is gone: the sandbox's registry allowlist covers what it was for.)
 
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -55,7 +57,23 @@ reset_one() {
     "ck-code-lite@ck-marketplace": false,
     "ck-oneshot@ck-marketplace": false
   },
-  "sandbox": { "enabled": true, "autoAllowBashIfSandboxed": true },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "failIfUnavailable": true,
+    "network": {
+      "allowedDomains": [
+        "registry.npmjs.org", "*.npmjs.org", "registry.yarnpkg.com",
+        "pypi.org", "files.pythonhosted.org",
+        "crates.io", "index.crates.io", "static.crates.io",
+        "proxy.golang.org", "sum.golang.org",
+        "context7.com", "*.context7.com"
+      ],
+      "allowLocalBinding": true
+    },
+    "filesystem": { "allowWrite": ["~/.npm", "~/.cache"] }
+  },
   "permissions": {
     "defaultMode": "acceptEdits",
     "deny": ["WebFetch", "WebSearch", "Bash(git push:*)", "Bash(gh:*)", "Bash(curl:*)", "Bash(wget:*)"]
@@ -78,14 +96,11 @@ run_one() {
   local log="$PG/logs/$(basename "$PROJECT")-$(date +%Y%m%d-%H%M%S).log"
   # project,local only: the user's own hooks, plugins and settings stay out of the test.
   local args=(-p --setting-sources project,local --plugin-dir "$PLUGIN" --add-dir "$PLUGIN" --max-turns "${PLAYGROUND_MAX_TURNS:-60}")
-  if [ "${PLAYGROUND_UNSAFE:-}" = 1 ]; then
-    args+=(--dangerously-skip-permissions)
-  else
-    # Passed as a flag: settings.json allow rules are ignored in an untrusted workspace.
-    args+=(--permission-mode acceptEdits --allowedTools
-           "Bash(git:*) Bash(node:*) Bash(npm:*) Bash(npx:*) Bash(bash:*) Bash(sh:*) Bash(ck-*)
-            Bash(mkdir:*) Bash(cp:*) Bash(mv:*) Bash(rm:*) Bash(touch:*) Bash($PLUGIN/bin/*) Bash(cd:*)")
-  fi
+  [ -z "${PLAYGROUND_UNSAFE:-}" ] || die "PLAYGROUND_UNSAFE is gone — runs stay in the sandbox (registries allowed); unset it"
+  # Passed as a flag: settings.json allow rules are ignored in an untrusted workspace.
+  args+=(--permission-mode acceptEdits --allowedTools
+         "Bash(git:*) Bash(node:*) Bash(npm:*) Bash(npx:*) Bash(bash:*) Bash(sh:*) Bash(ck-*)
+          Bash(mkdir:*) Bash(cp:*) Bash(mv:*) Bash(rm:*) Bash(touch:*) Bash($PLUGIN/bin/*) Bash(cd:*)")
   [ -n "${PLAYGROUND_MODEL:-}" ] && args+=(--model "$PLAYGROUND_MODEL")
   echo "== $(basename "$PROJECT") | prompt: $*" | tee "$log"
   # the local plugin's scripts, never an installed copy's: drop every cached plugin bin/ from PATH

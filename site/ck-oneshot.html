@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.0.0",
+      "softwareVersion": "1.0.1",
       "dateModified": "2026-11-27",
       "isAccessibleForFree": true,
       "offers": {
@@ -320,7 +320,7 @@
               <tr><td><code>ck-shot plan …</code></td><td>The plan writer (a byte copy of ck-code-lite&rsquo;s <code>ck-lite</code>), pointed at the run&rsquo;s files</td></tr>
               <tr><td><code>ck-shot owners</code> / <code>owner &lt;path&gt;</code></td><td>One owner per file; which unit owns a path</td></tr>
               <tr><td><code>ck-shot verify [--install]</code></td><td>Install, typecheck, build, lint from <code>## Commands</code>; each error mapped to its unit</td></tr>
-              <tr><td><code>ck-shot smoke</code></td><td>Starts the app once and probes it (HTTP or exit code), then stops it &mdash; sandbox-safe</td></tr>
+              <tr><td><code>ck-shot smoke</code></td><td>Starts the app once and probes it (HTTP or exit code), then stops it &mdash; sandbox-safe; <code>BUSY</code> when another program already answers on the port, <code>BLOCKED</code> when the sandbox refuses it</td></tr>
               <tr><td><code>ck-shot handover</code></td><td>Moves the plan and architecture into ck-code-lite&rsquo;s layout</td></tr>
             </tbody>
           </table>
