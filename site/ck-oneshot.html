@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.1.0",
+      "softwareVersion": "1.2.0",
       "dateModified": "2026-11-27",
       "isAccessibleForFree": true,
       "offers": {
@@ -166,7 +166,7 @@
         <div class="skills">
           <article class="skill reveal">
             <div class="skill__top"><span class="skill__name">shot</span><span class="skill__when">// when: a new project should exist by the end of the run</span></div>
-            <p>Reads every document it finds &mdash; <code>*.md</code>, <code>docs/</code>, <code>spec/</code>, <code>design/</code>, PDFs &mdash; or only the ones you name, or a one-line idea. <code>--yes</code> skips the one question and takes every recommendation, for headless runs. <code>--workflow</code> runs each wave as a resumable dynamic workflow and is offered at 20 units or more. <code>--team</code> lets agent teams settle an open cross-layer contract before anything is built.</p>
+            <p>Reads every document it finds &mdash; <code>*.md</code>, <code>docs/</code>, <code>spec/</code>, <code>design/</code>, PDFs &mdash; or only the ones you name, or a one-line idea. <code>--yes</code> skips the one question and takes every recommendation, for headless runs. <code>--workflow</code> runs each wave as a resumable dynamic workflow and is offered at 20 units or more. <code>--team</code> lets agent teams settle an open cross-layer contract before anything is built. Already designed it in Claude Design? Put the <code>claude.ai/design</code> link in the arguments or in any doc: the shot caches it into <code>docs/design-system/</code> before the blueprint, maps each UI unit to its cards, writes the tokens once, and builders port the cards exactly.</p>
             <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot docs/prd.md docs/api.yaml</code>
               <button class="copy-btn" data-copy="/ck-oneshot:shot docs/prd.md docs/api.yaml" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
             </div>
@@ -175,6 +175,9 @@
         <div style="max-width:720px; display:grid; gap:12px; margin-top:24px" class="reveal">
           <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot</code>
             <button class="copy-btn" data-copy="/ck-oneshot:shot" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+          <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot docs/prd.md https://claude.ai/design/p/&lt;id&gt;</code>
+            <button class="copy-btn" data-copy="/ck-oneshot:shot docs/prd.md https://claude.ai/design/p/" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
           </div>
           <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot "a team todo app with boards, cards and email invites"</code>
             <button class="copy-btn" data-copy="/ck-oneshot:shot &quot;a team todo app with boards, cards and email invites&quot;" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
