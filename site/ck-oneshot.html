@@ -44,7 +44,7 @@
       "applicationSubCategory": "Claude Code plugin",
       "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
       "softwareRequirements": "Claude Code",
-      "softwareVersion": "1.3.0",
+      "softwareVersion": "1.4.0",
       "dateModified": "2026-11-27",
       "isAccessibleForFree": true,
       "offers": {
@@ -207,8 +207,8 @@
             <thead><tr><th>Phase</th><th>What happens</th><th>Who</th></tr></thead>
             <tbody>
               <tr><td>1 Intake</td><td>Refuses an existing codebase, collects the documents</td><td>orchestrator</td></tr>
-              <tr><td>2 Digest</td><td>One <code>doc-reader</code> per document, plus a <code>researcher</code> pinning current versions and idioms &mdash; all in one message</td><td>Haiku subagents</td></tr>
-              <tr><td>3 Blueprint</td><td>Stack, folder structure, <strong style="color:var(--text)">contracts</strong> (types, schema, routes, env, props), units that each own their files, a model tier per unit, the waves</td><td>orchestrator</td></tr>
+              <tr><td>2 Digest</td><td>One <code>doc-reader</code> per document, plus a <code>researcher</code> pinning current versions and idioms &mdash; all in one message, each writing to a file</td><td>Haiku subagents</td></tr>
+              <tr><td>3 Blueprint</td><td>Stack, folder structure, <strong style="color:var(--text)">contracts</strong> (types, schema, routes, env, props), units that each own their files, a model tier per unit, the waves &mdash; only the gate summary comes back</td><td><code>blueprinter</code> subagent (your model)</td></tr>
               <tr><td>4 Gate</td><td>The <strong style="color:var(--text)">only</strong> question of the run: Proceed / Adjust / Cancel, plus real gaps in the documents</td><td>you</td></tr>
               <tr><td>5 Wave 0</td><td>One agent scaffolds, installs every pinned dependency once, writes every contract and the app entry</td><td>one subagent</td></tr>
               <tr><td>6 Waves</td><td>Up to 8 (16 with <code>--workflow</code>) <code>unit-builder</code>s at once, in the same checkout, with no Bash; one verify per wave, errors routed to the owning unit&rsquo;s <code>fixer</code></td><td>Haiku / Sonnet / Opus per unit</td></tr>
@@ -230,6 +230,7 @@
         <div class="fgrid">
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><h3>Contracts are code before builders start</h3><p>Builders never negotiate: every name two units share &mdash; types, schema, routes, env, props &mdash; is decided in the blueprint and written as code in wave 0.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>One owner per file</h3><p>Each file has exactly one owning unit. <code>ck-shot owners</code> refuses the blueprint otherwise, so two builders never write the same file.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div><h3>A small orchestrator on long runs</h3><p>The main session only dispatches, verifies and commits. Documents, the blueprint, unit briefs and verdicts live in files that agents read. Each prompt is two lines, and <code>ck-shot verdicts</code> shows only what needs action.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Builders cannot run commands</h3><p>No Bash means no half-installed dependencies and no fight over the lockfile. Builders return <code>deps_needed</code> and <code>contract_requests</code>, and the orchestrator applies them between waves.</p></div>
           <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><h3>Every error names its unit</h3><p>Every verify error names a file, and every file names its unit, so a failure goes to that unit&rsquo;s <code>fixer</code> and not to a general retry.</p></div>
         </div>
