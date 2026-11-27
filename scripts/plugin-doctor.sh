@@ -520,6 +520,12 @@ check_shared_plan() {
      [ "$(sed -n "$g" ck-code-lite/hooks/mod/logic.ts)" = "$(sed -n "$g" ck-oneshot/hooks/mod/logic.ts)" ]; then
     row "shared copy" "cost guard identical in ck-code-lite and ck-oneshot" OK
   else row "shared copy" "cost guard in ck-oneshot/hooks/mod/logic.ts differs from ck-code-lite's" ERROR; fi
+  # one-shot builders port Claude Design cards under lite's five fidelity rules, word for word
+  g='/^1\. \*\*The card is the spec/,/told that path looks odd\./p'
+  if [ -n "$(sed -n "$g" ck-code-lite/references/design-system.md)" ] && \
+     [ "$(sed -n "$g" ck-code-lite/references/design-system.md)" = "$(sed -n "$g" ck-oneshot/skills/shot/references/builder-contract.md)" ]; then
+    row "shared copy" "fidelity rules identical in ck-code-lite and ck-oneshot" OK
+  else row "shared copy" "fidelity rules in ck-oneshot builder-contract.md differ from ck-code-lite design-system.md" ERROR; fi
 }
 
 check_skill_interop() {
