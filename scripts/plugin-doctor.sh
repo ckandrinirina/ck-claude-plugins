@@ -23,7 +23,7 @@ for a in "$@"; do
     *) PLUGINS+=("$a") ;;
   esac
 done
-[ ${#PLUGINS[@]} -eq 0 ] && PLUGINS=(ck-code ck-code-lite ck-tools)
+[ ${#PLUGINS[@]} -eq 0 ] && PLUGINS=(ck-code ck-code-lite ck-tools ck-oneshot)
 
 # Almost every check below shells out to python3; without it they would read empty
 # output as a pass. A release gate must fail loudly, never silently degrade.
@@ -481,10 +481,11 @@ check_shared_reporter() {
     ck-code) mine="ck-code/scripts/ck-report.sh" ;;
     ck-code-lite) mine="ck-code-lite/bin/ck-lite-report" ;;
     ck-tools) mine="ck-tools/bin/ck-tools-report" ;;
+    ck-oneshot) mine="ck-oneshot/bin/ck-shot-report" ;;
     *) return 0 ;;
   esac
   [ -f "$mine" ] || { row "shared copy" "bug reporter $mine missing" ERROR; return 0; }
-  for f in ck-code/scripts/ck-report.sh ck-code-lite/bin/ck-lite-report ck-tools/bin/ck-tools-report; do
+  for f in ck-code/scripts/ck-report.sh ck-code-lite/bin/ck-lite-report ck-tools/bin/ck-tools-report ck-oneshot/bin/ck-shot-report; do
     [ -f "$f" ] || continue
     cmp -s "$mine" "$f" || { row "shared copy" "bug reporter differs from $f" ERROR; return 0; }
   done
@@ -498,12 +499,27 @@ check_shared_mods() {
   for f in update.tsx theme.ts look.tsx; do
     mine="$plugin/hooks/mod/$f"
     [ -f "$mine" ] || continue
-    for p in ck-code ck-code-lite ck-tools; do
+    for p in ck-code ck-code-lite ck-tools ck-oneshot; do
       [ "$p" != "$plugin" ] && [ -f "$p/hooks/mod/$f" ] || continue
       cmp -s "$mine" "$p/hooks/mod/$f" || { row "shared copy" "mod $f differs from $p's" ERROR; continue 2; }
     done
     row "shared copy" "mod $f identical in every plugin that ships it" OK
   done
+}
+
+# ck-oneshot vendors ck-code-lite's plan writer (its plans are lite plans from the first minute)
+# and the cost guard: a fix landed in one copy only would split the format or the spending rule.
+check_shared_plan() {
+  local plugin="$1" lite="ck-code-lite/bin/ck-lite" shot="ck-oneshot/bin/ck-shot-plan" g
+  case "$plugin" in ck-code-lite|ck-oneshot) ;; *) return 0 ;; esac
+  [ -f "$lite" ] && [ -f "$shot" ] || return 0
+  if cmp -s "$lite" "$shot"; then row "shared copy" "plan writer identical (ck-lite = ck-shot-plan)" OK
+  else row "shared copy" "ck-oneshot/bin/ck-shot-plan differs from ck-code-lite/bin/ck-lite — copy it over" ERROR; fi
+  g='/^\/\/ ---- the cost guard/,$p'
+  if [ -n "$(sed -n "$g" ck-code-lite/hooks/mod/logic.ts)" ] && \
+     [ "$(sed -n "$g" ck-code-lite/hooks/mod/logic.ts)" = "$(sed -n "$g" ck-oneshot/hooks/mod/logic.ts)" ]; then
+    row "shared copy" "cost guard identical in ck-code-lite and ck-oneshot" OK
+  else row "shared copy" "cost guard in ck-oneshot/hooks/mod/logic.ts differs from ck-code-lite's" ERROR; fi
 }
 
 check_skill_interop() {
@@ -620,6 +636,7 @@ for plugin in "${PLUGINS[@]}"; do
   check_shared_copies  "$plugin"
   check_shared_reporter "$plugin"
   check_shared_mods    "$plugin"
+  check_shared_plan    "$plugin"
   check_weight         "$plugin"
   echo
 done

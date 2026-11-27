@@ -4,15 +4,16 @@
 
 **📖 Documentation:** **https://ckandrinirina.github.io/ck-claude-plugins/**
 
-This repository hosts **`ck-marketplace`**, the Claude Code marketplace for three plugins:
+This repository hosts **`ck-marketplace`**, the Claude Code marketplace for four plugins:
 
 | Plugin | What it does | Docs |
 |---|---|---|
 | **[ck-code](https://ckandrinirina.github.io/ck-claude-plugins/ck-code.html)** | Spec-driven workflow: design → plan → team → build → ship. Architecture docs, epics & stories, per-project expert skills, TDD with SOLID checks, parallel worktree builds and GitHub Issues integration. | [ck-code repo](https://github.com/ckandrinirina/ck-code) |
 | **[ck-code-lite](https://ckandrinirina.github.io/ck-claude-plugins/ck-code-lite.html)** | The same workflow trimmed to four skills and two files: `start` (architecture + flat plan), `build` (failing test first, isolated QA, manual sign-off), `ship` (commit + PR), `design` (optional Claude Design hand-off). No epics, no generators. | [ck-code-lite repo](https://github.com/ckandrinirina/ck-code-lite) |
+| **[ck-oneshot](https://ckandrinirina.github.io/ck-claude-plugins/ck-oneshot.html)** | Builds the first version of a new project in one run from your documents: parallel doc readers, one blueprint, one question, waves of parallel unit builders with a model per unit, verified by install, typecheck, build, lint and a boot smoke, then handed over in ck-code-lite's layout. `shot` (+ `report`). | [ck-oneshot repo](https://github.com/ckandrinirina/ck-oneshot) |
 | **[ck-tools](https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html)** | Utility toolkit: `deliver` (commit + PR), `implement` (on-the-go stories), `dependency-upgrade`, `gh-issue`, `release-prep`, `showcase`, `bmad-guide` (orientation for BMAD Method projects). | [ck-tools repo](https://github.com/ckandrinirina/ck-tools) |
 
-`ck-code` delivers features; `ck-tools` handles the surrounding work. They're built to coexist without overlapping.
+`ck-code` delivers features; `ck-oneshot` builds a first version and hands over to `ck-code-lite`; `ck-tools` handles the surrounding work. They're built to coexist without overlapping.
 
 **`ck-code` or `ck-code-lite`?** They are alternatives, not companions — enable one per project. Start with `ck-code-lite` to get an app working; move to `ck-code` when the task list outgrows a single file or more than one person is planning the work. Moving up is one command — `/ck-code:migrate` converts a lite project's plan and architecture doc to the full layout in a single revertable commit.
 
@@ -25,6 +26,7 @@ This repository hosts **`ck-marketplace`**, the Claude Code marketplace for thre
 # Install whichever plugins you want
 /plugin install ck-code@ck-marketplace
 /plugin install ck-code-lite@ck-marketplace
+/plugin install ck-oneshot@ck-marketplace
 /plugin install ck-tools@ck-marketplace
 ```
 

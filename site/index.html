@@ -77,6 +77,12 @@
         {
           "@type": "ListItem",
           "position": 3,
+          "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-oneshot.html",
+          "name": "ck-oneshot"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
           "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-tools.html",
           "name": "ck-tools"
         }
@@ -99,15 +105,15 @@
           "name": "How do I install a CK plugin in Claude Code?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Run /plugin marketplace add ckandrinirina/ck-code, then /plugin install ck-code@ck-marketplace (or ck-code-lite or ck-tools), and restart Claude Code. Enable it per project by adding \"enabledPlugins\": { \"ck-code@ck-marketplace\": true } to the project's .claude/settings.json."
+            "text": "Run /plugin marketplace add ckandrinirina/ck-code, then /plugin install ck-code@ck-marketplace (or ck-code-lite, ck-oneshot or ck-tools), and restart Claude Code. Enable it per project by adding \"enabledPlugins\": { \"ck-code@ck-marketplace\": true } to the project's .claude/settings.json."
           }
         },
         {
           "@type": "Question",
-          "name": "Should I use ck-code, ck-code-lite or ck-tools?",
+          "name": "Should I use ck-code, ck-code-lite, ck-oneshot or ck-tools?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with five skills and two files. Use ck-tools alongside either one, or on any repository, for commits, pull requests, dependency upgrades, issues and releases."
+            "text": "Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with five skills and two files. Use ck-oneshot to build the first version of a new project from your documents in one run; it hands over to ck-code-lite. Use ck-tools alongside any of them, or on any repository, for commits, pull requests, dependency upgrades, issues and releases."
           }
         },
         {
@@ -115,7 +121,7 @@
           "name": "Are the plugins free?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. All three plugins are open source under the MIT License. You only need Claude Code; the gh CLI is needed for GitHub Issue features."
+            "text": "Yes. All four plugins are open source under the MIT License. You only need Claude Code; the gh CLI is needed for GitHub Issue features."
           }
         },
         {
@@ -151,6 +157,7 @@
         <a href="index.html#why">Why</a>
         <a href="ck-code.html">ck-code</a>
         <a href="ck-code-lite.html">ck-code-lite</a>
+        <a href="ck-oneshot.html">ck-oneshot</a>
         <a href="ck-tools.html">ck-tools</a>
         <a href="index.html#start">Get started</a>
         <a href="changelog.html">Changelog</a>
@@ -175,9 +182,10 @@
       <div data-stagger>
         <span class="hero__badge"><span class="dot"></span> Open-source · MIT · for Claude Code</span>
         <h1>Make AI coding <span class="grad">stay on spec.</span></h1>
-        <p class="hero__lede lede">Two plugins for <a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank" style="color:var(--clay)">Claude Code</a>.
+        <p class="hero__lede lede">Four plugins for <a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank" style="color:var(--clay)">Claude Code</a>.
           <strong style="color:var(--text)">ck-code</strong> turns a specification into architecture docs, an epic/story plan, and a TDD build-and-ship loop.
-          <strong style="color:var(--text)">ck-tools</strong> handles everything around it — releases, dependencies, issues and PRs.</p>
+          <strong style="color:var(--text)">ck-code-lite</strong> is its fast path, <strong style="color:var(--text)">ck-oneshot</strong> builds a first version from your docs in one run, and
+          <strong style="color:var(--text)">ck-tools</strong> handles everything around them — releases, dependencies, issues and PRs.</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="#start">
             Get started
@@ -195,6 +203,7 @@
             <div class="cmd"><span class="pr">›</span><span><span class="cm"># add the marketplace once</span></span></div>
             <div class="cmd"><span class="pr">›</span><span>/plugin marketplace add ckandrinirina/ck-code</span></div>
             <div class="cmd"><span class="pr">›</span><span>/plugin install ck-code@ck-marketplace</span></div>
+            <div class="cmd"><span class="pr">›</span><span>/plugin install ck-oneshot@ck-marketplace</span></div>
             <div class="cmd"><span class="pr">›</span><span>/plugin install ck-tools@ck-marketplace</span></div>
           </div>
         </div>
@@ -232,15 +241,15 @@
       </div>
     </section>
 
-    <!-- ============ THREE PLUGINS ============ -->
+    <!-- ============ FOUR PLUGINS ============ -->
     <section class="section section--tight">
       <div class="wrap">
         <div class="shead center reveal">
-          <span class="eyebrow">Three plugins, one marketplace</span>
+          <span class="eyebrow">Four plugins, one marketplace</span>
           <h2>Pick the one that fits</h2>
-          <p style="margin-inline:auto"><strong style="color:var(--text)">ck-code</strong> delivers features and <strong style="color:var(--text)">ck-code-lite</strong> is the same idea at a third the ceremony — pick one per project. <strong style="color:var(--text)">ck-tools</strong> does the surrounding work and pairs with either.</p>
+          <p style="margin-inline:auto"><strong style="color:var(--text)">ck-code</strong> delivers features and <strong style="color:var(--text)">ck-code-lite</strong> is the same idea at a third the ceremony — pick one per project. <strong style="color:var(--text)">ck-oneshot</strong> builds the first version of a new project from your documents in one run, then hands over to ck-code-lite. <strong style="color:var(--text)">ck-tools</strong> does the surrounding work and pairs with any of them.</p>
         </div>
-        <div class="split split--3" style="margin-top:44px">
+        <div class="split" style="margin-top:44px">
           <article class="pcard reveal">
             <span class="pcard__tag">/ck-code</span>
             <h3>ck-code</h3>
@@ -279,6 +288,23 @@
             </ul>
             <div class="pcard__foot">
               <a class="pcard__link" href="ck-code-lite.html">Read the ck-code-lite docs
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+          <article class="pcard reveal">
+            <span class="pcard__tag">/ck-oneshot</span>
+            <h3>ck-oneshot</h3>
+            <p class="pcard__sub">The first version, in one run: docs in, a working project out.</p>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Reads every spec, PRD, architecture or API doc with parallel Haiku agents; one blueprint fixes every shared contract and gives each file one owner</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> One question for the whole run (<code>--yes</code> skips it), then waves of up to 8 parallel unit-builders with a model per unit &mdash; Haiku, Sonnet or Opus, one tier up on failure</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Verified by install, typecheck, build, lint and a boot smoke, with fix rounds and a spec-checker tracing every requirement</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <code>--workflow</code> for a resumable dynamic workflow (20 units or more); <code>--team</code> for agent teams on an open cross-layer contract</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Hands over in ck-code-lite&rsquo;s layout (<code>tasks/PLAN.md</code> + <code>docs/ARCHITECTURE.md</code>); tests come afterwards, task by task</li>
+            </ul>
+            <div class="pcard__foot">
+              <a class="pcard__link" href="ck-oneshot.html">Read the ck-oneshot docs
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
               </a>
             </div>
@@ -399,9 +425,9 @@
         </div>
         <div class="faq">
           <details class="reveal"><summary>What is ck-code?</summary><p>ck-code is a free, open-source plugin for Claude Code that brings spec-driven development to AI coding. It turns a project spec into architecture docs, epics and sized stories, builds each story with test-driven development and QA that runs in the background, walks you through a manual test checklist, and ships commits, pull requests and GitHub Issues.</p></details>
-          <details class="reveal"><summary>How do I install a CK plugin in Claude Code?</summary><p>Run /plugin marketplace add ckandrinirina/ck-code, then /plugin install ck-code@ck-marketplace (or ck-code-lite or ck-tools), and restart Claude Code. Enable it per project by adding &quot;enabledPlugins&quot;: { &quot;ck-code@ck-marketplace&quot;: true } to the project&#x27;s .claude/settings.json.</p></details>
-          <details class="reveal"><summary>Should I use ck-code, ck-code-lite or ck-tools?</summary><p>Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with five skills and two files. Use ck-tools alongside either one, or on any repository, for commits, pull requests, dependency upgrades, issues and releases.</p></details>
-          <details class="reveal"><summary>Are the plugins free?</summary><p>Yes. All three plugins are open source under the MIT License. You only need Claude Code; the gh CLI is needed for GitHub Issue features.</p></details>
+          <details class="reveal"><summary>How do I install a CK plugin in Claude Code?</summary><p>Run /plugin marketplace add ckandrinirina/ck-code, then /plugin install ck-code@ck-marketplace (or ck-code-lite, ck-oneshot or ck-tools), and restart Claude Code. Enable it per project by adding &quot;enabledPlugins&quot;: { &quot;ck-code@ck-marketplace&quot;: true } to the project&#x27;s .claude/settings.json.</p></details>
+          <details class="reveal"><summary>Should I use ck-code, ck-code-lite, ck-oneshot or ck-tools?</summary><p>Use ck-code for features and products that deserve architecture docs, epics, parallel builds and GitHub tracking. Use ck-code-lite to ship a small app or prototype fast with five skills and two files. Use ck-oneshot to build the first version of a new project from your documents in one run; it hands over to ck-code-lite. Use ck-tools alongside any of them, or on any repository, for commits, pull requests, dependency upgrades, issues and releases.</p></details>
+          <details class="reveal"><summary>Are the plugins free?</summary><p>Yes. All four plugins are open source under the MIT License. You only need Claude Code; the gh CLI is needed for GitHub Issue features.</p></details>
           <details class="reveal"><summary>Does ck-code work on an existing codebase?</summary><p>Yes. /ck-code:init sets ck-code up on an existing codebase without a spec: it checks the tools ck-code needs, then reads your docs and code and writes the architecture as built. After that, ck-code scopes each new feature against that architecture and generates only the new epics and stories. A ck-code-lite project upgrades to ck-code with /ck-code:migrate.</p></details>
           <details class="reveal"><summary>How does ck-code keep AI-written code correct?</summary><p>Every story is built test-first: a failing test, then the minimum code, then a refactor, with SOLID checks, a review of every criterion, and a background run of every test the change can reach, traced through its imports, so nobody waits for it. Before a feature is promoted, /ck-code:verify walks a person through a manual test checklist that resumes where they stopped, and hands any issue to /ck-code:fix.</p></details>
         </div>
@@ -439,6 +465,7 @@
             <h4>Plugins</h4>
             <a href="ck-code.html">ck-code</a>
         <a href="ck-code-lite.html">ck-code-lite</a>
+            <a href="ck-oneshot.html">ck-oneshot</a>
             <a href="ck-tools.html">ck-tools</a>
             <a href="changelog.html">Changelog</a>
             <a href="benchmarks.html">Benchmarks</a>

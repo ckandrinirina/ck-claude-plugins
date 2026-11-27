@@ -40,6 +40,7 @@ jobs:
           # (each plugin lives in its own repo, so fetch them at build time)
           curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code/main/CHANGELOG.md      -o _site/ck-code-changelog.md
           curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-code-lite/main/CHANGELOG.md -o _site/ck-code-lite-changelog.md
+          curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-oneshot/main/CHANGELOG.md   -o _site/ck-oneshot-changelog.md
           curl -fsSL https://raw.githubusercontent.com/ckandrinirina/ck-tools/main/CHANGELOG.md     -o _site/ck-tools-changelog.md
           # Each sitemap <lastmod> is the page's last commit; the changelog page is rebuilt
           # from the plugin repos on every deploy, so it takes today's date

@@ -5,6 +5,7 @@
 /ck-code/
 /ck-code-lite/
 /ck-tools/
+/ck-oneshot/
 
 # Machine-local Claude Code settings
 .claude/settings.local.json
@@ -13,3 +14,8 @@
 /site/ck-code-changelog.md
 /site/ck-code-lite-changelog.md
 /site/ck-tools-changelog.md
+/site/ck-oneshot-changelog.md
+
+# Playground test projects (own git repos, recreated by scripts/playground.sh)
+/playground/ck-*-demo/
+/playground/logs/

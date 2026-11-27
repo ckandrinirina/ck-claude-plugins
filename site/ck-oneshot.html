@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ck-oneshot — Build a Whole Project in One Run</title>
+  <meta name="description" content="ck-oneshot is a free Claude Code plugin: build a new project in one run from your docs, with one question, parallel builders and a build and boot check." />
+  <meta name="keywords" content="ck-oneshot, Claude Code plugin, one-shot project build, parallel subagents, blueprint, scaffold from spec, dynamic workflow, agent teams" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://ckandrinirina.github.io/ck-claude-plugins/ck-oneshot.html" />
+  <meta name="theme-color" content="#100f0d" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CK Claude Plugins" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="ck-oneshot — Build a Whole Project in One Run" />
+  <meta property="og:description" content="ck-oneshot is a free Claude Code plugin: build a new project in one run from your docs, with one question, parallel builders and a build and boot check." />
+  <meta property="og:url" content="https://ckandrinirina.github.io/ck-claude-plugins/ck-oneshot.html" />
+  <meta property="og:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ck-oneshot — Build a Whole Project in One Run" />
+  <meta name="twitter:description" content="ck-oneshot is a free Claude Code plugin: build a new project in one run from your docs, with one question, parallel builders and a build and boot check." />
+  <meta name="twitter:image" content="https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png" />
+  <meta name="twitter:image:alt" content="CK Claude Plugins — spec-driven development for Claude Code" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&amp;family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://ckandrinirina.github.io/ck-claude-plugins/ck-oneshot.html#app",
+      "name": "ck-oneshot",
+      "url": "https://ckandrinirina.github.io/ck-claude-plugins/ck-oneshot.html",
+      "description": "Claude Code plugin that builds a whole new project in one run from its documents: parallel doc readers, one blueprint, one question, waves of parallel unit builders with a model per unit, verified by install, typecheck, build, lint and a boot smoke, then handed over in ck-code-lite's layout.",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Claude Code plugin",
+      "operatingSystem": "macOS, Linux, Windows (Claude Code CLI, IDE and desktop)",
+      "softwareRequirements": "Claude Code",
+      "softwareVersion": "1.0.0",
+      "dateModified": "2026-11-27",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "license": "https://opensource.org/licenses/MIT",
+      "downloadUrl": "https://github.com/ckandrinirina/ck-oneshot",
+      "sameAs": [
+        "https://github.com/ckandrinirina/ck-oneshot"
+      ],
+      "author": {
+        "@id": "https://ckandrinirina.github.io/ck-claude-plugins/#author"
+      },
+      "publisher": {
+        "@type": "Person",
+        "@id": "https://ckandrinirina.github.io/ck-claude-plugins/#author",
+        "name": "ckandrinirina",
+        "url": "https://github.com/ckandrinirina",
+        "sameAs": [
+          "https://github.com/ckandrinirina"
+        ]
+      },
+      "image": "https://ckandrinirina.github.io/ck-claude-plugins/assets/og.png"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "CK Claude Plugins",
+          "item": "https://ckandrinirina.github.io/ck-claude-plugins/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "ck-oneshot",
+          "item": "https://ckandrinirina.github.io/ck-claude-plugins/ck-oneshot.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="index.html" aria-label="CK Claude Plugins home"><b>ck</b>/plugins<span class="cursor" aria-hidden="true"></span></a>
+      <nav class="nav__links" data-nav-links aria-label="Primary">
+        <a href="index.html#why">Why</a>
+        <a href="ck-code.html">ck-code</a>
+        <a href="ck-code-lite.html">ck-code-lite</a>
+        <a href="ck-oneshot.html" class="active">ck-oneshot</a>
+        <a href="ck-tools.html">ck-tools</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="benchmarks.html">Benchmarks</a>
+        <a href="https://github.com/ckandrinirina/ck-oneshot" rel="noopener" target="_blank">GitHub ↗</a>
+      </nav>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle colour theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn nav__toggle" data-nav-toggle aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="phero wrap">
+      <div data-stagger>
+        <div class="crumb"><a href="index.html">ck/plugins</a> <span>/</span> <span style="color:var(--clay)">ck-oneshot</span></div>
+        <span class="eyebrow">The first version, in one run</span>
+        <h1>Docs in. A working project out.</h1>
+        <p class="lede">Point it at a spec, a PRD, an architecture note, an API description or a short idea. It reads everything with parallel agents, fixes every shared contract in <strong style="color:var(--text)">one blueprint</strong>, asks you <strong style="color:var(--text)">once</strong>, builds in wide waves with a model chosen per unit, then checks that the project <strong style="color:var(--text)">installs, typechecks, builds, lints and boots</strong>. Fast first, careful later: the tests come afterwards, in ck-code-lite.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#install">Install ck-oneshot
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#run">See how a run works</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section" id="install">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Install</span>
+          <h2>Same marketplace as the others</h2>
+          <p>Add the marketplace once, then install ck-oneshot.</p>
+        </div>
+        <div style="max-width:640px; display:grid; gap:12px; margin-top:30px" class="reveal">
+          <div class="snippet"><code><span class="pr">$</span> /plugin marketplace add ckandrinirina/ck-code</code>
+            <button class="copy-btn" data-copy="/plugin marketplace add ckandrinirina/ck-code" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+          <div class="snippet"><code><span class="pr">$</span> /plugin install ck-oneshot@ck-marketplace</code>
+            <button class="copy-btn" data-copy="/plugin install ck-oneshot@ck-marketplace" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p>ck-oneshot is for a <strong style="color:var(--text)">new project in an empty folder</strong>. It refuses an existing codebase &mdash; that is <code>/ck-code-lite:start</code>&rsquo;s job. Run it again in the same folder to resume a run that stopped: every phase and every wave leaves a mark, and nothing finished is redone.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="usage">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Use</span>
+          <h2>One skill, a few flags</h2>
+          <p><code>shot</code> does the whole run. <code>report</code> files a ck-oneshot bug as a scrubbed GitHub issue, after your yes.</p>
+        </div>
+        <div class="skills">
+          <article class="skill reveal">
+            <div class="skill__top"><span class="skill__name">shot</span><span class="skill__when">// when: a new project should exist by the end of the run</span></div>
+            <p>Reads every document it finds &mdash; <code>*.md</code>, <code>docs/</code>, <code>spec/</code>, <code>design/</code>, PDFs &mdash; or only the ones you name, or a one-line idea. <code>--yes</code> skips the one question and takes every recommendation, for headless runs. <code>--workflow</code> runs each wave as a resumable dynamic workflow and is offered at 20 units or more. <code>--team</code> lets agent teams settle an open cross-layer contract before anything is built.</p>
+            <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot docs/prd.md docs/api.yaml</code>
+              <button class="copy-btn" data-copy="/ck-oneshot:shot docs/prd.md docs/api.yaml" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            </div>
+          </article>
+        </div>
+        <div style="max-width:720px; display:grid; gap:12px; margin-top:24px" class="reveal">
+          <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot</code>
+            <button class="copy-btn" data-copy="/ck-oneshot:shot" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+          <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot "a team todo app with boards, cards and email invites"</code>
+            <button class="copy-btn" data-copy="/ck-oneshot:shot &quot;a team todo app with boards, cards and email invites&quot;" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+          <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot --yes</code>
+            <button class="copy-btn" data-copy="/ck-oneshot:shot --yes" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+          <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot --workflow</code>
+            <button class="copy-btn" data-copy="/ck-oneshot:shot --workflow" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+          <div class="snippet"><code><span class="pr">$</span> /ck-oneshot:shot --team</code>
+            <button class="copy-btn" data-copy="/ck-oneshot:shot --team" aria-label="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight" id="run">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">How a run works</span>
+          <h2>Eight phases, one question</h2>
+          <p>Intake to hand-over. The only point where the run waits for you is the gate in phase 4.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Phase</th><th>What happens</th><th>Who</th></tr></thead>
+            <tbody>
+              <tr><td>1 Intake</td><td>Refuses an existing codebase, collects the documents</td><td>orchestrator</td></tr>
+              <tr><td>2 Digest</td><td>One <code>doc-reader</code> per document, plus a <code>researcher</code> pinning current versions and idioms &mdash; all in one message</td><td>Haiku subagents</td></tr>
+              <tr><td>3 Blueprint</td><td>Stack, folder structure, <strong style="color:var(--text)">contracts</strong> (types, schema, routes, env, props), units that each own their files, a model tier per unit, the waves</td><td>orchestrator</td></tr>
+              <tr><td>4 Gate</td><td>The <strong style="color:var(--text)">only</strong> question of the run: Proceed / Adjust / Cancel, plus real gaps in the documents</td><td>you</td></tr>
+              <tr><td>5 Wave 0</td><td>One agent scaffolds, installs every pinned dependency once, writes every contract and the app entry</td><td>one subagent</td></tr>
+              <tr><td>6 Waves</td><td>Up to 8 (16 with <code>--workflow</code>) <code>unit-builder</code>s at once, in the same checkout, with no Bash; one verify per wave, errors routed to the owning unit&rsquo;s <code>fixer</code></td><td>Haiku / Sonnet / Opus per unit</td></tr>
+              <tr><td>7 Verify</td><td>Clean install, typecheck, build, lint (errors only), boot smoke, a <code>spec-checker</code> tracing every requirement to <code>file:line</code>, fix rounds</td><td>subagents + <code>ck-shot</code></td></tr>
+              <tr><td>8 Hand-over</td><td><code>tasks/PLAN.md</code> and <code>docs/ARCHITECTURE.md</code> in ck-code-lite&rsquo;s format, one commit per wave, never pushed</td><td>orchestrator</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Why it gets few errors</span>
+          <h2>Nothing left to negotiate</h2>
+          <p>Parallel builders break each other in a few predictable ways. The blueprint closes each of them before the first builder starts.</p>
+        </div>
+        <div class="fgrid">
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div><h3>Contracts are code before builders start</h3><p>Builders never negotiate: every name two units share &mdash; types, schema, routes, env, props &mdash; is decided in the blueprint and written as code in wave 0.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>One owner per file</h3><p>Each file has exactly one owning unit. <code>ck-shot owners</code> refuses the blueprint otherwise, so two builders never write the same file.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Builders cannot run commands</h3><p>No Bash means no half-installed dependencies and no fight over the lockfile. Builders return <code>deps_needed</code> and <code>contract_requests</code>, and the orchestrator applies them between waves.</p></div>
+          <div class="fcard reveal"><div class="fcard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><h3>Every error names its unit</h3><p>Every verify error names a file, and every file names its unit, so a failure goes to that unit&rsquo;s <code>fixer</code> and not to a general retry.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Models per unit</span>
+          <h2>The cheapest model that can do each unit</h2>
+          <p>The blueprint gives every unit a tier by difficulty, so boilerplate does not pay for a decision-maker.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Tier</th><th>Used for</th></tr></thead>
+            <tbody>
+              <tr><td>Haiku</td><td>Config, static pages, boilerplate</td></tr>
+              <tr><td>Sonnet</td><td>The default</td></tr>
+              <tr><td>Opus</td><td>Units that must decide: auth, payments, concurrency, the foundation</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5c0-1.4-1.3-2.5-3-2.5s-3 1.1-3 2.5 1.3 2 3 2.5 3 1.1 3 2.5-1.3 2.5-3 2.5-3-1.1-3-2.5"/></svg>
+          <p>A unit still failing after its fix round is retried <strong style="color:var(--text)">one tier up</strong>. The cost guard holds throughout: effort never goes above <code>high</code>, and Fable is never dispatched without your yes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Engines</span>
+          <h2>Subagents by default, two opt-in alternatives</h2>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Engine</th><th>How it runs</th><th>Needs</th></tr></thead>
+            <tbody>
+              <tr><td>default</td><td>One message of subagents per wave</td><td>nothing extra</td></tr>
+              <tr><td><code>--workflow</code></td><td>Each wave as the plugin&rsquo;s <code>shot-wave</code> dynamic workflow: schema-checked verdicts, scripted retry one tier up, resumable. Offered at 20 units or more</td><td>the <code>Workflow</code> tool (dynamic workflows on)</td></tr>
+              <tr><td><code>--team</code></td><td>Agent teams settle a contract the documents leave open between two layers, before wave 0</td><td><code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code>, which the plugin never sets for you; experimental and interactive-only</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p><code>--workflow</code> and <code>--team</code> are opt-in and their live runs are not yet covered by the release checks &mdash; the default engine is.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">After the run</span>
+          <h2>The project is already a ck-code-lite project</h2>
+          <p>The hand-over is ck-code-lite&rsquo;s own layout, so the next change goes through the normal workflow.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>/ck-code-lite:start &lt;change&gt;</code></td><td>Plan an adjustment; no setup needed.</td></tr>
+              <tr><td><code>/ck-code-lite:build T-NN</code></td><td>Finish a unit left <code>doing</code>, test first.</td></tr>
+              <tr><td><code>/ck-code:migrate</code></td><td>Move to the full <a href="ck-code.html">ck-code</a> workflow; the units&rsquo; groups become epics.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          <p>Every built unit is <code>done</code> with a note saying it was verified by typecheck, build, lint and boot, <strong style="color:var(--text)">not by tests</strong>. Wave 0 installs a test runner and one smoke test, so <a href="ck-code-lite.html">ck-code-lite</a>&rsquo;s test-first loop works from the first change.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Helpers</span>
+          <h2>The <code>ck-shot</code> commands</h2>
+          <p>Scripts in <code>bin/</code> that keep the run mechanical.</p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Command</th><th>Does</th></tr></thead>
+            <tbody>
+              <tr><td><code>ck-shot status</code></td><td>Where a run stands, for resume</td></tr>
+              <tr><td><code>ck-shot greenfield</code></td><td>Refuses an existing codebase</td></tr>
+              <tr><td><code>ck-shot plan …</code></td><td>The plan writer (a byte copy of ck-code-lite&rsquo;s <code>ck-lite</code>), pointed at the run&rsquo;s files</td></tr>
+              <tr><td><code>ck-shot owners</code> / <code>owner &lt;path&gt;</code></td><td>One owner per file; which unit owns a path</td></tr>
+              <tr><td><code>ck-shot verify [--install]</code></td><td>Install, typecheck, build, lint from <code>## Commands</code>; each error mapped to its unit</td></tr>
+              <tr><td><code>ck-shot smoke</code></td><td>Starts the app once and probes it (HTTP or exit code), then stops it &mdash; sandbox-safe</td></tr>
+              <tr><td><code>ck-shot handover</code></td><td>Moves the plan and architecture into ck-code-lite&rsquo;s layout</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="shead reveal">
+          <span class="eyebrow">Settings and compatibility</span>
+          <h2>Two settings, one version floor</h2>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p><code>/plugin</code> &rarr; ck-oneshot &rarr; configure: <code>cost_guard</code> (on) and <code>update_check</code> (on). Alongside them the plugin keeps ck-code-lite&rsquo;s cost guard, writes no AI attribution into a run&rsquo;s commits, and tells you when the marketplace serves a newer version.</p>
+        </div>
+        <div class="callout reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p>Needs <strong style="color:var(--text)">Claude Code 2.1.287 or later</strong> (mods); tested with Claude Code 2.1.330. <code>--workflow</code> needs the <code>Workflow</code> tool; <code>--team</code> needs agent teams.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="wrap">
+        <div class="cta reveal">
+          <h2>Get a first version today</h2>
+          <p>One command from your documents to a project that installs, builds and boots.</p>
+          <div class="cta__btns">
+            <a class="btn btn--primary" href="#install">Install ck-oneshot</a>
+            <a class="btn btn--ghost" href="changelog.html">See the changelog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand"><a class="brand" href="index.html"><b>ck</b>/plugins</a><p>Open-source plugins that keep AI-assisted software engineering grounded in your real design.</p></div>
+        <div class="footer__cols">
+          <div class="footer__col"><h4>Plugins</h4><a href="ck-code.html">ck-code</a><a href="ck-code-lite.html">ck-code-lite</a><a href="ck-oneshot.html">ck-oneshot</a><a href="ck-tools.html">ck-tools</a><a href="changelog.html">Changelog</a><a href="benchmarks.html">Benchmarks</a></div>
+          <div class="footer__col"><h4>Resources</h4><a href="index.html#start">Get started</a><a href="index.html#why">Why use it</a><a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank">Claude Code ↗</a></div>
+          <div class="footer__col"><h4>Project</h4><a href="https://github.com/ckandrinirina/ck-oneshot" rel="noopener" target="_blank">ck-oneshot repo ↗</a><a href="https://github.com/ckandrinirina/ck-oneshot/issues" rel="noopener" target="_blank">Report an issue ↗</a></div>
+        </div>
+      </div>
+      <div class="footer__base"><span>© <span id="yr">2026</span> ckandrinirina · MIT License</span><span>Built for <a href="https://www.anthropic.com/claude-code" rel="noopener" target="_blank">Claude Code</a></span></div>
+    </div>
+  </footer>
+  <script src="assets/main.js" defer></script>
+</body>
+</html>
