@@ -1,0 +1,13 @@
+{
+  "name": "tasks-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A tiny todo CLI used to exercise ck-code and ck-code-lite.",
+  "scripts": {
+    "start": "node src/cli.ts",
+    "test": "node --test",
+    "lint": "node --check src/cli.ts"
+  },
+  "engines": { "node": ">=24" }
+}
